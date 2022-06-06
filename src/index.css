@@ -18,7 +18,9 @@
     font-family: 'Palette Mosaic', cursive;
   }
   a {
-    color: #fc0476;
-    text-decoration: underline
+    @apply text-pink-500 font-bold underline;
+  }
+  .standout {
+      @apply font-extrabold text-sky-500;
   }
 }

@@ -3,7 +3,11 @@ module.exports = {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      color: {
+        'pink': '#fc0476',      
+      }
+    },
   },
   plugins: [],
 }
