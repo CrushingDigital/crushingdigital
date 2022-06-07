@@ -1,26 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.nav-link {
+  @apply text-cdpink;
+  text-decoration: 0;
+  @apply bg-opacity-0
+}
+
+.router-link-active {
+  @apply text-cdwhite bg-opacity-100;
+}
+
 @layer base {
   html, body {
-    margin: 0;
-    height: 100%;
-    font-family: 'Raleway', sans-serif;
-    font-size: 1.1em;
+    @apply m-0;
+    @apply h-full;
+    @apply text-lg;
+    @apply font-sans;
   }
   h1 {
     font-family: 'Rubik Glitch', cursive;
   }
   h2 {
     font-family: 'Palette Mosaic', cursive;
+    font-size: text-5xl;
   }
   a {
-    @apply text-pink-500 font-bold underline;
+    @apply text-cdpink font-bold underline;
   }
   .standout {
-      @apply font-extrabold text-sky-500;
+      @apply font-extrabold text-cdblue;
   }
 }
