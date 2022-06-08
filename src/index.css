@@ -14,6 +14,34 @@
   @apply text-cdwhite bg-opacity-100;
 }
 
+.React {
+  @apply text-white bg-sky-400;
+}
+.Javascript {
+  @apply text-black bg-yellow-400;
+}
+.Typescript {
+  @apply text-white bg-blue-400;
+}
+.Vue {
+  @apply text-white bg-green-600;
+}
+.Node {
+  @apply text-white bg-green-400;
+}
+.PHP {
+  @apply text-white bg-blue-900;
+}
+.Go {
+  @apply text-black bg-cyan-200;
+}
+.Angular {
+  @apply text-white bg-red-600;
+}
+.AWS {
+  @apply text-black bg-yellow-400;
+}
+
 @layer base {
   html,
   body {

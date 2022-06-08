@@ -39,6 +39,15 @@
               crop_square
             </div>
           </div>
+          <div class="col-start-2">
+            <span
+              v-for="skill in dev.skills"
+              class="px-2 py-1 text-xs rounded-full mr-1"
+              :class="skill"
+            >
+              {{ skill }}
+            </span>
+          </div>
         </div>
       </li>
     </ul>
@@ -60,19 +69,7 @@ const candidates = ref([
     yoe: 15,
     utc: -5,
     rate: 8000,
-  },
-  {
-    name: "Evan Notyou",
-    blurb:
-      "Eu voluptate veniam sint quis magna cillum nulla pariatur aute minim ullamco culpa velit quis.",
-    links: [
-      "https://vuejs.org/",
-      "https://www.linkedin.com/in/davidproberts/",
-      "https://www.tiktok.com/@crushingdigital",
-    ],
-    yoe: 12,
-    utc: -7,
-    rate: 15000,
+    skills: ["React", "Javascript", "Typescript"],
   },
   {
     name: "Robert Davids",
@@ -86,6 +83,34 @@ const candidates = ref([
     yoe: 5,
     utc: 0,
     rate: 7500,
+    skills: ["PHP", "Vue", "Node"],
+  },
+  {
+    name: "Evan Notyou",
+    blurb:
+      "Eu voluptate veniam sint quis magna cillum nulla pariatur aute minim ullamco culpa velit quis.",
+    links: [
+      "https://vuejs.org/",
+      "https://www.linkedin.com/in/davidproberts/",
+      "https://www.tiktok.com/@crushingdigital",
+    ],
+    yoe: 12,
+    utc: -7,
+    rate: 15000,
+    skills: ["Vue", "Javascript", "Typescript"],
+  },
+  {
+    name: "Alan Lumen",
+    blurb: "Ad incididunt occaecat Lorem officia ea.",
+    links: [
+      "https://google.co.uk",
+      "https://dailytao.org/",
+      "https://www.amazon.co.uk/Way-Zen-Alan-W-Watts/",
+    ],
+    yoe: 22,
+    utc: -7,
+    rate: 12500,
+    skills: ["Go", "Angular", "AWS"],
   },
 ]);
 </script>
