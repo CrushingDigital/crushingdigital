@@ -15,16 +15,16 @@
 }
 
 .React {
-  @apply text-white bg-sky-400;
+  @apply text-black bg-sky-200;
 }
 .Javascript {
-  @apply text-black bg-yellow-400;
+  @apply text-black bg-yellow-300;
 }
 .Typescript {
   @apply text-white bg-blue-400;
 }
 .Vue {
-  @apply text-white bg-green-600;
+  @apply text-white bg-emerald-400;
 }
 .Node {
   @apply text-white bg-green-400;

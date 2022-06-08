@@ -24,12 +24,19 @@
                 >
               </div>
               <div class="flex flex-row justify-start">
-                <span class="material-symbols-outlined"> hourglass_bottom </span
-                ><span class="mr-2 text-xs">{{ dev.yoe }}yrs</span>
-                <span class="material-symbols-outlined"> paid </span
-                ><span class="mr-2 text-xs">{{ dev.rate / 1000 }}k</span>
-                <span class="material-symbols-outlined"> public </span
-                ><span class="mr-2 text-xs">{{ dev.utc }}</span>
+                <span class="material-symbols-outlined text-slate-700">
+                  hourglass_bottom </span
+                ><span class="mr-2 text-xs text-slate-700"
+                  >{{ dev.yoe }}yrs</span
+                >
+                <span class="material-symbols-outlined text-yellow-700">
+                  paid </span
+                ><span class="mr-2 text-xs text-yellow-700"
+                  >{{ dev.rate / 1000 }}k</span
+                >
+                <span class="material-symbols-outlined text-blue-600">
+                  public </span
+                ><span class="mr-2 text-xs text-blue-600">{{ dev.utc }}</span>
               </div>
             </div>
             <div class="text-sm">
