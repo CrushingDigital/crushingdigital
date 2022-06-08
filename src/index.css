@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 .nav-link {
   @apply text-cdpink;
   text-decoration: none;
-  @apply bg-opacity-0
+  @apply bg-opacity-0;
 }
 
 .router-link-active {
@@ -15,23 +15,24 @@
 }
 
 @layer base {
-  html, body {
+  html,
+  body {
     @apply m-0;
     @apply h-full;
     @apply text-lg;
     @apply font-sans;
   }
   h1 {
-    font-family: 'Rubik Glitch', cursive;
+    font-family: "Rubik Glitch", cursive;
   }
   h2 {
-    font-family: 'Palette Mosaic', cursive;
+    font-family: "Palette Mosaic", cursive;
     font-size: text-5xl;
   }
   a {
     @apply text-cdpink font-bold underline;
   }
   .standout {
-      @apply font-extrabold text-cdblue;
+    @apply font-extrabold text-cdblue;
   }
 }

@@ -5,6 +5,7 @@ import './index.css'
 
 import Home from './components/Home.vue'
 import About from './components/About.vue'
+import Jobs from './components/Jobs.vue'
 
 /////////////////////////////////////////////////////////////
 // Firebase
@@ -39,6 +40,7 @@ const analytics = getAnalytics(fbapp);
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
+  { path: '/jobs', component: Jobs },
 ]
 
 const router = createRouter({
