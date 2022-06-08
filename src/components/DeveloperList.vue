@@ -10,8 +10,18 @@
           </div>
           <div class="col-span-8 flex flex-col justify-between">
             <div class="flex flex-col sm:flex-row justify-between">
-              <div>
+              <div class="flex flex-row align-end">
                 <span class="text-sm sm:text-base">{{ dev.name }}</span>
+                <span
+                  v-if="dev.verified"
+                  class="material-symbols-outlined text-green-500 text-sm"
+                  >priority</span
+                >
+                <span
+                  v-if="dev.approved"
+                  class="material-symbols-outlined text-yellow-400 text-sm"
+                  >star</span
+                >
               </div>
               <div class="flex flex-row justify-start">
                 <span class="material-symbols-outlined"> hourglass_bottom </span
@@ -98,6 +108,7 @@ const candidates = ref([
     utc: -7,
     rate: 15000,
     skills: ["Vue", "Javascript", "Typescript"],
+    verified: true,
   },
   {
     name: "Alan Lumen",
@@ -111,6 +122,8 @@ const candidates = ref([
     utc: -7,
     rate: 12500,
     skills: ["Go", "Angular", "AWS"],
+    verified: true,
+    approved: true,
   },
 ]);
 </script>
