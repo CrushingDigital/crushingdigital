@@ -17,7 +17,7 @@
 .React {
   @apply text-black bg-sky-200;
 }
-.Javascript {
+.JavaScript {
   @apply text-black bg-yellow-300;
 }
 .Typescript {
