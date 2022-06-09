@@ -8,9 +8,9 @@
               account_circle
             </span>
           </div>
-          <div class="col-span-8 flex flex-col justify-between">
+          <div class="col-span-8 flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
-              <div class="flex flex-row align-end">
+              <div class="flex flex-row align-start">
                 <span class="text-sm sm:text-base">{{ dev.name }}</span>
                 <span
                   v-if="dev.verified"
@@ -23,7 +23,9 @@
                   >star</span
                 >
               </div>
-              <div class="flex flex-row justify-start">
+              <div
+                class="flex flex-row justify-start sm:justify-end py-2 sm:py-0"
+              >
                 <span class="material-symbols-outlined text-slate-700">
                   hourglass_bottom </span
                 ><span class="mr-2 text-xs text-slate-700"
@@ -42,9 +44,18 @@
             <div class="text-sm">
               {{ dev.blurb }}
             </div>
+            <div class="col-start-2">
+              <span
+                v-for="skill in dev.skills"
+                class="px-2 py-1 text-xs rounded-full mr-1"
+                :class="skill"
+              >
+                {{ skill }}
+              </span>
+            </div>
           </div>
           <div
-            class="col-span-3 border-0 flex flex-col sm:flex-row justify-start sm:justify-end align-middle"
+            class="col-span-3 border-0 flex flex-col sm:flex-row justify-center sm:justify-end align-middle"
           >
             <div class="material-symbols-outlined text-5xl text-center">
               crop_square
@@ -55,15 +66,6 @@
             <div class="material-symbols-outlined text-5xl text-center">
               crop_square
             </div>
-          </div>
-          <div class="col-start-2">
-            <span
-              v-for="skill in dev.skills"
-              class="px-2 py-1 text-xs rounded-full mr-1"
-              :class="skill"
-            >
-              {{ skill }}
-            </span>
           </div>
         </div>
       </li>
