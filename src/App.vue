@@ -27,6 +27,11 @@
           class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
           >Jobs
         </router-link> -->
+        <a
+          href="#"
+          class="auth bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
+          >Login</a
+        >
       </div>
     </div>
   </div>

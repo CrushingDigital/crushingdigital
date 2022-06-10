@@ -11,7 +11,7 @@
 }
 
 .router-link-active {
-  @apply text-cdwhite bg-opacity-100;
+  @apply text-cdpink bg-white border-2 border-cdpink;
 }
 
 .React {
@@ -63,4 +63,9 @@
   .standout {
     @apply font-extrabold text-cdblue;
   }
+}
+
+.auth {
+  @apply text-white bg-cdpink;
+  text-decoration: none;
 }
