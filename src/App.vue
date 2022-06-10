@@ -22,11 +22,11 @@
           class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
           >About
         </router-link>
-        <router-link
+        <!-- <router-link
           to="/jobs"
           class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
           >Jobs
-        </router-link>
+        </router-link> -->
       </div>
     </div>
   </div>
