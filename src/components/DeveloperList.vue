@@ -196,17 +196,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getCandidates } from "../firebase";
+import { ref } from "vue";
 
 const candidates = ref([]);
-onMounted(async () => {
-  candidates.value = await getCandidates();
-});
 </script>
 
-<style lang="css" scoped>
-.material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-}
-</style>
+<style lang="css" scoped></style>

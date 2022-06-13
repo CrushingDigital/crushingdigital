@@ -8,6 +8,12 @@
   @apply text-cdpink;
   text-decoration: none;
   @apply bg-opacity-0;
+  @apply border-2 border-white;
+}
+
+.nav-link:hover {
+  @apply border-2 border-cdpink;
+  @apply cursor-pointer;
 }
 
 .router-link-active {
@@ -63,9 +69,4 @@
   .standout {
     @apply font-extrabold text-cdblue;
   }
-}
-
-.auth {
-  @apply text-white bg-cdpink;
-  text-decoration: none;
 }

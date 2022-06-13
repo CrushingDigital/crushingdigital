@@ -1,41 +1,59 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-</script>
-
 <template>
   <div
-    class="py-8 container px-4 mx-auto max-w-2xl border-0 flex flex-col sm:flex-row justify-between"
+    class="py-8 container px-4 mx-auto max-w-3xl border-0 flex flex-col sm:flex-row justify-between"
   >
     <div class="text-center sm:text-left mb-4 sm:mb-0">
       <h2 class="text-3xl">Crushing<span class="text-cdblue">Digital</span></h2>
     </div>
-    <div class="flex flex-col justify-center text-center py-2 sm:py-0">
-      <div>
-        <router-link
-          to="/"
-          class="nav-link bg-cdpink px-3 py-2 rounded-full text-base"
-          >Developers</router-link
-        >
-        <router-link
-          to="/about"
-          class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
-          >About
-        </router-link>
-        <!-- <router-link
-          to="/jobs"
-          class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
-          >Jobs
-        </router-link> -->
+    <div class="flex justify-center text-center py-2 sm:py-0">
+      <router-link
+        to="/"
+        class="nav-link bg-cdpink px-3 py-2 rounded-full text-base"
+        >Developers</router-link
+      >
+      <router-link
+        to="/about"
+        class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
+        >About
+      </router-link>
+      <!-- <router-link
+        to="/jobs"
+        class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
+        >Jobs
+      </router-link> -->
+      <div v-if="user" class="flex flex-col justify-center">
         <a
-          href="#"
-          class="auth bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
-          >Login</a
+          @click.prevent="signout"
+          class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
+          >logout</a
         >
       </div>
+      <a
+        v-else
+        @click.prevent="signInWithGithub"
+        class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
+        >Sign In
+      </a>
     </div>
+  </div>
+  <div v-if="user" class="text-center">
+    <span class="text-xs"> {{ user.email }} </span>
   </div>
   <router-view></router-view>
 </template>
+
+<script setup lang="ts">
+import useAuthUser from "./composables/useAuthUser";
+
+const { user, login, logout } = useAuthUser();
+
+async function signInWithGithub() {
+  await login("github");
+}
+
+async function signout() {
+  await logout();
+}
+</script>
 
 <style scoped></style>
