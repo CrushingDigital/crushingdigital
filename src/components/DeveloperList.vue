@@ -1,4 +1,6 @@
 <template>
+  <h3 v-if="user">See it all</h3>
+  <h3 v-else>Hide the valuables</h3>
   <div v-if="candidates.length">
     <ul class="mt-8">
       <li v-for="dev in candidates">
@@ -197,7 +199,9 @@
 
 <script setup>
 import { ref } from "vue";
+import useAuthUser from "../composables/useAuthUser";
 
+const { user, login, logout, isLoggedIn } = useAuthUser();
 const candidates = ref([]);
 </script>
 

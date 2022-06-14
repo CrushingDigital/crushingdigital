@@ -3,22 +3,17 @@ import useSupabase from "./useSupabase";
 import { ref } from "vue";
 import { User } from "@supabase/supabase-js";
 
+const user = ref<User|null>(null)
+
 export default function useAuthUser() {
 
     const { supabase } = useSupabase();
-    const currUser = ref<User|null>(null)
-
-    supabase.auth.onAuthStateChange((event, session) => {
-        // if the user exists in the session we're logged in
-        // and we can set our user reactive ref
-      currUser.value = session?.user || null;
-    });
     
     /**
      * Login with google, github, etc
      */
     const login = async (provider: Provider) => {
-        const { user, session, error } = await supabase.auth.signIn({ provider });
+        const { error } = await supabase.auth.signIn({ provider });
         if (error) throw error;
     };
 
@@ -28,17 +23,16 @@ export default function useAuthUser() {
     const logout = async () => {    
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
-
-        currUser.value = null
     };
 
-    const currentUser = async () => {
-        currUser.value = supabase.auth.user()
+    const isLoggedIn = async () => {
+        return !!user.value;
     }
 
     return {
-        user: currUser,
+        user,
         login,
         logout,
+        isLoggedIn
     };
 }

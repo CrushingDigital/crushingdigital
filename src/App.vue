@@ -14,19 +14,21 @@
       <router-link
         to="/about"
         class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
-        >About
+      >
+        About
       </router-link>
-      <!-- <router-link
+      <router-link
         to="/jobs"
         class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
         >Jobs
-      </router-link> -->
+      </router-link>
       <div v-if="user" class="flex flex-col justify-center">
         <a
           @click.prevent="signout"
           class="nav-link bg-cdpink px-3 py-2 rounded-full mx-1 sm:mx-2 text-base"
-          >logout</a
         >
+          logout
+        </a>
       </div>
       <a
         v-else
@@ -36,16 +38,13 @@
       </a>
     </div>
   </div>
-  <div v-if="user" class="text-center">
-    <span class="text-xs"> {{ user.email }} </span>
-  </div>
   <router-view></router-view>
 </template>
 
 <script setup lang="ts">
 import useAuthUser from "./composables/useAuthUser";
 
-const { user, login, logout } = useAuthUser();
+const { user, login, logout, isLoggedIn } = useAuthUser();
 
 async function signInWithGithub() {
   await login("github");
