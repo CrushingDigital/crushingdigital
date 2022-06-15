@@ -7,6 +7,7 @@ import './index.css'
 import Home from './components/Home.vue'
 import About from './components/About.vue'
 import Jobs from './components/Jobs.vue'
+import CandidateRegister from './components/candidate/Register.vue'
 
 const { isLoggedIn } = useAuthUser();
 
@@ -14,6 +15,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
+  { path: '/candidate/register', component: CandidateRegister },
 ]
 
 const router = createRouter({

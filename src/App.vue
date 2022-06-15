@@ -38,7 +38,9 @@
       </a>
     </div>
   </div>
-  <router-view></router-view>
+  <div class="container mx-auto max-w-2xl border-0 flex flex-col justify-start">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script setup lang="ts">

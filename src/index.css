@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&family=Indie+Flower&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -57,7 +57,8 @@
     @apply font-sans;
   }
   h1 {
-    font-family: "Rubik Glitch", cursive;
+    font-family: "Indie Flower", cursive;
+    font-size: text-5xl;
   }
   h2 {
     font-family: "Palette Mosaic", cursive;
@@ -66,7 +67,7 @@
   a {
     @apply text-cdpink font-bold underline;
   }
-  .standout {
-    @apply font-extrabold text-cdblue;
+  .button {
+    @apply bg-transparent hover:bg-cdblue text-cdblue font-semibold hover:text-white py-2 px-3 border border-cdblue hover:border-transparent rounded-full no-underline;
   }
 }

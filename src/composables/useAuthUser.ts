@@ -13,7 +13,7 @@ export default function useAuthUser() {
      * Login with google, github, etc
      */
     const login = async (provider: Provider) => {
-        const { error } = await supabase.auth.signIn({ provider });
+        const { user, error } = await supabase.auth.signIn({ provider });
         if (error) throw error;
     };
 

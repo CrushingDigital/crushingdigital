@@ -1,6 +1,12 @@
 <template>
-  <h3 v-if="user">See it all</h3>
-  <h3 v-else>Hide the valuables</h3>
+  <div class="flex justify-start align-middle">
+    <div>
+      <span>Want to appear here?</span>
+      <router-link to="/candidate/register" class="button ml-2"
+        >Register as a developer</router-link
+      >
+    </div>
+  </div>
   <div v-if="candidates.length">
     <ul class="mt-8">
       <li v-for="dev in candidates">
@@ -26,9 +32,7 @@
           <div class="col-span-8 flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
-                <span class="text-sm sm:text-base"
-                  >{{ dev.firstname }} {{ dev.lastname }}</span
-                >
+                <span class="text-sm sm:text-base">{{ dev.display_name }}</span>
                 <span v-if="dev.verified" class="text-green-500 text-sm"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -197,12 +201,20 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { onBeforeMount, ref } from "vue";
 import useAuthUser from "../composables/useAuthUser";
+import useSupabase from "../composables/useSupabase";
+import { Candidate } from "../types";
 
+const { getCandidates } = useSupabase();
 const { user, login, logout, isLoggedIn } = useAuthUser();
-const candidates = ref([]);
+
+const candidates = ref<Array<Candidate>>([]);
+
+onBeforeMount(async () => {
+  candidates.value = await getCandidates();
+});
 </script>
 
 <style lang="css" scoped></style>
