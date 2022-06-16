@@ -208,7 +208,7 @@ import useSupabase from "../composables/useSupabase";
 import { Candidate } from "../types";
 
 const { getCandidates } = useSupabase();
-const { user, login, logout, isLoggedIn } = useAuthUser();
+const { login, logout, isLoggedIn } = useAuthUser();
 
 const candidates = ref<Array<Candidate>>([]);
 

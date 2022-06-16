@@ -14,4 +14,11 @@ interface Candidate {
     approved: boolean;
 }
 
-export type { Candidate }
+interface Skill {
+    id: number;
+    created_at: string;
+    name: string;
+    active: boolean;
+}
+
+export type { Candidate, Skill }

@@ -81,6 +81,7 @@
             type="number"
             placeholder="4000"
             max="45000"
+            min="0"
             name="rate"
             id="rate"
           />
@@ -151,6 +152,16 @@
       </div>
     </form>
   </div>
+  <div class="flex justify-evenly">
+    <button
+      @click="toggleSkill(skill.id)"
+      v-for="skill in skills"
+      class="p-2 rounded-full text-xs border-2"
+      :class="skillSelection.includes(skill.id) ? skill.name : 'disabledSkill'"
+    >
+      {{ skill.name }}
+    </button>
+  </div>
   <div class="flex justify-center">
     <button class="button" type="submit" @click.prevent="candidateRegister">
       Register
@@ -160,7 +171,8 @@
 
 <script setup lang="ts">
 import useSupabase from "../../composables/useSupabase";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
+import { Skill } from "../../types";
 
 const displayName = ref("");
 const gitSource = ref("");
@@ -170,7 +182,23 @@ const timezone = ref(0);
 const yoe = ref(0);
 const blurb = ref("");
 
-const { addCandidate } = useSupabase();
+const { addCandidate, getSkills } = useSupabase();
+let skills = ref<Array<Skill>>([]);
+let skillSelection = ref<Number[]>([]);
+
+onBeforeMount(async () => {
+  skills.value = await getSkills();
+});
+
+const toggleSkill = (skillId: Number) => {
+  if (skillSelection.value.includes(skillId))
+    skillSelection.value = skillSelection.value.filter(
+      (skill) => skill != skillId
+    );
+  else skillSelection.value.push(skillId);
+
+  console.log(skillSelection.value);
+};
 
 const candidateRegister = async () => {
   const candidate = await addCandidate(
@@ -182,9 +210,8 @@ const candidateRegister = async () => {
     timezone.value,
     yoe.value
   );
-  console.log(candidate);
 
-  return true;
+  return candidate;
 };
 </script>
 

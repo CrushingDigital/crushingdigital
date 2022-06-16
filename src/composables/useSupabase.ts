@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Candidate } from '../types';
+import { Candidate, Skill } from '../types';
 import useAuthUser from './useAuthUser';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -34,6 +34,17 @@ const addCandidate = async (displayName: string, blurb: string, gitSource: strin
   return data
 }  
 
+const getSkills = async (): Promise<Skill[]> => {
+  let { data: skills, error } = await supabase
+    .from('skills')
+    .select('*')
+    .eq('active', true)
+
+  if (error) throw error
+
+  return skills as Array<Skill>;
+}
+
 export default function useSupabase() {
-    return { supabase, getCandidates, addCandidate };
+    return { supabase, getCandidates, addCandidate, getSkills };
 }
