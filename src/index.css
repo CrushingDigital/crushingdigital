@@ -58,11 +58,11 @@
   }
   h1 {
     font-family: "Indie Flower", cursive;
-    font-size: text-5xl;
+    @apply text-3xl;
   }
   h2 {
     font-family: "Palette Mosaic", cursive;
-    font-size: text-5xl;
+    @apply text-5xl;
   }
   a {
     @apply text-cdpink font-bold underline;

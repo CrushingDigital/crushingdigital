@@ -24,6 +24,25 @@
           />
         </div>
       </div>
+      <div class="sm:flex sm:items-center mb-6 justify-center align-middle">
+        <div class="sm:w-1/3">
+          <label
+            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
+            for="inline-full-name"
+          >
+            About you
+          </label>
+        </div>
+        <div class="sm:w-2/3">
+          <textarea
+            v-model="blurb"
+            name="blurb"
+            id="blurb"
+            placeholder="A super talented front end developer specialising in React"
+            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          />
+        </div>
+      </div>
       <div class="sm:flex md:items-center mb-6">
         <div class="sm:w-1/3">
           <label
@@ -149,12 +168,14 @@ const linkedin = ref("");
 const rate = ref(0);
 const timezone = ref(0);
 const yoe = ref(0);
+const blurb = ref("");
 
 const { addCandidate } = useSupabase();
 
 const candidateRegister = async () => {
   const candidate = await addCandidate(
     displayName.value,
+    blurb.value,
     gitSource.value,
     linkedin.value,
     rate.value,

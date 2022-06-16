@@ -23,11 +23,11 @@ const getCandidates = async (): Promise<Candidate[]> => {
   return candidates as Array<Candidate>;
 }
 
-const addCandidate = async (displayName: string, gitSource: string, linkedin: string, rate: Number, timezone: Number, yoe: Number) => {
+const addCandidate = async (displayName: string, blurb: string, gitSource: string, linkedin: string, rate: Number, timezone: Number, yoe: Number) => {
   const { user } = useAuthUser();
   const { data, error } = await supabase
     .from("candidates")
-    .insert([{ display_name: displayName, gitsource: gitSource, linkedin, rate, timezone, yoe, user_id: user.value?.id }]);
+    .insert([{ display_name: displayName, blurb, gitsource: gitSource, linkedin, rate, timezone, yoe, user_id: user.value?.id }]);
 
   if(error) throw error;
 

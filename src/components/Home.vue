@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import DeveloperList from "./DeveloperList.vue";
-</script>
-
 <template>
-  <DeveloperList />
+  <h1 class="text-center">Coming soon...</h1>
   <div class="main mt-12">
     <div>
       <p class="text-center my-5">
@@ -34,5 +30,7 @@ import DeveloperList from "./DeveloperList.vue";
     </div>
   </div>
 </template>
+
+<script setup lang="ts"></script>
 
 <style scoped></style>
