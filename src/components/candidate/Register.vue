@@ -38,7 +38,7 @@
             v-model="blurb"
             name="blurb"
             id="blurb"
-            placeholder="A super talented front end developer specialising in React"
+            placeholder="Front end developer specialising in React"
             class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
           />
         </div>
@@ -163,17 +163,16 @@
     </button>
   </div>
   <div class="flex justify-center">
-    <button class="button" type="submit" @click.prevent="candidateRegister">
-      Register
-    </button>
+    <button class="button" type="submit" @click.prevent="save">Save</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import useSupabase from "../../composables/useSupabase";
 import { onBeforeMount, ref } from "vue";
-import { Skill } from "../../types";
+import { Candidate, Skill, SkillItem } from "../../types";
 
+const candidateId = ref(undefined);
 const displayName = ref("");
 const gitSource = ref("");
 const linkedin = ref("");
@@ -182,26 +181,46 @@ const timezone = ref(0);
 const yoe = ref(0);
 const blurb = ref("");
 
-const { addCandidate, getSkills } = useSupabase();
+const { addCandidate, getSkills, addSkillsForCandidate, loadProfile } =
+  useSupabase();
 let skills = ref<Array<Skill>>([]);
-let skillSelection = ref<Number[]>([]);
+let skillSelection = ref<number[]>([]);
 
 onBeforeMount(async () => {
+  const candidate = await loadProfile();
+  if (candidate) {
+    ({
+      id: candidateId.value,
+      display_name: displayName.value,
+      blurb: blurb.value,
+      gitsource: gitSource.value,
+      linkedin: linkedin.value,
+      rate: rate.value,
+      timezone: timezone.value,
+      yoe: yoe.value,
+    } = candidate);
+
+    console.log(candidate, candidateId);
+    // destructure the skills selection
+    skillSelection.value = candidate.candidate_skills.map(
+      (item: SkillItem) => item.skill_id
+    );
+  }
+
   skills.value = await getSkills();
 });
 
-const toggleSkill = (skillId: Number) => {
+const toggleSkill = (skillId: number) => {
   if (skillSelection.value.includes(skillId))
     skillSelection.value = skillSelection.value.filter(
       (skill) => skill != skillId
     );
   else skillSelection.value.push(skillId);
-
-  console.log(skillSelection.value);
 };
 
-const candidateRegister = async () => {
+const save = async () => {
   const candidate = await addCandidate(
+    candidateId.value,
     displayName.value,
     blurb.value,
     gitSource.value,
@@ -210,6 +229,14 @@ const candidateRegister = async () => {
     timezone.value,
     yoe.value
   );
+
+  if (candidate) {
+    candidateId.value = candidate.id;
+    candidate.skills = await addSkillsForCandidate(
+      candidate.id,
+      skillSelection.value
+    );
+  }
 
   return candidate;
 };
