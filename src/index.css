@@ -74,4 +74,7 @@
   .button {
     @apply bg-transparent hover:bg-cdblue text-cdblue font-semibold hover:text-white py-2 px-3 border border-cdblue hover:border-transparent rounded-full no-underline;
   }
+  .disabledButton {
+    @apply bg-transparent text-gray-400 font-semibold py-2 px-3 border border-gray-400 rounded-full no-underline;
+  }
 }

@@ -168,28 +168,28 @@
 </template>
 
 <script setup lang="ts">
-import useSupabase from "../composables/useSupabase";
-import { onBeforeMount, ref } from "vue";
-import { Candidate, Skill, SkillItem } from "../../types";
+import useSupabase from "../composables/useSupabase"
+import { onBeforeMount, ref } from "vue"
+import { Candidate, Skill, SkillItem } from "../types"
 
-const candidateId = ref(undefined);
-const displayName = ref("");
-const gitSource = ref("");
-const linkedin = ref("");
-const rate = ref(0);
-const timezone = ref(0);
-const yoe = ref(0);
-const blurb = ref("");
+const candidateId = ref(undefined)
+const displayName = ref("")
+const gitSource = ref("")
+const linkedin = ref("")
+const rate = ref(0)
+const timezone = ref(0)
+const yoe = ref(0)
+const blurb = ref("")
 
 const { addCandidate, getSkills, addSkillsForCandidate, loadProfile } =
-  useSupabase();
-let skills = ref<Array<Skill>>([]);
-let skillSelection = ref<number[]>([]);
+  useSupabase()
+let skills = ref<Array<Skill>>([])
+let skillSelection = ref<number[]>([])
 
 onBeforeMount(async () => {
-  const candidate = await loadProfile();
+  const candidate = await loadProfile()
   if (candidate) {
-    ({
+    ;({
       id: candidateId.value,
       display_name: displayName.value,
       blurb: blurb.value,
@@ -198,27 +198,33 @@ onBeforeMount(async () => {
       rate: rate.value,
       timezone: timezone.value,
       yoe: yoe.value,
-    } = candidate);
+    } = candidate)
 
-    console.log(candidate, candidateId);
+    console.log(candidate, candidateId)
     // destructure the skills selection
     skillSelection.value = candidate.candidate_skills.map(
       (item: SkillItem) => item.skill_id
-    );
+    )
   }
 
-  skills.value = await getSkills();
-});
+  skills.value = await getSkills()
+})
 
 const toggleSkill = (skillId: number) => {
   if (skillSelection.value.includes(skillId))
     skillSelection.value = skillSelection.value.filter(
       (skill) => skill != skillId
-    );
-  else skillSelection.value.push(skillId);
-};
+    )
+  else skillSelection.value.push(skillId)
+}
 
-const save = async () => {
+const save = async (e: Event) => {
+  const target = e.target as HTMLButtonElement
+
+  target.disabled = true
+  target.innerText = "saving..."
+  target.classList.toggle("disabledButton")
+  target.classList.toggle("button")
   const candidate = await addCandidate(
     candidateId.value,
     displayName.value,
@@ -228,18 +234,23 @@ const save = async () => {
     rate.value,
     timezone.value,
     yoe.value
-  );
+  )
 
   if (candidate) {
-    candidateId.value = candidate.id;
+    candidateId.value = candidate.id
     candidate.skills = await addSkillsForCandidate(
       candidate.id,
       skillSelection.value
-    );
+    )
   }
 
-  return candidate;
-};
+  target.innerText = "Save"
+  target.classList.toggle("disabledButton")
+  target.classList.toggle("button")
+  target.disabled = false
+
+  return candidate
+}
 </script>
 
 <style scoped></style>
