@@ -1,12 +1,4 @@
 <template>
-  <div class="flex justify-start align-middle">
-    <div>
-      <span>Want to appear here?</span>
-      <router-link to="/candidate/register" class="button ml-2"
-        >Register as a developer</router-link
-      >
-    </div>
-  </div>
   <div v-if="candidates.length">
     <ul class="mt-8">
       <li v-for="dev in candidates">

@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import { extractIdentifiers } from '@vue/compiler-core';
 import { Candidate, CandidateValues, Skill } from '../types';
 import useAuthUser from './useAuthUser';
 
@@ -18,6 +17,7 @@ const getCandidates = async (): Promise<Candidate[]> => {
   let { data: candidates, error } = await supabase
     .from('candidates')
     .select('*')
+    .order('id', { ascending: false })
 
   if (error) throw error
 
@@ -44,6 +44,7 @@ const getSkills = async (): Promise<Skill[]> => {
     .from('skills')
     .select('*')
     .eq('active', true)
+    .order('name', { ascending: true })
 
   if (error) throw error
 

@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory, RouterOptions } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue'
 import useAuthUser from './composables/useAuthUser';
 import './index.css'
@@ -8,7 +8,7 @@ import Home from './components/Home.vue'
 import About from './components/About.vue'
 import Jobs from './components/Jobs.vue'
 import DevList from './components/DeveloperList.vue'
-import CandidateRegister from './components/candidate/Register.vue'
+import Profile from './components/Profile.vue'
 
 const { isLoggedIn } = useAuthUser();
 
@@ -17,7 +17,7 @@ const routes = [
   { path: '/about', component: About },
   { path: '/developers', component: DevList },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
-  { path: '/candidate/register', component: CandidateRegister },
+  { path: '/profile', component: Profile },
 ]
 
 const router = createRouter({

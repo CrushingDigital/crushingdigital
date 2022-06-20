@@ -152,7 +152,7 @@
       </div>
     </form>
   </div>
-  <div class="flex justify-evenly">
+  <div class="flex justify-evenly my-8">
     <button
       @click="toggleSkill(skill.id)"
       v-for="skill in skills"
@@ -162,13 +162,13 @@
       {{ skill.name }}
     </button>
   </div>
-  <div class="flex justify-center">
+  <div class="flex justify-center mt-8">
     <button class="button" type="submit" @click.prevent="save">Save</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import useSupabase from "../../composables/useSupabase";
+import useSupabase from "../composables/useSupabase";
 import { onBeforeMount, ref } from "vue";
 import { Candidate, Skill, SkillItem } from "../../types";
 
