@@ -15,7 +15,7 @@
         </div>
         <div class="sm:w-2/3">
           <input
-            v-model="displayName"
+            v-model="candidate.display_name"
             type="text"
             name="displayName"
             id="displayName"
@@ -35,7 +35,7 @@
         </div>
         <div class="sm:w-2/3">
           <textarea
-            v-model="blurb"
+            v-model="candidate.blurb"
             name="blurb"
             id="blurb"
             placeholder="Front end developer specialising in React"
@@ -54,7 +54,7 @@
         </div>
         <div class="sm:w-2/3">
           <input
-            v-model="yoe"
+            v-model="candidate.yoe"
             placeholder="0"
             type="number"
             max="50"
@@ -76,7 +76,7 @@
         </div>
         <div class="sm:w-2/3">
           <input
-            v-model="rate"
+            v-model="candidate.rate"
             class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             type="number"
             placeholder="4000"
@@ -98,7 +98,7 @@
         </div>
         <div class="sm:w-2/3">
           <input
-            v-model="timezone"
+            v-model="candidate.timezone"
             type="number"
             max="12"
             min="-12"
@@ -121,7 +121,7 @@
         <div class="sm:w-2/3">
           <input
             type="text"
-            v-model="gitSource"
+            v-model="candidate.gitsource"
             name="gitSource"
             id="gitSource"
             placeholder="https://github.com/davidproberts"
@@ -142,7 +142,7 @@
         <div class="sm:w-2/3">
           <input
             type="text"
-            v-model="linkedin"
+            v-model="candidate.linkedin"
             name="linkedin"
             id="linkedin"
             placeholder="https://www.linkedin.com/in/davidproberts/"
@@ -150,14 +150,84 @@
           />
         </div>
       </div>
+
+      <div class="sm:flex md:items-center mb-6">
+        <div class="sm:w-1/3">
+          <label
+            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
+            for="inline-full-name"
+          >
+            Link #1
+          </label>
+        </div>
+        <div class="sm:w-2/3 flex flex-row align-middle">
+          <input
+            type="text"
+            v-model="candidate.link_1"
+            name="link1"
+            id="link1"
+            placeholder="Evidence your abilities with the below skills"
+            class="cdText"
+            @blur="checkLinkUrl"
+          />
+        </div>
+      </div>
+
+      <div class="sm:flex md:items-center mb-6">
+        <div class="sm:w-1/3">
+          <label
+            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
+            for="inline-full-name"
+          >
+            Link #2
+          </label>
+        </div>
+        <div class="sm:w-2/3">
+          <input
+            type="text"
+            v-model="candidate.link_2"
+            name="link2"
+            id="link2"
+            placeholder="Evidence your abilities with the below skills"
+            class="cdText"
+            @blur="checkLinkUrl"
+          />
+        </div>
+      </div>
+
+      <div class="sm:flex md:items-center mb-6">
+        <div class="sm:w-1/3">
+          <label
+            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
+            for="inline-full-name"
+          >
+            Link #3
+          </label>
+        </div>
+        <div class="sm:w-2/3">
+          <input
+            type="text"
+            v-model="candidate.link_3"
+            name="link3"
+            id="link3"
+            placeholder="Evidence your abilities with the below skills"
+            class="cdText"
+            @blur="checkLinkUrl"
+          />
+        </div>
+      </div>
     </form>
   </div>
   <div class="flex justify-evenly my-8">
     <button
-      @click="toggleSkill(skill.id)"
+      @click="toggleSkill(skill)"
       v-for="skill in skills"
       class="p-2 rounded-full text-xs border-2"
-      :class="skillSelection.includes(skill.id) ? skill.name : 'disabledSkill'"
+      :class="
+        selectedSkills.findIndex((item) => item.id == skill.id) == -1
+          ? 'disabledSkill'
+          : skill.name
+      "
     >
       {{ skill.name }}
     </button>
@@ -170,52 +240,37 @@
 <script setup lang="ts">
 import useSupabase from "../composables/useSupabase"
 import { onBeforeMount, ref } from "vue"
-import { Candidate, Skill, SkillItem } from "../types"
+import { Skill, Candidate } from "../types"
 
-const candidateId = ref(undefined)
-const displayName = ref("")
-const gitSource = ref("")
-const linkedin = ref("")
-const rate = ref(0)
-const timezone = ref(0)
-const yoe = ref(0)
-const blurb = ref("")
+const candidate = ref<Candidate>({} as Candidate)
 
 const { addCandidate, getSkills, addSkillsForCandidate, loadProfile } =
   useSupabase()
-let skills = ref<Array<Skill>>([])
-let skillSelection = ref<number[]>([])
+const skills = ref<Array<Skill>>([])
+const selectedSkills = ref<Skill[]>([])
 
 onBeforeMount(async () => {
-  const candidate = await loadProfile()
-  if (candidate) {
-    ;({
-      id: candidateId.value,
-      display_name: displayName.value,
-      blurb: blurb.value,
-      gitsource: gitSource.value,
-      linkedin: linkedin.value,
-      rate: rate.value,
-      timezone: timezone.value,
-      yoe: yoe.value,
-    } = candidate)
+  ;[candidate.value, skills.value] = await Promise.all([
+    loadProfile(),
+    getSkills(),
+  ])
 
-    console.log(candidate, candidateId)
-    // destructure the skills selection
-    skillSelection.value = candidate.candidate_skills.map(
-      (item: SkillItem) => item.skill_id
-    )
-  }
-
-  skills.value = await getSkills()
+  unpackSkills()
 })
 
-const toggleSkill = (skillId: number) => {
-  if (skillSelection.value.includes(skillId))
-    skillSelection.value = skillSelection.value.filter(
-      (skill) => skill != skillId
-    )
-  else skillSelection.value.push(skillId)
+const unpackSkills = () => {
+  selectedSkills.value = candidate.value.candidate_skills!.map(
+    (cskills) => cskills.skills as Skill
+  )
+}
+
+const toggleSkill = (skill: Skill) => {
+  let pos = selectedSkills.value?.findIndex((item) => item.id == skill.id)
+  if (pos == -1) {
+    selectedSkills.value.push(skill)
+  } else {
+    selectedSkills.value.splice(pos, 1)
+  }
 }
 
 const save = async (e: Event) => {
@@ -225,23 +280,11 @@ const save = async (e: Event) => {
   target.innerText = "saving..."
   target.classList.toggle("disabledButton")
   target.classList.toggle("button")
-  const candidate = await addCandidate(
-    candidateId.value,
-    displayName.value,
-    blurb.value,
-    gitSource.value,
-    linkedin.value,
-    rate.value,
-    timezone.value,
-    yoe.value
-  )
+
+  candidate.value = await addCandidate(candidate.value)
 
   if (candidate) {
-    candidateId.value = candidate.id
-    candidate.skills = await addSkillsForCandidate(
-      candidate.id,
-      skillSelection.value
-    )
+    let tmp = await addSkillsForCandidate(candidate.value, selectedSkills.value)
   }
 
   target.innerText = "Save"
@@ -250,6 +293,26 @@ const save = async (e: Event) => {
   target.disabled = false
 
   return candidate
+}
+
+const checkLinkUrl = async (e: Event) => {
+  const target = e.target as HTMLButtonElement
+
+  if (target.value.length) target.classList.remove("undefinedText")
+  else target.classList.add("undefinedText")
+
+  if (isValidUrl(target.value)) {
+    target.classList.remove("invalidText")
+    target.classList.add("validText")
+  } else {
+    target.classList.add("invalidText")
+    target.classList.remove("validText")
+  }
+}
+
+const isValidUrl = (_string: string) => {
+  const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/
+  return matchPattern.test(_string)
 }
 </script>
 

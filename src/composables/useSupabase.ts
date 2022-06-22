@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Candidate, CandidateValues, Skill } from '../types';
+import { Candidate, Skill } from '../types';
 import useAuthUser from './useAuthUser';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -16,7 +16,12 @@ supabase.auth.onAuthStateChange((event, session) => {
 const getCandidates = async (): Promise<Candidate[]> => {
   let { data: candidates, error } = await supabase
     .from('candidates')
-    .select('*')
+    .select(`
+      *,
+      candidate_skills(
+        skills(*)
+      )
+    `)
     .order('id', { ascending: false })
 
   if (error) throw error
@@ -24,15 +29,12 @@ const getCandidates = async (): Promise<Candidate[]> => {
   return candidates as Array<Candidate>;
 }
 
-const addCandidate = async (candidateId: Number|undefined, displayName: string, blurb: string, gitSource: string, linkedin: string, rate: number, timezone: number, yoe: number) => {
-  const { user } = useAuthUser();
+const addCandidate = async (candidate: Candidate) => {
 
-  let vals:CandidateValues = { id: candidateId, display_name: displayName, blurb, gitsource: gitSource, linkedin, rate, timezone, yoe, user_id: user.value?.id }
-  if(!candidateId) delete vals.id
-
+  const { display_name, gitsource, linkedin, rate, timezone, yoe, user_id, approved, blurb, created_at, id, link_1, link_2, link_3, verified } = candidate
   let { data, error } = await supabase
     .from("candidates")
-    .upsert([vals]);
+    .upsert([{ display_name, gitsource, linkedin, rate, timezone, yoe, user_id, approved, blurb, created_at, id, link_1, link_2, link_3, verified }]);
 
   if(error) throw error;
 
@@ -62,10 +64,10 @@ const deleteSkillsForCandidate = async (candidateId: number) => {
   return data;
 }
 
-const addSkillsForCandidate = async (candidateId: number, skillIds: number[]) => {  
-  const delRes = await deleteSkillsForCandidate(candidateId)
-  let insertSkills = skillIds.map(skill => {
-    return { candidate_id: candidateId, skill_id: skill }
+const addSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {  
+  await deleteSkillsForCandidate(candidate.id!)
+  let insertSkills = skills.map(skill => {
+    return { candidate_id: candidate.id, skill_id: skill.id }
   });
   let { data, error } = await supabase
   .from("candidate_skills")
@@ -83,7 +85,9 @@ const loadProfile = async () => {
   .from("candidates")
   .select(`
     *,
-    candidate_skills(skill_id)
+    candidate_skills(
+      skills(*)
+    )
   `)
   .eq('user_id', user.value?.id)
 

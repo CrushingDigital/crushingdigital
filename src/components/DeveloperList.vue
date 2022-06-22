@@ -24,7 +24,48 @@
           <div class="col-span-8 flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
-                <span class="text-sm sm:text-base">{{ dev.display_name }}</span>
+                <span class="text-sm sm:text-base mr-2">{{
+                  dev.display_name
+                }}</span>
+                <a
+                  :href="dev.gitsource"
+                  class="no-underline text-xs text-red-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                </a>
+                <a
+                  :href="dev.linkedin"
+                  class="text-xs no-undeline text-blue-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </a>
+
                 <span v-if="dev.verified" class="text-green-500 text-sm"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +140,7 @@
                 ><span class="mr-2 text-sm text-yellow-700"
                   >{{ dev.rate / 1000 }}k</span
                 >
-                <span class="text-blue-600">
+                <span class="text-green-600">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -114,7 +155,7 @@
                       d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     /></svg
                 ></span>
-                <span class="mr-2 text-sm text-blue-600">{{
+                <span class="mr-2 text-sm text-green-600">{{
                   dev.timezone
                 }}</span>
               </div>
@@ -124,11 +165,11 @@
             </div>
             <div class="col-start-2">
               <span
-                v-for="skill in dev.skills"
+                v-for="cskill in dev.candidate_skills"
                 class="px-2 py-1 text-xs rounded-full mr-1"
-                :class="skill"
+                :class="cskill.skills?.name"
               >
-                {{ skill }}
+                {{ cskill.skills?.name }}
               </span>
             </div>
           </div>
@@ -136,52 +177,58 @@
             class="col-span-3 border-0 flex flex-col justify-between align-middle"
           >
             <div class="flex justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
+              <a :href="dev.link_1" class="text-green-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </div>
             <div class="flex justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
+              <a :href="dev.link_2" class="text-green-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </div>
             <div class="flex justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
+              <a :href="dev.link_3" class="text-green-400">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -194,19 +241,19 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
-import useAuthUser from "../composables/useAuthUser";
-import useSupabase from "../composables/useSupabase";
-import { Candidate } from "../types";
+import { onBeforeMount, ref } from "vue"
+import useAuthUser from "../composables/useAuthUser"
+import useSupabase from "../composables/useSupabase"
+import { Candidate } from "../types"
 
-const { getCandidates } = useSupabase();
-const { login, logout, isLoggedIn } = useAuthUser();
+const { getCandidates } = useSupabase()
+const { login, logout, isLoggedIn } = useAuthUser()
 
-const candidates = ref<Array<Candidate>>([]);
+const candidates = ref<Array<Candidate>>([])
 
 onBeforeMount(async () => {
-  candidates.value = await getCandidates();
-});
+  candidates.value = await getCandidates()
+})
 </script>
 
 <style lang="css" scoped></style>
