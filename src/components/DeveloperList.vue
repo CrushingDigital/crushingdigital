@@ -27,9 +27,10 @@
                 <span class="text-sm sm:text-base mr-2">{{
                   dev.display_name
                 }}</span>
+                <!-- ********* GIT **************** -->
                 <a
                   :href="dev.gitsource"
-                  class="no-underline text-xs text-red-400"
+                  class="no-underline text-xxs text-red-400 mr-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -46,9 +47,10 @@
                     />
                   </svg>
                 </a>
+                <!-- ********* LINKEDIN **************** -->
                 <a
                   :href="dev.linkedin"
-                  class="text-xs no-undeline text-blue-600"
+                  class="text-xs no-undeline text-blue-600 mr-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +67,8 @@
                     />
                   </svg>
                 </a>
-
-                <span v-if="dev.verified" class="text-green-500 text-sm"
+                <!-- ********* VERIFIED **************** -->
+                <span v-if="dev.verified" class="text-green-500 text-sm mr-2"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -81,7 +83,8 @@
                       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                     /></svg
                 ></span>
-                <span v-if="dev.approved" class="text-yellow-400 text-sm"
+                <!-- ********* APPROVED **************** -->
+                <span v-if="dev.approved" class="text-yellow-400 text-sm mr-2"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -96,10 +99,7 @@
                       d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                     /></svg
                 ></span>
-              </div>
-              <div
-                class="flex flex-row justify-start sm:justify-end py-2 sm:py-0"
-              >
+                <!-- ********* Experience **************** -->
                 <span class="text-slate-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -122,6 +122,7 @@
                 ><span class="mr-2 text-sm text-slate-700"
                   >{{ dev.yoe }}yrs</span
                 >
+                <!-- ********* RATE **************** -->
                 <span class="text-yellow-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +141,8 @@
                 ><span class="mr-2 text-sm text-yellow-700"
                   >{{ dev.rate / 1000 }}k</span
                 >
-                <span class="text-green-600">
+                <!-- ********* TIMEZONE **************** -->
+                <span class="text-green-600 text-xxs">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -155,14 +157,14 @@
                       d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     /></svg
                 ></span>
-                <span class="mr-2 text-sm text-green-600">{{
-                  dev.timezone
-                }}</span>
+                <span class="text-sm text-green-600">{{ dev.timezone }}</span>
               </div>
             </div>
+            <!-- ********* BLURB **************** -->
             <div class="text-sm">
               {{ dev.blurb }}
             </div>
+            <!-- ********* SKILLS **************** -->
             <div class="col-start-2">
               <span
                 v-for="cskill in dev.candidate_skills"
@@ -173,10 +175,11 @@
               </span>
             </div>
           </div>
+          <!-- ********* 3 LINKS **************** -->
           <div
             class="col-span-3 border-0 flex flex-col justify-between align-middle"
           >
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="dev.link_1">
               <a :href="dev.link_1" class="text-green-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +197,7 @@
                 </svg>
               </a>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="dev.link_2">
               <a :href="dev.link_2" class="text-green-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +215,7 @@
                 </svg>
               </a>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="dev.link_3">
               <a :href="dev.link_3" class="text-green-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -15,6 +15,9 @@ module.exports = {
         'mono': ['ui-monospace', 'SFMono-Regular'],
         'display': ['Lato'],
         'body': ['ui-sans-serif'],
+      },
+      fontSize: {
+        'xxs': '.5rem',
       }
     }
   },

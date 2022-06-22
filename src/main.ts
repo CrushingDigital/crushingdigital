@@ -10,6 +10,7 @@ import Jobs from './components/Jobs.vue'
 import DevList from './components/DeveloperList.vue'
 import Profile from './components/Profile.vue'
 
+const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser();
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   { path: '/developers', component: DevList },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
   { path: '/profile', component: Profile },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 const router = createRouter({
