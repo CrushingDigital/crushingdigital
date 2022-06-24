@@ -1,58 +1,43 @@
 <template>
   <div class="text-center mb-4">
-    <h1>Your <span class="italic">real</span> career starts here!</h1>
+    <h1>
+      Your <span class="italic text-secondary">real</span> career starts here!
+    </h1>
   </div>
-  <div id="form">
-    <form class="w-full max-w-xl">
-      <div class="sm:flex sm:items-center mb-6 justify-center align-middle">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Display Name
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <input
-            v-model="candidate.display_name"
-            type="text"
-            name="displayName"
-            id="displayName"
-            placeholder="Jane Doe"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-          />
-        </div>
+  <form>
+    <div class="flex flex-col justify-center">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">What is your name?</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-ghost bg-gray-100"
+          v-model="candidate.display_name"
+          name="displayName"
+          id="displayName"
+          placeholder="Jane Doe"
+        />
       </div>
-      <div class="sm:flex sm:items-center mb-6 justify-center align-middle">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            About you
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <textarea
-            v-model="candidate.blurb"
-            name="blurb"
-            id="blurb"
-            placeholder="Front end developer specialising in React"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">About you</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-ghost bg-gray-100"
+          v-model="candidate.blurb"
+          name="blurb"
+          id="blurb"
+          placeholder="Front end developer specialising in React"
+        />
       </div>
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Experience<br /><span class="text-xs">(years)</span>
-          </label>
-        </div>
-        <div class="sm:w-2/3">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Experience</span>
+        </label>
+        <label class="input-group">
+          <span>Years</span>
           <input
             v-model="candidate.yoe"
             placeholder="0"
@@ -61,23 +46,19 @@
             min="0"
             name="yoe"
             id="yoe"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            class="input input-bordered input-ghost bg-gray-100"
           />
-        </div>
+        </label>
       </div>
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Monthly Rate<br /><span class="text-xs">($USD)</span>
-          </label>
-        </div>
-        <div class="sm:w-2/3">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Monthly rate</span>
+        </label>
+        <label class="input-group">
+          <span>USD</span>
           <input
             v-model="candidate.rate"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            class="input input-bordered input-ghost bg-gray-100"
             type="number"
             placeholder="4000"
             max="45000"
@@ -85,18 +66,14 @@
             name="rate"
             id="rate"
           />
-        </div>
+        </label>
       </div>
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Timezone<br /><span class="text-xs">(e.g.utc-4)</span>
-          </label>
-        </div>
-        <div class="sm:w-2/3">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Timezone</span>
+        </label>
+        <label class="input-group">
+          <span>UTC</span>
           <input
             v-model="candidate.timezone"
             type="number"
@@ -104,120 +81,80 @@
             min="-12"
             name="timezone"
             id="timezone"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            class="input input-bordered input-ghost bg-gray-100"
           />
-        </div>
+        </label>
       </div>
-
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            GitHub<br /><span class="text-xs">(or similar)</span>
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <input
-            type="text"
-            v-model="candidate.gitsource"
-            name="gitSource"
-            id="gitSource"
-            placeholder="https://github.com/davidproberts"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 text-sm"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Code samples</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-ghost bg-gray-100"
+          v-model="candidate.gitsource"
+          name="gitsource"
+          id="gitsource"
+          placeholder="GitHub (or similar) profile?"
+        />
       </div>
-
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            LinkedIn
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <input
-            type="text"
-            v-model="candidate.linkedin"
-            name="linkedin"
-            id="linkedin"
-            placeholder="https://www.linkedin.com/in/davidproberts/"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 text-sm"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">LinkedIn Profile</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered input-ghost bg-gray-100"
+          v-model="candidate.linkedin"
+          name="linkedin"
+          id="linkedin"
+          placeholder="https://www.linkedin.com/in/davidproberts/"
+        />
       </div>
-
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Link #1
-          </label>
-        </div>
-        <div class="sm:w-2/3 flex flex-row align-middle">
-          <input
-            type="text"
-            v-model="candidate.link_1"
-            name="link1"
-            id="link1"
-            placeholder="Evidence your abilities with the below skills"
-            class="cdText"
-            @blur="checkLinkUrl"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Link #1</span>
+        </label>
+        <input
+          type="text"
+          v-model="candidate.link_1"
+          name="link1"
+          id="link1"
+          placeholder="Evidence your abilities with your chosen tech stack"
+          class="input input-bordered input-ghost bg-gray-100"
+          @blur="checkLinkUrl"
+        />
       </div>
-
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Link #2
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <input
-            type="text"
-            v-model="candidate.link_2"
-            name="link2"
-            id="link2"
-            placeholder="Evidence your abilities with the below skills"
-            class="cdText"
-            @blur="checkLinkUrl"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Link #2</span>
+        </label>
+        <input
+          type="text"
+          v-model="candidate.link_2"
+          name="link2"
+          id="link2"
+          placeholder="Evidence your abilities with your chosen tech stack"
+          class="input input-bordered input-ghost bg-gray-100"
+          @blur="checkLinkUrl"
+        />
       </div>
-
-      <div class="sm:flex md:items-center mb-6">
-        <div class="sm:w-1/3">
-          <label
-            class="block text-gray-500 font-bold sm:text-right mb-1 md:mb-0 pr-4"
-            for="inline-full-name"
-          >
-            Link #3
-          </label>
-        </div>
-        <div class="sm:w-2/3">
-          <input
-            type="text"
-            v-model="candidate.link_3"
-            name="link3"
-            id="link3"
-            placeholder="Evidence your abilities with the below skills"
-            class="cdText"
-            @blur="checkLinkUrl"
-          />
-        </div>
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Link #3</span>
+        </label>
+        <input
+          type="text"
+          v-model="candidate.link_3"
+          name="link3"
+          id="link3"
+          placeholder="Evidence your abilities with your chosen tech stack"
+          class="input input-bordered input-ghost bg-gray-100"
+          @blur="checkLinkUrl"
+        />
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
   <div class="flex justify-evenly my-8">
     <button
       @click="toggleSkill(skill)"
@@ -233,7 +170,9 @@
     </button>
   </div>
   <div class="flex justify-center mt-8">
-    <button class="button" type="submit" @click.prevent="save">Save</button>
+    <button class="btn rounded-full" type="submit" @click.prevent="save">
+      Save
+    </button>
   </div>
 </template>
 
