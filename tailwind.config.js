@@ -4,11 +4,6 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        'cdpink': '#fc0476',
-        'cdblue': '#1DB7FD',
-        'cdwhite': '#ffffff'
-      },
       fontFamily: {
         'sans': ['Lato', 'ui-sans-serif', 'system-ui'],
         'serif': ['ui-serif', 'Georgia'],
@@ -21,5 +16,20 @@ module.exports = {
       }
     }
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("daisyui"),
+  ],
+  daisyui: {
+    themes: [
+      {
+        cmyk: {
+          ...require("daisyui/src/colors/themes")["[data-theme=cmyk]"],
+          primary: "#00ddff",
+          secondary: "#fc0476"
+        }
+      }
+    ],
+    styled: true
+  }
 }

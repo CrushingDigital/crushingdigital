@@ -16,7 +16,7 @@
       <p class="text-justify mb-5 bg-slate-50 p-5 rounded-2xl">
         My name is <span class="standout">David Roberts</span>. I have been in
         the software development industry for over
-        <span class="text-sky-500">22</span> years. I have held various roles as
+        <span class="text-primary">22</span> years. I have held various roles as
         a developer, from junior through to team lead and head of department. In
         recent years I have been involved with recruiting developers for some of
         the worlds leading brands.
