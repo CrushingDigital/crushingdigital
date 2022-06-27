@@ -41,7 +41,7 @@ const { user } = useAuthUser()
 const candidate = ref<Candidate>({} as Candidate)
 
 const { loadProfile } = useCandidate()
-const { getSkills, saveSkillsForCandidate } = useSkill()
+const { getSkills, saveSkillsForCandidate, unpackSkills } = useSkill()
 const skills = ref<Array<Skill>>([])
 const selectedSkills = ref<Skill[]>([])
 
@@ -51,17 +51,11 @@ onBeforeMount(async () => {
     getSkills(),
   ])
 
-  unpackSkills()
+  selectedSkills.value = unpackSkills(candidate.value)
 })
 
 const goBack = () => {
   router.go(-1)
-}
-
-const unpackSkills = () => {
-  selectedSkills.value = candidate.value.candidate_skills!.map(
-    (cskills) => cskills.skills as Skill
-  )
 }
 
 const toggleSkill = (skill: Skill) => {

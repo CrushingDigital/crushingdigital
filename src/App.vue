@@ -64,7 +64,7 @@
   </div>
 
   <div
-    class="container mx-auto max-w-5xl border-0 flex flex-col justify-start mt-8"
+    class="container mx-auto max-w-5xl border-0 flex flex-col justify-start mt-2"
   >
     <router-view></router-view>
   </div>

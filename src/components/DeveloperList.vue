@@ -1,11 +1,131 @@
 <template>
-  <div v-if="candidates.length">
-    <ul class="mt-8">
-      <li v-for="dev in candidates">
-        <div class="mb-4">
-          <div class="flex flex-col justify-evenly px-4 hover:bg-slate-50">
+  <div class="collapse" v-if="candidates.length">
+    <input type="checkbox" class="peer" />
+    <div class="collapse-title text-primary-content text-center">
+      <h3>Looking for filters?</h3>
+    </div>
+    <div
+      id="filters"
+      class="flex justify-center collapse-content text-primary-content"
+    >
+      <form class="text-center">
+        <label class="input-group input-group-xs">
+          <span>UTC</span>
+          <input
+            v-model="startTz"
+            type="number"
+            max="12"
+            min="-12"
+            name="timezone-start"
+            id="timezone-start"
+            placeholder="Starting timezone"
+            class="input input-bordered input-xs"
+          />
+          <input
+            v-model="endTz"
+            type="number"
+            max="12"
+            min="-12"
+            name="timezone-end"
+            id="timezone-end"
+            placeholder="Ending timezone"
+            class="input input-bordered input-xs"
+          />
+        </label>
+        <label class="input-group input-group-xs mt-2">
+          <span>USD</span>
+          <input
+            v-model="lowRate"
+            type="number"
+            max="24000"
+            min="1000"
+            name="high-rate"
+            id="high-rate"
+            placeholder="Upper boundary"
+            class="input input-bordered input-xs"
+          />
+          <input
+            v-model="highRate"
+            type="number"
+            max="30000"
+            min="1000"
+            name="low-rate"
+            id="low-rate"
+            placeholder="Lower boundary"
+            class="input input-bordered input-xs"
+          />
+        </label>
+        <label class="input-group input-group-xs mt-2">
+          <span>Years</span>
+          <input
+            v-model="reqExp"
+            type="number"
+            max="45"
+            min="0"
+            name="req-experience"
+            id="req-experience"
+            placeholder="Required experience"
+            class="input input-bordered input-xs"
+          />
+        </label>
+        <div class="form-control">
+          <label class="cursor-pointer label">
+            <span class="label-text">Verified?</span>
+            <input
+              v-model="verified"
+              type="checkbox"
+              class="checkbox checkbox-secondary"
+            />
+          </label>
+          <label class="cursor-pointer label">
+            <span class="label-text">Approved?</span>
+            <input
+              v-model="approved"
+              type="checkbox"
+              class="checkbox checkbox-secondary"
+            />
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Choose your required stack</span>
+          </label>
+          <select
+            multiple
+            class="select select-bordered select-sm w-full font-normal"
+            v-model="filterSkills"
+          >
+            <option v-for="skill in skills" :value="skill.id">
+              {{ skill.name }}
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <ul class="mt-2">
+      <li v-for="dev in filteredCandidates">
+        <div class="mb-4 px-4 py-2 hover:bg-slate-50">
+          <div class="flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
+                <!-- ********* APPROVED **************** -->
+                <span
+                  v-if="!dev.approved && !dev.verified"
+                  class="text-slate-200 text-sm"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    /></svg
+                ></span>
                 <!-- ********* APPROVED **************** -->
                 <span v-if="dev.approved" class="text-yellow-400 text-sm"
                   ><svg
@@ -106,7 +226,7 @@
               {{ dev.blurb }}
             </div>
             <!-- ********* SKILLS **************** -->
-            <div class="col-start-2 py-1">
+            <div class="col-start-2 pt-1">
               <span
                 v-for="cskill in dev.candidate_skills"
                 class="px-2 py-1 text-xs rounded-full mr-1"
@@ -179,16 +299,50 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue"
+import { computed, onBeforeMount, ref } from "vue"
 import useCandidate from "../composables/useCandidate"
-import { Candidate } from "../types"
+import useSkill from "../composables/useSkill"
+import { Candidate, Skill } from "../types"
 
 const { getCandidates } = useCandidate()
+const { getSkills, getCandidateSkillIds } = useSkill()
 
+const startTz = ref<number>(-12)
+const endTz = ref<number>(12)
+const lowRate = ref<number>(1000)
+const highRate = ref<number>(25000)
+const reqExp = ref<number>(3)
+const approved = ref<boolean>(false)
+const verified = ref<boolean>(false)
+
+const skills = ref<Array<Skill>>([])
+const filterSkills = ref([])
 const candidates = ref<Array<Candidate>>([])
 
 onBeforeMount(async () => {
   candidates.value = await getCandidates()
+  skills.value = await getSkills()
+})
+
+const filteredCandidates = computed(() => {
+  return candidates.value.filter((dev) => {
+    if (dev.timezone < startTz.value) return false
+    else if (dev.timezone > endTz.value) return false
+    else if (dev.rate < lowRate.value) return false
+    else if (dev.rate > highRate.value) return false
+    else if (dev.yoe < reqExp.value) return false
+    else if (approved.value && !dev.approved) return false
+    else if (verified.value && !dev.verified) return false
+
+    const cskills = getCandidateSkillIds(dev)
+    const unmatched = filterSkills.value.filter(
+      (fskill) => !cskills.includes(fskill)
+    )
+
+    if (unmatched.length) return false
+
+    return true
+  })
 })
 </script>
 

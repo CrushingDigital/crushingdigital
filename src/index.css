@@ -101,6 +101,10 @@
     font-family: "Palette Mosaic", cursive;
     @apply text-5xl;
   }
+  h3 {
+    font-family: "Indie Flower", cursive;
+    @apply text-2xl;
+  }
   a {
     @apply text-secondary underline cursor-pointer;
   }
