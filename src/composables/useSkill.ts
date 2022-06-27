@@ -56,6 +56,15 @@ const saveSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => 
 
 }
 
+const getCandidateSkillIds = (candidate: Candidate) => {
+    return candidate.candidate_skills!.map((cskills) => cskills.skills?.id)  
+}
+
+const unpackSkills = (candidate: Candidate) => {
+    return candidate.candidate_skills!.map((cskills) => cskills.skills as Skill)
+}
+  
+
 export default function useSkill() {
-    return { getSkills, saveSkillsForCandidate, loadSkillsForCandidate };
+    return { getSkills, saveSkillsForCandidate, loadSkillsForCandidate, unpackSkills, getCandidateSkillIds };
 }
