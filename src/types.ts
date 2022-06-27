@@ -28,8 +28,4 @@ interface CandidateSkill {
     skills?: Skill;
 }
 
-// interface SkillItem {
-//     skill_id: number
-// }
-
 export type { Candidate, Skill, CandidateSkill }
