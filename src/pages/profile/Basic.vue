@@ -5,7 +5,7 @@
     </h1>
   </div>
   <form>
-    <div class="flex flex-col justify-center">
+    <div class="flex flex-col justify-center container mx-auto">
       <div class="form-control w-full">
         <label class="label">
           <span class="label-text">What is your name?</span>
