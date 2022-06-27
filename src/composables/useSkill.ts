@@ -1,17 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
 import { Candidate, Skill } from '../types';
-import useAuthUser from './useAuthUser';
+import useSupabase from './useSupabase'
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-
-
-supabase.auth.onAuthStateChange((event, session) => {
-  const { user } = useAuthUser();
-  user.value = session?.user || null;
-});
+const { supabase } = useSupabase()
 
 const getSkills = async (): Promise<Skill[]> => {
   let { data: skills, error } = await supabase
@@ -36,7 +26,22 @@ const deleteSkillsForCandidate = async (candidateId: number) => {
   return data;
 }
 
-const addSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {  
+const loadSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {  
+    let { data, error } = await supabase
+    .from("skills")
+    .select(`
+      *,
+      candidate_skills(skill_id)
+    `)
+    .eq('candidate_id', candidate.id)  
+    
+    if(error) throw error;
+  
+    return data;
+  
+  }
+
+const saveSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {  
   await deleteSkillsForCandidate(candidate.id!)
   let insertSkills = skills.map(skill => {
     return { candidate_id: candidate.id, skill_id: skill.id }
@@ -51,6 +56,6 @@ const addSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {
 
 }
 
-export default function useSupabase() {
-    return { supabase, getSkills, addSkillsForCandidate };
+export default function useSkill() {
+    return { getSkills, saveSkillsForCandidate, loadSkillsForCandidate };
 }

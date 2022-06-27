@@ -8,7 +8,8 @@ import Home from './components/Home.vue'
 import About from './components/About.vue'
 import Jobs from './components/Jobs.vue'
 import DevList from './components/DeveloperList.vue'
-import Profile from './components/Profile.vue'
+import Basic from './pages/profile/Basic.vue'
+import Tech from './pages/profile/Tech.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser();
@@ -18,7 +19,9 @@ const routes = [
   { path: '/about', component: About },
   { path: '/developers', component: DevList },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
-  { path: '/profile', component: Profile },
+  { path: '/profile/', redirect: { name: 'basic' } },
+  { path: '/profile/basic', component: Basic, name: 'basic' },
+  { path: '/profile/tech', component: Tech, name: 'tech' },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 

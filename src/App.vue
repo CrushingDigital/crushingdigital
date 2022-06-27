@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100">
+  <div class="navbar bg-base-100 container mx-auto">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost">
@@ -27,7 +27,13 @@
             <router-link to="/about"> About </router-link>
           </li>
           <li class="py-1" v-if="user">
-            <router-link to="/profile">My Profile</router-link>
+            <router-link to="/profile/basic">Personal Info</router-link>
+          </li>
+          <li class="py-1" v-if="user">
+            <router-link to="/profile/tech">Your Tech Stack</router-link>
+          </li>
+          <li class="py-1" v-if="user">
+            <router-link to="/developers">Developers</router-link>
           </li>
         </ul>
       </div>

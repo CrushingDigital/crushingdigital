@@ -95,7 +95,7 @@
   }
   h1 {
     font-family: "Indie Flower", cursive;
-    @apply text-3xl;
+    @apply text-4xl;
   }
   h2 {
     font-family: "Palette Mosaic", cursive;

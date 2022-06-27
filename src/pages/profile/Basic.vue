@@ -32,8 +32,8 @@
           placeholder="Front end developer specialising in React"
         />
       </div>
-      <div class="form-control w-full">
-        <label class="label">
+      <div class="form-control">
+        <label class="label w-min">
           <span class="label-text">Experience</span>
         </label>
         <label class="input-group">
@@ -50,11 +50,11 @@
           />
         </label>
       </div>
-      <div class="form-control w-full">
-        <label class="label">
+      <div class="form-control">
+        <label class="label w-1/3">
           <span class="label-text">Monthly rate</span>
         </label>
-        <label class="input-group">
+        <label class="input-group w-min">
           <span>USD</span>
           <input
             v-model="candidate.rate"
@@ -68,7 +68,7 @@
           />
         </label>
       </div>
-      <div class="form-control w-full">
+      <div class="form-control">
         <label class="label">
           <span class="label-text">Timezone</span>
         </label>
@@ -155,62 +155,29 @@
       </div>
     </div>
   </form>
-  <div class="flex justify-evenly my-8">
-    <button
-      @click="toggleSkill(skill)"
-      v-for="skill in skills"
-      class="p-2 rounded-full text-xs border-2"
-      :class="
-        selectedSkills.findIndex((item) => item.id == skill.id) == -1
-          ? 'disabledSkill'
-          : skill.name
-      "
-    >
-      {{ skill.name }}
-    </button>
-  </div>
   <div class="flex justify-center mt-8">
     <button class="btn rounded-full" type="submit" @click.prevent="save">
-      Save
+      Save & continue
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import useSupabase from "../composables/useSupabase"
+import useAuthUser from "../../composables/useAuthUser"
+import useCandidate from "../../composables/useCandidate"
 import { onBeforeMount, ref } from "vue"
-import { Skill, Candidate } from "../types"
+import { Candidate } from "../../types"
+import { useRouter } from "vue-router"
 
+const router = useRouter()
+const { user } = useAuthUser()
 const candidate = ref<Candidate>({} as Candidate)
 
-const { addCandidate, getSkills, addSkillsForCandidate, loadProfile } =
-  useSupabase()
-const skills = ref<Array<Skill>>([])
-const selectedSkills = ref<Skill[]>([])
+const { saveCandidate, loadProfile } = useCandidate()
 
 onBeforeMount(async () => {
-  ;[candidate.value, skills.value] = await Promise.all([
-    loadProfile(),
-    getSkills(),
-  ])
-
-  unpackSkills()
+  candidate.value = await loadProfile(user.value!.id)
 })
-
-const unpackSkills = () => {
-  selectedSkills.value = candidate.value.candidate_skills!.map(
-    (cskills) => cskills.skills as Skill
-  )
-}
-
-const toggleSkill = (skill: Skill) => {
-  let pos = selectedSkills.value?.findIndex((item) => item.id == skill.id)
-  if (pos == -1) {
-    selectedSkills.value.push(skill)
-  } else {
-    selectedSkills.value.splice(pos, 1)
-  }
-}
 
 const save = async (e: Event) => {
   const target = e.target as HTMLButtonElement
@@ -220,16 +187,14 @@ const save = async (e: Event) => {
   target.classList.toggle("disabledButton")
   target.classList.toggle("button")
 
-  candidate.value = await addCandidate(candidate.value)
-
-  if (candidate) {
-    let tmp = await addSkillsForCandidate(candidate.value, selectedSkills.value)
-  }
+  candidate.value = await saveCandidate(candidate.value)
 
   target.innerText = "Save"
   target.classList.toggle("disabledButton")
   target.classList.toggle("button")
   target.disabled = false
+
+  router.push("/profile/tech")
 
   return candidate
 }
