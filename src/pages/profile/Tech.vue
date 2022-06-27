@@ -2,7 +2,7 @@
   <div class="flex justify-center mb-4">
     <h1>Define <span class="italic text-secondary">your</span> tech stack!</h1>
   </div>
-  <div class="flex flex-row justify-center my-8 flex-wrap max-w-md mx-auto">
+  <div class="flex flex-row justify-center my-8 flex-wrap mx-auto">
     <span
       @click="toggleSkill(skill)"
       v-for="skill in skills"

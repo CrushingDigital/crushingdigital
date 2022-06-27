@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 container mx-auto">
+  <div class="navbar bg-base-100 container mx-auto max-w-5xl">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost">
@@ -37,9 +37,9 @@
           </li>
         </ul>
       </div>
-      <a class="btn btn-ghost normal-case text-xl">
+      <a class="btn btn-ghost normal-case">
         <h2
-          class="text-2xl cursor-pointer"
+          class="text-base sm:text-2xl cursor-pointer"
           @click="$router.push({ name: 'Home' })"
         >
           Crushing<span class="text-primary">Digital</span>
@@ -47,20 +47,24 @@
       </a>
     </div>
     <div class="navbar-end">
-      <a v-if="user" @click.prevent="signout" class="btn rounded-full">
+      <a
+        v-if="user"
+        @click.prevent="signout"
+        class="btn md:btn-md btn-sm btn-secondary rounded-full no-underline normal-case font-normal"
+      >
         logout
       </a>
       <a
         v-else
         @click.prevent="signInWithGithub"
-        class="btn btn-primary rounded-full"
+        class="btn md:btn-md btn-sm btn-secondary rounded-full no-underline normal-case font-normal"
         >Sign In
       </a>
     </div>
   </div>
 
   <div
-    class="container mx-auto max-w-2xl border-0 flex flex-col justify-start mt-8"
+    class="container mx-auto max-w-5xl border-0 flex flex-col justify-start mt-8"
   >
     <router-view></router-view>
   </div>
