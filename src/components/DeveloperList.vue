@@ -3,7 +3,7 @@
     <ul class="mt-8">
       <li v-for="dev in candidates">
         <div class="grid grid-cols-12 mb-4">
-          <div class="flex flex-col justify-center invisible sm:visible">
+          <div class="flex flex-col justify-start invisible sm:visible">
             <span class="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
             </span>
@@ -24,17 +24,17 @@
           <div class="col-span-8 flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
-                <span class="text-sm sm:text-base mr-2">{{
+                <span class="text-sm sm:text-lg mr-2">{{
                   dev.display_name
                 }}</span>
                 <!-- ********* GIT **************** -->
                 <a
                   :href="dev.gitsource"
-                  class="no-underline text-xxs text-red-400 mr-2"
+                  class="no-underline text-xxs md:text-xs text-red-400 mr-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -54,7 +54,7 @@
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -71,7 +71,7 @@
                 <span v-if="dev.verified" class="text-green-500 text-sm mr-2"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -87,7 +87,7 @@
                 <span v-if="dev.approved" class="text-yellow-400 text-sm mr-2"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -103,7 +103,7 @@
                 <span class="text-slate-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -126,7 +126,7 @@
                 <span class="text-yellow-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -145,7 +145,7 @@
                 <span class="text-green-600 text-xxs">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-4 w-4 md:h-6 md:w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -161,7 +161,7 @@
               </div>
             </div>
             <!-- ********* BLURB **************** -->
-            <div class="text-sm">
+            <div class="text-xs md:text-sm">
               {{ dev.blurb }}
             </div>
             <!-- ********* SKILLS **************** -->
@@ -179,7 +179,7 @@
           <div
             class="col-span-3 border-0 flex flex-col justify-center align-middle"
           >
-            <div class="flex justify-center" v-if="dev.link_1">
+            <div class="flex justify-end" v-if="dev.link_1">
               <a :href="dev.link_1" class="text-red-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +195,7 @@
                 </svg>
               </a>
             </div>
-            <div class="flex justify-center" v-if="dev.link_2">
+            <div class="flex justify-end" v-if="dev.link_2">
               <a :href="dev.link_2" class="text-orange-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +211,7 @@
                 </svg>
               </a>
             </div>
-            <div class="flex justify-center" v-if="dev.link_3">
+            <div class="flex justify-end" v-if="dev.link_3">
               <a :href="dev.link_3" class="text-orange-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

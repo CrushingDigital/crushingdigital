@@ -12,7 +12,7 @@ module.exports = {
         'body': ['ui-sans-serif'],
       },
       fontSize: {
-        'xxs': '.5rem',
+        'xxs': '.3rem',
       }
     }
   },

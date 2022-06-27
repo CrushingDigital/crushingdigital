@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 container mx-auto">
+  <div class="navbar bg-base-100 container mx-auto max-w-5xl">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost">
@@ -60,7 +60,7 @@
   </div>
 
   <div
-    class="container mx-auto max-w-2xl border-0 flex flex-col justify-start mt-8"
+    class="container mx-auto max-w-5xl border-0 flex flex-col justify-start mt-8"
   >
     <router-view></router-view>
   </div>
