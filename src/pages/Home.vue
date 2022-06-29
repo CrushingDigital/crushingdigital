@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-center">Coming soon...</h1>
+  <h1 class="text-center mt-16">
+    Are you <span class="text-secondary">crushing</span> it?
+  </h1>
   <div class="main mt-12">
     <div>
       <p class="text-center my-5">

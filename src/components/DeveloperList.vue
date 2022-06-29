@@ -4,10 +4,7 @@
     <div class="collapse-title text-primary-content text-center">
       <h3>Looking for filters?</h3>
     </div>
-    <div
-      id="filters"
-      class="flex justify-center collapse-content text-primary-content"
-    >
+    <div id="filters" class="flex justify-center collapse-content text-primary-content">
       <form class="text-center">
         <label class="input-group input-group-xs">
           <span>UTC</span>
@@ -71,30 +68,18 @@
         <div class="form-control">
           <label class="cursor-pointer label">
             <span class="label-text">Verified?</span>
-            <input
-              v-model="verified"
-              type="checkbox"
-              class="checkbox checkbox-secondary"
-            />
+            <input v-model="verified" type="checkbox" class="checkbox checkbox-secondary" />
           </label>
           <label class="cursor-pointer label">
             <span class="label-text">Approved?</span>
-            <input
-              v-model="approved"
-              type="checkbox"
-              class="checkbox checkbox-secondary"
-            />
+            <input v-model="approved" type="checkbox" class="checkbox checkbox-secondary" />
           </label>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Choose your required stack</span>
           </label>
-          <select
-            multiple
-            class="select select-bordered select-sm w-full font-normal"
-            v-model="filterSkills"
-          >
+          <select multiple class="select select-bordered select-sm w-full font-normal" v-model="filterSkills">
             <option v-for="skill in skills" :value="skill.id">
               {{ skill.name }}
             </option>
@@ -109,9 +94,7 @@
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
                 <!-- ********* APPROVED **************** -->
-                <span
-                  v-if="!dev.approved && !dev.verified"
-                  class="text-slate-200 text-sm"
+                <span v-if="!dev.approved && !dev.verified" class="text-slate-200 text-sm"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -128,12 +111,7 @@
                 ></span>
                 <!-- ********* APPROVED **************** -->
                 <span v-if="dev.approved" class="text-yellow-400 text-sm"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
+                  ><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path
                       d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                     /></svg
@@ -155,9 +133,7 @@
                     /></svg
                 ></span>
 
-                <span class="text-sm sm:text-lg mr-2 leading-relaxed grow">{{
-                  dev.display_name
-                }}</span>
+                <span class="text-sm sm:text-lg mr-2 leading-relaxed grow">{{ dev.display_name }}</span>
                 <!-- ********* Experience **************** -->
                 <span class="text-slate-700 mt-1">
                   <svg
@@ -178,9 +154,7 @@
                       d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
                     />
                   </svg> </span
-                ><span class="mr-2 text-xs text-slate-700 mt-1"
-                  >{{ dev.yoe }}yrs</span
-                >
+                ><span class="mr-2 text-xs text-slate-700 mt-1">{{ dev.yoe }}yrs</span>
                 <!-- ********* RATE **************** -->
                 <span class="text-yellow-700 mt-1">
                   <svg
@@ -197,9 +171,7 @@
                       d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg> </span
-                ><span class="mr-2 text-xs text-yellow-700 mt-1"
-                  >{{ dev.rate / 1000 }}k</span
-                >
+                ><span class="mr-2 text-xs text-yellow-700 mt-1">{{ dev.rate / 1000 }}k</span>
                 <!-- ********* TIMEZONE **************** -->
                 <span class="text-green-600 text-xxs mt-1">
                   <svg
@@ -216,9 +188,7 @@
                       d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     /></svg
                 ></span>
-                <span class="text-xs text-green-600 mt-1">{{
-                  dev.timezone
-                }}</span>
+                <span class="text-xs text-green-600 mt-1">{{ dev.timezone }}</span>
               </div>
             </div>
             <!-- ********* BLURB **************** -->
@@ -299,51 +269,49 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from "vue"
-import useCandidate from "../composables/useCandidate"
-import useSkill from "../composables/useSkill"
-import { Candidate, Skill } from "../types"
+  import { computed, onBeforeMount, ref } from 'vue'
+  import useCandidate from '@/composables/useCandidate'
+  import useSkill from '@/composables/useSkill'
+  import { Candidate, Skill } from '../types'
 
-const { getCandidates } = useCandidate()
-const { getSkills, getCandidateSkillIds } = useSkill()
+  const { getCandidates } = useCandidate()
+  const { getSkills, getCandidateSkillIds } = useSkill()
 
-const startTz = ref<number>(-12)
-const endTz = ref<number>(12)
-const lowRate = ref<number>(1000)
-const highRate = ref<number>(25000)
-const reqExp = ref<number>(3)
-const approved = ref<boolean>(false)
-const verified = ref<boolean>(false)
+  const startTz = ref<number>(-12)
+  const endTz = ref<number>(12)
+  const lowRate = ref<number>(1000)
+  const highRate = ref<number>(25000)
+  const reqExp = ref<number>(3)
+  const approved = ref<boolean>(false)
+  const verified = ref<boolean>(false)
 
-const skills = ref<Array<Skill>>([])
-const filterSkills = ref([])
-const candidates = ref<Array<Candidate>>([])
+  const skills = ref<Array<Skill>>([])
+  const filterSkills = ref([])
+  const candidates = ref<Array<Candidate>>([])
 
-onBeforeMount(async () => {
-  candidates.value = await getCandidates()
-  skills.value = await getSkills()
-})
-
-const filteredCandidates = computed(() => {
-  return candidates.value.filter((dev) => {
-    if (dev.timezone < startTz.value) return false
-    else if (dev.timezone > endTz.value) return false
-    else if (dev.rate < lowRate.value) return false
-    else if (dev.rate > highRate.value) return false
-    else if (dev.yoe < reqExp.value) return false
-    else if (approved.value && !dev.approved) return false
-    else if (verified.value && !dev.verified) return false
-
-    const cskills = getCandidateSkillIds(dev)
-    const unmatched = filterSkills.value.filter(
-      (fskill) => !cskills.includes(fskill)
-    )
-
-    if (unmatched.length) return false
-
-    return true
+  onBeforeMount(async () => {
+    candidates.value = await getCandidates()
+    skills.value = await getSkills()
   })
-})
+
+  const filteredCandidates = computed(() => {
+    return candidates.value.filter((dev) => {
+      if (dev.timezone < startTz.value) return false
+      else if (dev.timezone > endTz.value) return false
+      else if (dev.rate < lowRate.value) return false
+      else if (dev.rate > highRate.value) return false
+      else if (dev.yoe < reqExp.value) return false
+      else if (approved.value && !dev.approved) return false
+      else if (verified.value && !dev.verified) return false
+
+      const cskills = getCandidateSkillIds(dev)
+      const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill))
+
+      if (unmatched.length) return false
+
+      return true
+    })
+  })
 </script>
 
 <style lang="css" scoped></style>
