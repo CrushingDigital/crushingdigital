@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center">Coming soon...</h1>
+  <h1 class="text-center mt-16">Are you <span class="text-secondary">crushing</span> it?</h1>
   <div class="main mt-12">
     <div>
       <p class="text-center my-5">
@@ -11,20 +11,14 @@
 
       <p class="text-center">
         Want to learn for <span class="italic">free</span>? Follow me on
-        <a href="https://www.linkedin.com/in/davidproberts/" target="_blank"
-          >LinkedIn</a
-        >
+        <a href="https://www.linkedin.com/in/davidproberts/" target="_blank">LinkedIn</a>
         or
-        <a href="https://www.tiktok.com/@crushingdigital" target="_blank"
-          >TikTok</a
-        >
+        <a href="https://www.tiktok.com/@crushingdigital" target="_blank">TikTok</a>
       </p>
 
       <p class="text-center">
         Are you a Junior Developer?
-        <a href="https://airtable.com/shrULAoNT7YD73RDu" target="_blank"
-          >Click here</a
-        >
+        <a href="https://airtable.com/shrULAoNT7YD73RDu" target="_blank">Click here</a>
         to change your career!
       </p>
     </div>

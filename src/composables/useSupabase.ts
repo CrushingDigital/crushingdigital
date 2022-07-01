@@ -1,17 +1,16 @@
 import { createClient } from '@supabase/supabase-js'
-import { Candidate, Skill } from '../types';
-import useAuthUser from './useAuthUser';
+import { Candidate, Skill } from '@/types'
+import useAuthUser from '@/composables/useAuthUser'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-
-supabase.auth.onAuthStateChange((event, session) => {
-  const { user } = useAuthUser();
-  user.value = session?.user || null;
-});
+supabase.auth.onAuthStateChange(async (event, session) => {
+  const { user, getUserMemberships, memberships } = useAuthUser()
+  user.value = session?.user || null
+})
 
 const getSkills = async (): Promise<Skill[]> => {
   let { data: skills, error } = await supabase
@@ -22,35 +21,29 @@ const getSkills = async (): Promise<Skill[]> => {
 
   if (error) throw error
 
-  return skills as Array<Skill>;
+  return skills as Array<Skill>
 }
 
 const deleteSkillsForCandidate = async (candidateId: number) => {
-  const { data, error } = await supabase
-  .from('candidate_skills')
-  .delete()
-  .eq('candidate_id', candidateId)
+  const { data, error } = await supabase.from('candidate_skills').delete().eq('candidate_id', candidateId)
 
-  if(error) throw error
+  if (error) throw error
 
-  return data;
+  return data
 }
 
-const addSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {  
+const addSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {
   await deleteSkillsForCandidate(candidate.id!)
-  let insertSkills = skills.map(skill => {
+  let insertSkills = skills.map((skill) => {
     return { candidate_id: candidate.id, skill_id: skill.id }
-  });
-  let { data, error } = await supabase
-  .from("candidate_skills")
-  .insert(insertSkills);
+  })
+  let { data, error } = await supabase.from('candidate_skills').insert(insertSkills)
 
-  if(error) throw error;
+  if (error) throw error
 
-  return data;
-
+  return data
 }
 
 export default function useSupabase() {
-    return { supabase, getSkills, addSkillsForCandidate };
+  return { supabase, getSkills, addSkillsForCandidate }
 }

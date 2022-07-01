@@ -1,41 +1,46 @@
-import { Provider } from "@supabase/supabase-js";
-import useSupabase from "./useSupabase";
-import { ref } from "vue";
-import { User } from "@supabase/supabase-js";
-import { exit } from "process";
-
-const user = ref<User|null>(null)
+import { Provider } from '@supabase/supabase-js'
+import useSupabase from '@/composables/useSupabase'
+import { ref } from 'vue'
+import { User } from '@supabase/supabase-js'
+const user = ref<User | null>(null)
+const memberships = ref<string[]>([])
 
 export default function useAuthUser() {
+  const { supabase } = useSupabase()
 
-    const { supabase } = useSupabase();
+  const login = async (provider: Provider) => {
+    const redirectUrl = import.meta.env.VITE_AUTH_REDIRECT_URL
+    const { error } = await supabase.auth.signIn({ provider }, redirectUrl ? { redirectTo: redirectUrl } : undefined)
+    if (error) throw error
+  }
 
-    /**
-     * Login with google, github, etc
-     */
-    const login = async (provider: Provider) => {
-        const redirectUrl = import.meta.env.VITE_AUTH_REDIRECT_URL
-        console.log(redirectUrl)
-        const { user, error } = await supabase.auth.signIn({ provider }, redirectUrl ? { redirectTo: redirectUrl } : undefined);
-        if (error) throw error;
-    };
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
+  }
 
-    /**
-     * Logout
-     */
-    const logout = async () => {    
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
-    };
+  const isLoggedIn = async () => {
+    return !!user.value
+  }
 
-    const isLoggedIn = async () => {
-        return !!user.value;
-    }
+  const getUserMemberships = async () => {
+    if (!user.value) return []
+    const { data, error } = await supabase
+      .from('memberships')
+      .select('*, roles(name)')
+      .match({ user_id: user.value!.id })
+    if (error) throw error
 
-    return {
-        user,
-        login,
-        logout,
-        isLoggedIn
-    };
+    memberships.value = data.map((mship) => mship.roles.name)
+    return memberships.value.length
+  }
+
+  return {
+    user,
+    memberships,
+    login,
+    logout,
+    isLoggedIn,
+    getUserMemberships,
+  }
 }
