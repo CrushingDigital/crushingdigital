@@ -15,6 +15,7 @@ interface Candidate {
     link_1: string;
     link_2: string;
     link_3: string;
+    verify_req: number;
 }
 
 interface Skill {

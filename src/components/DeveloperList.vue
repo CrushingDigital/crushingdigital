@@ -102,12 +102,12 @@
     </div>
     <ul class="mt-2">
       <li v-for="dev in filteredCandidates">
-        <div class="mb-4 px-4 py-2 hover:bg-slate-50">
+        <div class="mb-0 p-4 hover:bg-slate-50 rounded-2xl">
           <div class="flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
-                <!-- ********* APPROVED **************** -->
-                <span v-if="!dev.approved && !dev.verified" class="text-slate-200 text-sm"
+                <!-- ********* NOT APPROVED OR VERIFIED **************** -->
+                <span v-if="!dev.approved && !dev.verified" class="text-slate-400 text-sm"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -277,16 +277,18 @@
     </ul>
   </div>
   <div class="text-center" v-else>
-    <h3>Fetching the talent...</h3>
+    <h3>Nothing to see here!</h3>
   </div>
 </template>
 
 <script setup lang="ts">
   import { computed, onBeforeMount, ref } from 'vue'
-  import useCandidate from '../composables/useCandidate'
-  import useSkill from '../composables/useSkill'
+  import useCandidate from '@/composables/useCandidate'
+  import useSkill from '@/composables/useSkill'
   import { Candidate, Skill } from '../types'
+  import useAuthUser from '@/composables/useAuthUser'
 
+  const { user, memberships, getUserMemberships } = useAuthUser()
   const { getCandidates } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
@@ -303,6 +305,11 @@
   const candidates = ref<Array<Candidate>>([])
 
   onBeforeMount(async () => {
+    if (user.value && !memberships.value.length) {
+      let membershipCount = await getUserMemberships()
+      if (!membershipCount) throw new Error('Invalid membership credentials')
+    }
+
     candidates.value = await getCandidates()
     skills.value = await getSkills()
   })
