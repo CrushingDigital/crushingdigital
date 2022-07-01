@@ -7,10 +7,8 @@ const { user, memberships } = useAuthUser()
 
 const getCandidates = async (): Promise<Candidate[]> => {
   let from = 'candidates_limited'
-  console.log(memberships.value)
   if (memberships.value.includes('recruiter_pro') || memberships.value.includes('admin')) from = 'candidates'
 
-  console.log(from)
   let { data: candidates, error } = await supabase
     .from(from)
     .select(
