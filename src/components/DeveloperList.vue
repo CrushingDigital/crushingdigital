@@ -2,7 +2,20 @@
   <div class="collapse" v-if="candidates.length">
     <input type="checkbox" class="peer" />
     <div class="collapse-title text-primary-content text-center">
-      <h3>Looking for filters?</h3>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+        />
+      </svg>
     </div>
     <div id="filters" class="flex justify-center collapse-content text-primary-content">
       <form class="text-center">
@@ -89,12 +102,12 @@
     </div>
     <ul class="mt-2">
       <li v-for="dev in filteredCandidates">
-        <div class="mb-4 px-4 py-2 hover:bg-slate-50">
+        <div class="mb-0 p-4 hover:bg-slate-50 rounded-2xl">
           <div class="flex flex-col justify-evenly">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-row align-start">
-                <!-- ********* APPROVED **************** -->
-                <span v-if="!dev.approved && !dev.verified" class="text-slate-200 text-sm"
+                <!-- ********* NOT APPROVED OR VERIFIED **************** -->
+                <span v-if="!dev.approved && !dev.verified" class="text-slate-400 text-sm"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -264,7 +277,7 @@
     </ul>
   </div>
   <div class="text-center" v-else>
-    <h3>Fetching the talent...</h3>
+    <h3>Nothing to see here!</h3>
   </div>
 </template>
 
@@ -273,7 +286,9 @@
   import useCandidate from '@/composables/useCandidate'
   import useSkill from '@/composables/useSkill'
   import { Candidate, Skill } from '../types'
+  import useAuthUser from '@/composables/useAuthUser'
 
+  const { user, memberships, getUserMemberships } = useAuthUser()
   const { getCandidates } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
@@ -290,6 +305,11 @@
   const candidates = ref<Array<Candidate>>([])
 
   onBeforeMount(async () => {
+    if (user.value && !memberships.value.length) {
+      let membershipCount = await getUserMemberships()
+      if (!membershipCount) throw new Error('Invalid membership credentials')
+    }
+
     candidates.value = await getCandidates()
     skills.value = await getSkills()
   })

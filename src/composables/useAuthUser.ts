@@ -3,6 +3,7 @@ import useSupabase from '@/composables/useSupabase'
 import { ref } from 'vue'
 import { User } from '@supabase/supabase-js'
 const user = ref<User | null>(null)
+const memberships = ref<string[]>([])
 
 export default function useAuthUser() {
   const { supabase } = useSupabase()
@@ -22,10 +23,24 @@ export default function useAuthUser() {
     return !!user.value
   }
 
+  const getUserMemberships = async () => {
+    if (!user.value) return []
+    const { data, error } = await supabase
+      .from('memberships')
+      .select('*, roles(name)')
+      .match({ user_id: user.value!.id })
+    if (error) throw error
+
+    memberships.value = data.map((mship) => mship.roles.name)
+    return memberships.value.length
+  }
+
   return {
     user,
+    memberships,
     login,
     logout,
     isLoggedIn,
+    getUserMemberships,
   }
 }

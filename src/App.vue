@@ -56,7 +56,7 @@
 
   const router = useRouter()
 
-  const { user, login, logout, isLoggedIn } = useAuthUser()
+  const { user, login, logout } = useAuthUser()
 
   async function signInWithGithub() {
     await login('github')

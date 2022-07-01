@@ -1,14 +1,20 @@
 import { Candidate } from '@/types'
 import useSupabase from '@/composables/useSupabase'
+import useAuthUser from './useAuthUser'
 
 const { supabase } = useSupabase()
+const { user, memberships } = useAuthUser()
 
 const getCandidates = async (): Promise<Candidate[]> => {
+  let from = 'candidates_limited'
+  console.log(memberships.value)
+  if (memberships.value.includes('recruiter_pro') || memberships.value.includes('admin')) from = 'candidates'
+
+  console.log(from)
   let { data: candidates, error } = await supabase
-    .from('candidates')
+    .from(from)
     .select(
-      `
-      *,
+      `*,
       candidate_skills(
         skills(*)
       )
