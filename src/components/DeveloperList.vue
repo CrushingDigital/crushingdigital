@@ -100,7 +100,7 @@
         </div>
       </form>
     </div>
-    <ul class="mt-2">
+    <ul>
       <li v-for="dev in filteredCandidates">
         <div class="mb-0 p-4 hover:bg-slate-50 rounded-2xl">
           <div class="flex flex-col justify-evenly">
