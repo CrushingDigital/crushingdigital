@@ -7,7 +7,7 @@ import './index.css'
 import Home from '@/pages/Home.vue'
 import About from '@/components/About.vue'
 import Jobs from '@/components/Jobs.vue'
-import DevList from '@/components/DeveloperList.vue'
+import DevList from '@/pages/Developers.vue'
 import Basic from '@/pages/profile/Basic.vue'
 import Tech from '@/pages/profile/Tech.vue'
 
