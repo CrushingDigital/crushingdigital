@@ -10,6 +10,7 @@ import Jobs from '@/components/Jobs.vue'
 import DevList from '@/pages/Developers.vue'
 import Basic from '@/pages/profile/Basic.vue'
 import Tech from '@/pages/profile/Tech.vue'
+import Review from '@/pages/Review.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
@@ -23,6 +24,7 @@ const routes = [
   { path: '/profile/basic', component: Basic, name: 'basic' },
   { path: '/profile/tech', component: Tech, name: 'tech' },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  { path: '/review/:id', component: Review, name: 'review' },
 ]
 
 const router = createRouter({

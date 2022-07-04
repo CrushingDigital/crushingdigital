@@ -25,8 +25,8 @@ const getCandidates = async (): Promise<Candidate[]> => {
   return candidates as Array<Candidate>
 }
 
-const saveCandidate = async (candidate: Candidate) => {
-  const verify_req = new Date().toISOString().toLocaleString()
+const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true) => {
+  const verify_req = requestVerify ? new Date().toISOString().toLocaleString() : null
   const {
     display_name,
     gitsource,
@@ -88,6 +88,24 @@ const loadProfile = async (user_id: string) => {
   return data?.pop()
 }
 
+const loadCandidateProfile = async (id: number) => {
+  let { data, error } = await supabase
+    .from('candidates')
+    .select(
+      `
+        *,
+        candidate_skills(
+          skills(*)
+        )
+      `
+    )
+    .eq('id', id)
+
+  if (error) throw error
+
+  return data?.pop()
+}
+
 export default function useCandidate() {
-  return { getCandidates, saveCandidate, loadProfile }
+  return { getCandidates, saveCandidate, loadProfile, loadCandidateProfile }
 }
