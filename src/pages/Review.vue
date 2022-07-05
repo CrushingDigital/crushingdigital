@@ -18,7 +18,9 @@
   import { useRoute } from 'vue-router'
   import { Candidate } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
+  import { useToast } from 'vue-toastification'
 
+  const toast = useToast()
   const route = useRoute()
   const { memberships } = useAuthUser()
   const { loadCandidateProfile, saveCandidate } = useCandidate()
@@ -29,13 +31,27 @@
   })
 
   const verifyCandidate = async (verify = true) => {
-    developer.value!.verified = verify
-    await saveCandidate(developer.value!, verify)
+    const initVal = developer.value!.verified
+    try {
+      developer.value!.verified = verify
+      await saveCandidate(developer.value!, false)
+      toast.success('Verified flag updated')
+    } catch (err) {
+      developer.value!.verified = initVal
+      toast.error('Permission denied')
+    }
   }
 
   const approveCandidate = async (approve = true) => {
-    developer.value!.approved = approve
-    await saveCandidate(developer.value!, approve)
+    const initVal = developer.value!.approved
+    try {
+      developer.value!.approved = approve
+      await saveCandidate(developer.value!, false)
+      toast.success('Approved flag updated')
+    } catch (err) {
+      developer.value!.approved = initVal
+      toast.error('Permission denied')
+    }
   }
 
   const completeReview = async () => {

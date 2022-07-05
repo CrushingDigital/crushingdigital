@@ -4,6 +4,10 @@ import App from './App.vue'
 import useAuthUser from './composables/useAuthUser'
 import './index.css'
 
+import Toast, { PluginOptions } from 'vue-toastification'
+// Import the CSS or use your own!
+import 'vue-toastification/dist/index.css'
+
 import Home from '@/pages/Home.vue'
 import About from '@/components/About.vue'
 import Jobs from '@/components/Jobs.vue'
@@ -41,4 +45,20 @@ router.beforeEach((to) => {
 
 const app = createApp(App)
 app.use(router)
+
+const options: PluginOptions = {
+  timeout: 5000,
+  closeOnClick: true,
+  pauseOnFocusLoss: true,
+  pauseOnHover: true,
+  draggable: true,
+  draggablePercent: 0.6,
+  showCloseButtonOnHover: false,
+  hideProgressBar: true,
+  closeButton: 'button',
+  icon: true,
+  rtl: false,
+}
+app.use(Toast, options)
+
 app.mount('#app')
