@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&family=Indie+Flower&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Lato&family=Palette+Mosaic&family=Raleway:wght@100&family=Rock+3D&family=Rubik+Glitch&family=Indie+Flower&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -94,16 +94,20 @@
     @apply font-sans;
   }
   h1 {
-    font-family: "Indie Flower", cursive;
+    font-family: 'Indie Flower', cursive;
     @apply text-4xl;
   }
   h2 {
-    font-family: "Palette Mosaic", cursive;
+    font-family: 'Palette Mosaic', cursive;
     @apply text-5xl;
   }
   h3 {
-    font-family: "Indie Flower", cursive;
+    font-family: 'Indie Flower', cursive;
     @apply text-2xl;
+  }
+  .threeLink {
+    font-family: 'Cabin Sketch', cursive;
+    @apply text-2xl sm:text-4xl no-underline text-primary ml-4;
   }
   a {
     @apply text-secondary underline cursor-pointer;
