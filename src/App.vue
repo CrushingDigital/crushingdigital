@@ -9,15 +9,15 @@
         </label>
         <ul id="menu" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 w-52">
           <li class="py-1">
-            <router-link to="/about"> About </router-link>
+            <router-link to="/about" @click="closeMenu">About</router-link>
           </li>
-          <li class="py-1" v-if="user">
+          <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/profile/basic">Personal Info</router-link>
           </li>
-          <li class="py-1" v-if="user">
+          <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/profile/tech">Your Tech Stack</router-link>
           </li>
-          <li class="py-1" v-if="user">
+          <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/developers">Developers</router-link>
           </li>
         </ul>
@@ -67,6 +67,10 @@
   async function signout() {
     await logout()
     router.push({ name: 'Home' })
+  }
+
+  const closeMenu = () => {
+    ;(document.activeElement as HTMLElement).blur()
   }
 </script>
 
