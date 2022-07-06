@@ -19,7 +19,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">About you</span>
+          <span class="label-text">About you</span><span class="text-gray-400 text-xs">(limit: 100 chars)</span>
         </label>
         <input
           type="text"
@@ -27,6 +27,7 @@
           v-model="candidate.blurb"
           name="blurb"
           id="blurb"
+          maxlength="100"
           placeholder="Front end developer specialising in React"
         />
       </div>
@@ -50,7 +51,7 @@
       </div>
       <div class="form-control">
         <label class="label w-1/3">
-          <span class="label-text">Monthly rate</span>
+          <span class="label-text">Monthly rate</span><span class="text-gray-400 text-xs">(minimum accepted)</span>
         </label>
         <label class="input-group w-min">
           <span>USD</span>
@@ -85,7 +86,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Code samples</span>
+          <span class="label-text">Code samples</span><span class="text-gray-400 text-xs">(GitHub or similar)</span>
         </label>
         <input
           type="text"
@@ -111,7 +112,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #1</span>
+          <span class="label-text">Link #1</span><span class="text-gray-400 text-xs">(e.g. portfolio)</span>
         </label>
         <input
           type="text"
@@ -125,7 +126,8 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #2</span>
+          <span class="label-text">Link #2</span
+          ><span class="text-gray-400 text-xs">(e.g. a short video about you?)</span>
         </label>
         <input
           type="text"
@@ -139,7 +141,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #3</span>
+          <span class="label-text">Link #3</span><span class="text-gray-400 text-xs">(e.g. blog?)</span>
         </label>
         <input
           type="text"

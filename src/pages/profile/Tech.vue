@@ -1,8 +1,11 @@
 <template>
-  <div class="flex justify-center mb-4">
+  <div class="text-center my-4">
     <h1>Define <span class="italic text-secondary">your</span> tech stack!</h1>
   </div>
-  <div class="flex flex-row justify-center my-8 flex-wrap mx-auto">
+  <div class="text-center mb-4">
+    <span class="text-sm text-gray-400">Remember: Less is more! Define yourself.</span>
+  </div>
+  <div class="flex flex-row justify-center my-4 flex-wrap mx-auto">
     <span
       @click="toggleSkill(skill)"
       v-for="skill in skills"

@@ -2,8 +2,8 @@
   <div v-if="!dev"><h3>Loading...</h3></div>
   <div v-else class="flex justify-between p-4 bg-primary/5 rounded-2xl mb-1">
     <div class="flex flex-col justify-evenly">
-      <div class="flex flex-col sm:flex-row justify-between">
-        <div class="flex flex-row align-start">
+      <div class="flex flex-row">
+        <div class="flex flex-row align-middle">
           <!-- ********* APPROVED **************** -->
           <span :class="dev.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm">
             <svg
@@ -62,7 +62,7 @@
               /></svg
           ></span>
 
-          <span class="text-xs sm:text-lg mr-2 leading-normal">{{ dev.display_name }}</span>
+          <span class="text-sm sm:text-lg mx-2">{{ dev.display_name }}</span>
           <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block">
             <span v-if="memberships.includes('admin')" class="text-blue-200 text-xxs cursor-pointer mt-2"
               ><svg
@@ -81,33 +81,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg
             ></span>
           </router-link>
-
-          <!-- ********* Experience **************** -->
-          <span class="text-slate-700 sm:mt-1">
-            <svg
+          <a v-if="dev.link_1" :href="dev.link_1" class="threeLink"
+            ><svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path
-                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg> </span
-          ><span class="mr-2 text-xs text-slate-700 sm:mt-1">{{ dev.yoe }}yrs</span>
-          <!-- ********* RATE **************** -->
-          <span class="text-slate-700 sm:mt-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
+              class="h-4 w-4 sm:h-6 sm:w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -116,91 +93,140 @@
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg> </span
-          ><span class="mr-2 text-xs text-slate-700 sm:mt-1">{{ dev.rate / 1000 }}k</span>
-          <!-- ********* TIMEZONE **************** -->
-          <span class="text-slate-700 text-xxs sm:mt-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
               /></svg
-          ></span>
-          <span class="text-xs text-slate-700 sm:mt-1">{{ dev.timezone }}</span>
+          ></a>
+          <a v-if="dev.link_2" :href="dev.link_2" class="threeLink"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 sm:h-6 sm:w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+              /></svg
+          ></a>
+          <a v-if="dev.link_3" :href="dev.link_3" class="threeLink"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 sm:h-6 sm:w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+              /></svg
+          ></a>
         </div>
       </div>
-      <!-- ********* BLURB **************** -->
-      <div class="text-xs md:text-sm px-1 py-2">
-        {{ dev.blurb }}
+      <div class="flex flex-row justify-start text-xs md:text-sm px-1 py-2">
+        <!-- ********* Experience **************** -->
+        <span class="text-slate-700 sm:mt-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+            <path
+              d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+            />
+          </svg> </span
+        ><span class="mr-2 text-xs text-slate-700 sm:mt-1">{{ dev.yoe }}yrs</span>
+        <!-- ********* RATE **************** -->
+        <span class="text-slate-700 sm:mt-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg> </span
+        ><span class="mr-2 text-xs text-slate-700 sm:mt-1">{{ dev.rate / 1000 }}k</span>
+        <!-- ********* TIMEZONE **************** -->
+        <span class="text-slate-700 text-xxs sm:mt-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            /></svg
+        ></span>
+        <span class="text-xs text-slate-700 sm:mt-1 mr-2">{{ dev.timezone }}</span>
+        <!-- ********* CODE **************** -->
+        <span class="text-slate-700 text-xxs sm:mt-1 mr-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg
+        ></span>
+        <!-- ********* LINKEDIN **************** -->
+        <span class="text-slate-700 text-xxs sm:mt-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            /></svg
+        ></span>
       </div>
       <!-- ********* SKILLS **************** -->
-      <div class="col-start-2 pt-1">
+      <div class="pt-1 flex flex-wrap">
         <span
           v-for="cskill in dev.candidate_skills"
-          class="px-2 py-1 text-xs rounded-full mr-1"
+          class="px-2 py-1 text-xs rounded-full mx-1 my-1"
           :class="cskill.skills?.name"
         >
           {{ cskill.skills?.name }}
         </span>
       </div>
-    </div>
-    <!-- ********* 3 LINKS **************** -->
-    <div class="flex flex-col justify-start align-bottom text-center">
-      <a v-if="dev.link_1" :href="dev.link_1" class="threeLink"
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 sm:h-6 sm:w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-          /></svg
-      ></a>
-      <a v-if="dev.link_2" :href="dev.link_2" class="threeLink"
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 sm:h-6 sm:w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-          /></svg
-      ></a>
-      <a v-if="dev.link_3" :href="dev.link_3" class="threeLink"
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 sm:h-6 sm:w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-          /></svg
-      ></a>
+      <!-- ********* BLURB **************** -->
+      <div class="flex flex-row justify-start text-xs md:text-sm px-1 mt-4">
+        {{ dev.blurb }}
+      </div>
     </div>
   </div>
 </template>
