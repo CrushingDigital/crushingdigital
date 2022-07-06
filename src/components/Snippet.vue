@@ -1,12 +1,23 @@
 <template>
   <div v-if="!dev"><h3>Loading...</h3></div>
-  <div v-else class="flex justify-between p-4 bg-slate-100 rounded-2xl mb-1">
+  <div v-else class="flex justify-between p-4 bg-primary/5 rounded-2xl mb-1">
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-col sm:flex-row justify-between">
         <div class="flex flex-row align-start">
           <!-- ********* APPROVED **************** -->
-          <span :class="dev.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm"
+          <span :class="dev.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm">
+            <svg
+              v-if="dev.approved"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h4 w-4 sm:h-6 sm:w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              /></svg
             ><svg
+              v-else
               xmlns="http://www.w3.org/2000/svg"
               class="h4 w-4 sm:h-6 sm:w-6"
               fill="none"
@@ -23,6 +34,20 @@
           <!-- ********* VERIFIED **************** -->
           <span :class="dev.verified ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
             ><svg
+              v-if="dev.verified"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h4 w-4 sm:h-6 sm:w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path
+                fill-rule="evenodd"
+                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              /></svg
+            ><svg
+              v-else
               xmlns="http://www.w3.org/2000/svg"
               class="h4 w-4 sm:h-6 sm:w-6"
               fill="none"
@@ -37,7 +62,7 @@
               /></svg
           ></span>
 
-          <span class="text-xs sm:text-lg mr-2 leading-relaxed">{{ dev.display_name }}</span>
+          <span class="text-xs sm:text-lg mr-2 leading-normal">{{ dev.display_name }}</span>
           <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block">
             <span v-if="memberships.includes('admin')" class="text-blue-200 text-xxs cursor-pointer mt-2"
               ><svg
