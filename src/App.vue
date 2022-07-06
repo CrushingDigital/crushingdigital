@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div class="container mx-auto max-w-5xl border-0 flex flex-col justify-start mt-2">
+  <div class="container mx-auto max-w-3xl border-0 flex flex-col justify-start mt-2">
     <router-view></router-view>
   </div>
 </template>

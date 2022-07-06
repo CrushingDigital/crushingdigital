@@ -107,7 +107,7 @@
   }
   .threeLink {
     font-family: 'Cabin Sketch', cursive;
-    @apply text-2xl sm:text-4xl no-underline text-primary ml-4;
+    @apply text-2xl sm:text-4xl no-underline text-primary ml-1;
   }
   a {
     @apply text-secondary underline cursor-pointer;
