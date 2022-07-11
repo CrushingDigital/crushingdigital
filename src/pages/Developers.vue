@@ -115,7 +115,7 @@
   import { computed, onBeforeMount, ref } from 'vue'
   import useCandidate from '@/composables/useCandidate'
   import useSkill from '@/composables/useSkill'
-  import { Candidate, Skill } from '../types'
+  import { Candidate, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import Snippet from '@/components/Snippet.vue'
 

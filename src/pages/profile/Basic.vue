@@ -166,7 +166,9 @@
   import { onBeforeMount, ref } from 'vue'
   import { Candidate } from '@/types'
   import { useRouter } from 'vue-router'
+  import useEvents from '@/composables/useEvent'
 
+  const { events, getEvents } = useEvents()
   const router = useRouter()
   const { user } = useAuthUser()
   const candidate = ref<Candidate>({} as Candidate)
@@ -174,6 +176,7 @@
   const { saveCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
+    console.log(await getEvents())
     candidate.value = await loadProfile(user.value!.id)
   })
 

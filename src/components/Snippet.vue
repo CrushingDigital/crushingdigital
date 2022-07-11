@@ -217,7 +217,7 @@
       <div class="pt-1 flex flex-wrap">
         <span
           v-for="cskill in dev.candidate_skills"
-          class="px-2 py-1 text-xs rounded-full mx-1 my-1"
+          class="px-2 py-1 text-xs rounded-full mr-1 my-1"
           :class="cskill.skills?.name"
         >
           {{ cskill.skills?.name }}

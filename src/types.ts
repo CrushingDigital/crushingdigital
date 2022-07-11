@@ -11,7 +11,7 @@ interface Candidate {
   yoe: number
   verified?: boolean
   approved?: boolean
-  user_id: string | undefined
+  user_id: string
   link_1: string
   link_2: string
   link_3: string
@@ -29,4 +29,14 @@ interface CandidateSkill {
   skills?: Skill
 }
 
-export type { Candidate, Skill, CandidateSkill }
+interface CDEvent {
+  id: number
+  created_at?: string
+  type: string
+  descr: string
+  author_id: string
+  candidate_id: number
+  note: string
+}
+
+export type { Candidate, Skill, CandidateSkill, CDEvent }

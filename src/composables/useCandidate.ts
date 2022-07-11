@@ -1,9 +1,11 @@
 import { Candidate } from '@/types'
 import useSupabase from '@/composables/useSupabase'
-import useAuthUser from './useAuthUser'
+import useAuthUser from '@/composables/useAuthUser'
+import useEvents from '@/composables/useEvent'
 
 const { supabase } = useSupabase()
 const { user, memberships } = useAuthUser()
+const { addEvent } = useEvents()
 
 const getCandidates = async (): Promise<Candidate[]> => {
   let from = 'candidates_limited'
