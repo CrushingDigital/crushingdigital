@@ -1,10 +1,9 @@
 <template>
   <div class="collapse" v-if="candidates.length">
-    <input type="checkbox" class="peer" />
-    <div class="collapse-title text-primary-content text-center">
+    <label for="my-modal-4" class="btn modal-button btn-circle btn-secondary btn-xs sm:btn-sm mb-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
+        class="h-4 w-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -16,8 +15,22 @@
           d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
         />
       </svg>
-    </div>
-    <div id="filters" class="flex justify-center collapse-content text-primary-content">
+    </label>
+    <ul>
+      <li v-for="dev in filteredCandidates">
+        <Snippet :dev="dev" />
+      </li>
+    </ul>
+  </div>
+  <div class="text-center" v-else>
+    <h3>Nothing to see here!</h3>
+  </div>
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+  <label for="my-modal-4" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+      <h3 class="mb-4">Apply filters</h3>
       <form class="text-center">
         <label class="input-group input-group-xs">
           <span>UTC</span>
@@ -29,7 +42,7 @@
             name="timezone-start"
             id="timezone-start"
             placeholder="Starting timezone"
-            class="input input-bordered input-xs"
+            class="input input-bordered input-xs w-14"
           />
           <input
             v-model="endTz"
@@ -39,7 +52,7 @@
             name="timezone-end"
             id="timezone-end"
             placeholder="Ending timezone"
-            class="input input-bordered input-xs"
+            class="input input-bordered input-xs w-14"
           />
         </label>
         <label class="input-group input-group-xs mt-2">
@@ -52,7 +65,7 @@
             name="high-rate"
             id="high-rate"
             placeholder="Upper boundary"
-            class="input input-bordered input-xs"
+            class="input input-bordered input-xs w-14"
           />
           <input
             v-model="highRate"
@@ -62,7 +75,7 @@
             name="low-rate"
             id="low-rate"
             placeholder="Lower boundary"
-            class="input input-bordered input-xs"
+            class="input input-bordered input-xs w-14"
           />
         </label>
         <label class="input-group input-group-xs mt-2">
@@ -75,7 +88,7 @@
             name="req-experience"
             id="req-experience"
             placeholder="Required experience"
-            class="input input-bordered input-xs"
+            class="input input-bordered input-xs w-14"
           />
         </label>
         <div class="form-control">
@@ -99,16 +112,8 @@
           </select>
         </div>
       </form>
-    </div>
-    <ul>
-      <li v-for="dev in filteredCandidates">
-        <Snippet :dev="dev" />
-      </li>
-    </ul>
-  </div>
-  <div class="text-center" v-else>
-    <h3>Nothing to see here!</h3>
-  </div>
+    </label>
+  </label>
 </template>
 
 <script setup lang="ts">
