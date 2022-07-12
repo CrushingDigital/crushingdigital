@@ -169,6 +169,7 @@
       else if (verified.value && !dev.verified) return false
       else if (searchVal.value && searchVal.value.length >= 3 && !dev.display_name.includes(searchVal.value))
         return false
+      else if (!dev.active) return false
 
       const cskills = getCandidateSkillIds(dev)
       const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill))

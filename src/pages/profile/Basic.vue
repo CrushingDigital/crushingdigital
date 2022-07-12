@@ -153,6 +153,12 @@
           @blur="checkLinkUrl"
         />
       </div>
+      <div class="form-control">
+        <label class="cursor-pointer label">
+          <span class="label-text">Active?</span><span class="text-xxs">(Do you want to appear on the site?)</span>
+          <input v-model="candidate.active" type="checkbox" class="checkbox checkbox-secondary" />
+        </label>
+      </div>
     </div>
   </form>
   <div class="flex justify-center mt-8">
@@ -176,7 +182,6 @@
   const { saveCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
-    console.log(await getEvents())
     candidate.value = await loadProfile(user.value!.id)
   })
 
