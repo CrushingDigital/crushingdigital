@@ -185,7 +185,7 @@
         ></span>
         <span class="text-xs text-slate-700 sm:mt-1 mr-2">{{ dev.timezone }}</span>
         <!-- ********* CODE **************** -->
-        <a :href="dev.gitsource" class="mr-2"
+        <a :href="dev.gitsource" class="mr-2 sm:mt-1"
           ><span class="text-primary text-xxs sm:mt-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@
               /></svg></span
         ></a>
         <!-- ********* LINKEDIN **************** -->
-        <a :href="dev.linkedin"
+        <a :href="dev.linkedin" class="sm:mt-1"
           ><span class="text-primary text-xxs sm:mt-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
