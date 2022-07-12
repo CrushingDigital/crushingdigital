@@ -45,7 +45,6 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     verified,
     active,
   } = candidate
-  console.log(active)
   let { data, error } = await supabase.from('candidates').upsert([
     {
       display_name,
