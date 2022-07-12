@@ -12,6 +12,9 @@ module.exports = {
       fontSize: {
         xxs: '.5rem',
       },
+      colors: {
+        linkedin: '#0A66C2',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
