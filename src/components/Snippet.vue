@@ -185,33 +185,39 @@
         ></span>
         <span class="text-xs text-slate-700 sm:mt-1 mr-2">{{ dev.timezone }}</span>
         <!-- ********* CODE **************** -->
-        <span class="text-slate-700 text-xxs sm:mt-1 mr-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg
-        ></span>
+        <a :href="dev.gitsource" class="mr-2"
+          ><span class="text-primary text-xxs sm:mt-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              /></svg></span
+        ></a>
         <!-- ********* LINKEDIN **************** -->
-        <span class="text-slate-700 text-xxs sm:mt-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            /></svg
-        ></span>
+        <a :href="dev.linkedin"
+          ><span class="text-primary text-xxs sm:mt-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              /></svg></span
+        ></a>
       </div>
       <!-- ********* SKILLS **************** -->
       <div class="pt-1 flex flex-wrap">
