@@ -1,11 +1,9 @@
 import { Candidate } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
-import useEvents from '@/composables/useEvent'
 
 const { supabase } = useSupabase()
 const { user, memberships } = useAuthUser()
-const { addEvent } = useEvents()
 
 const getCandidates = async (): Promise<Candidate[]> => {
   let from = 'candidates_limited'
@@ -45,7 +43,9 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     link_2,
     link_3,
     verified,
+    active,
   } = candidate
+  console.log(active)
   let { data, error } = await supabase.from('candidates').upsert([
     {
       display_name,
@@ -64,6 +64,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
       link_3,
       verified,
       verify_req,
+      active,
     },
   ])
 
