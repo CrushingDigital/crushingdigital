@@ -41,7 +41,11 @@
   const selectedSkills = ref<Skill[]>([])
 
   onBeforeMount(async () => {
-    ;[candidate.value, skills.value] = await Promise.all([loadProfile(user.value!.id), getSkills()])
+    let loadedProfile
+    ;[loadedProfile, skills.value] = await Promise.all([loadProfile(user.value!.id), getSkills()])
+
+    if (loadedProfile instanceof Error) return false
+    candidate.value = loadedProfile
 
     selectedSkills.value = unpackSkills(candidate.value)
   })

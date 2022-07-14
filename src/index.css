@@ -105,9 +105,12 @@
     font-family: 'Indie Flower', cursive;
     @apply text-2xl;
   }
+  .flower {
+    font-family: 'Indie Flower', cursive;
+  }
   .threeLink {
     font-family: 'Cabin Sketch', cursive;
-    @apply text-2xl sm:text-4xl no-underline text-primary ml-1;
+    @apply no-underline text-secondary;
   }
   a {
     @apply text-secondary underline cursor-pointer;
