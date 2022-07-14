@@ -19,12 +19,12 @@ export default function useAuthUser() {
     if (error) throw error
   }
 
-  const isLoggedIn = async () => {
+  const isLoggedIn = (): boolean => {
     return !!user.value
   }
 
-  const getUserMemberships = async () => {
-    if (!user.value) return []
+  const getUserMemberships = async (): Promise<number> => {
+    if (!user.value) return 0
     const { data, error } = await supabase
       .from('memberships')
       .select('*, roles(name)')

@@ -5,7 +5,7 @@ import useAuthUser from '@/composables/useAuthUser'
 const { supabase } = useSupabase()
 const { user, memberships } = useAuthUser()
 
-const getCandidates = async (): Promise<Candidate[]> => {
+const getCandidates = async (): Promise<Candidate[] | Error> => {
   let from = 'candidates_limited'
   if (memberships.value.includes('recruiter_pro') || memberships.value.includes('admin')) from = 'candidates'
 
@@ -25,7 +25,7 @@ const getCandidates = async (): Promise<Candidate[]> => {
   return candidates as Array<Candidate>
 }
 
-const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true) => {
+const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true): Promise<Candidate | Error> => {
   const verify_req = requestVerify ? new Date().toISOString().toLocaleString() : null
   const {
     display_name,
@@ -72,7 +72,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
   return data?.pop()
 }
 
-const loadProfile = async (user_id: string) => {
+const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
   let { data, error } = await supabase
     .from('candidates')
     .select(
@@ -90,7 +90,7 @@ const loadProfile = async (user_id: string) => {
   return data?.pop()
 }
 
-const loadCandidateProfile = async (id: number) => {
+const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
   let { data, error } = await supabase
     .from('candidates')
     .select(

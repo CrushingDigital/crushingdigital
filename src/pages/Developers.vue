@@ -1,22 +1,34 @@
 <template>
   <div class="collapse" v-if="candidates.length">
     <div class="flex justify-start items-center align-middle my-2">
-      <label for="my-modal-4" class="btn modal-button btn-circle btn-secondary btn-xs sm:btn-sm my-auto">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-          />
-        </svg>
+      <span class="mr-2 flower">Filters:</span>
+      <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
+        <i class="fa-solid fa-earth-americas"></i>
       </label>
+      <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
+        <i class="fa-solid fa-tags"></i>
+      </label>
+      <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
+        <i class="fa-solid fa-sack-dollar"></i>
+      </label>
+      <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </label>
+      <label
+        class="modal-button my-auto cursor-pointer mr-2"
+        @click="toggleApproved"
+        :class="approved ? 'text-yellow-400' : 'text-gray-300'"
+      >
+        <i class="fa-solid fa-star"></i>
+      </label>
+      <label
+        class="modal-button my-auto cursor-pointer mr-2"
+        @click="toggleVerified"
+        :class="verified ? 'text-green-500' : 'text-gray-300'"
+      >
+        <i class="fa-solid fa-clipboard-check"></i>
+      </label>
+
       <input
         v-model="searchVal"
         type="text"
@@ -34,13 +46,13 @@
     <h3>Nothing to see here!</h3>
   </div>
 
-  <input type="checkbox" id="my-modal-4" class="modal-toggle" />
-  <label for="my-modal-4" class="modal cursor-pointer">
+  <input type="checkbox" id="tz-modal" class="modal-toggle" />
+  <label for="tz-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="">
-      <h3 class="mb-4">Apply filters</h3>
-      <form class="text-center">
+      <h3 class="mb-4">Timezone (UTC)</h3>
+      <form class="text-center flex justify-start">
         <label class="input-group input-group-xs">
-          <span>UTC</span>
+          <span>From</span>
           <input
             v-model="startTz"
             type="number"
@@ -49,8 +61,11 @@
             name="timezone-start"
             id="timezone-start"
             placeholder="Starting timezone"
-            class="input input-bordered input-xs w-14"
+            class="input input-bordered input-lg w-32"
           />
+        </label>
+        <label class="input-group input-group-xs">
+          <span>To</span>
           <input
             v-model="endTz"
             type="number"
@@ -59,33 +74,19 @@
             name="timezone-end"
             id="timezone-end"
             placeholder="Ending timezone"
-            class="input input-bordered input-xs w-14"
+            class="input input-bordered input-lg w-32"
           />
         </label>
-        <label class="input-group input-group-xs mt-2">
-          <span>USD</span>
-          <input
-            v-model="lowRate"
-            type="number"
-            max="24000"
-            min="1000"
-            name="high-rate"
-            id="high-rate"
-            placeholder="Upper boundary"
-            class="input input-bordered input-xs w-14"
-          />
-          <input
-            v-model="highRate"
-            type="number"
-            max="30000"
-            min="1000"
-            name="low-rate"
-            id="low-rate"
-            placeholder="Lower boundary"
-            class="input input-bordered input-xs w-14"
-          />
-        </label>
-        <label class="input-group input-group-xs mt-2">
+      </form>
+    </label>
+  </label>
+
+  <input type="checkbox" id="exp-modal" class="modal-toggle" />
+  <label for="exp-modal" class="modal cursor-pointer">
+    <label class="modal-box relative">
+      <h3 class="mb-4">Experience filter</h3>
+      <form class="text-center">
+        <label class="input-group input-group-lg mt-2 flex justify-start">
           <span>Years</span>
           <input
             v-model="reqExp"
@@ -95,30 +96,59 @@
             name="req-experience"
             id="req-experience"
             placeholder="Required experience"
-            class="input input-bordered input-xs w-14"
+            class="input input-bordered input-lg w-32"
           />
         </label>
-        <div class="form-control">
-          <label class="cursor-pointer label">
-            <span class="label-text">Verified?</span>
-            <input v-model="verified" type="checkbox" class="checkbox checkbox-secondary" />
-          </label>
-          <label class="cursor-pointer label">
-            <span class="label-text">Approved?</span>
-            <input v-model="approved" type="checkbox" class="checkbox checkbox-secondary" />
-          </label>
-        </div>
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Choose your required stack</span>
-          </label>
-          <select multiple class="select select-bordered select-sm w-full font-normal" v-model="filterSkills">
-            <option v-for="skill in skills" :value="skill.id">
-              {{ skill.name }}
-            </option>
-          </select>
-        </div>
       </form>
+    </label>
+  </label>
+
+  <input type="checkbox" id="rate-modal" class="modal-toggle" />
+  <label for="rate-modal" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+      <h3 class="mb-4">Rate (per month in USD)</h3>
+      <form class="text-center flex justify-start">
+        <label class="input-group input-group-xs mt-2">
+          <span>Lower</span>
+          <input
+            v-model="lowRate"
+            type="number"
+            max="24000"
+            min="1000"
+            step="100"
+            name="high-rate"
+            id="high-rate"
+            placeholder="Upper boundary"
+            class="input input-bordered input-lg w-32"
+          />
+        </label>
+        <label class="input-group input-group-xs mt-2">
+          <span>Upper</span>
+          <input
+            v-model="highRate"
+            type="number"
+            max="30000"
+            min="1000"
+            step="100"
+            name="low-rate"
+            id="low-rate"
+            placeholder="Lower boundary"
+            class="input input-bordered input-lg w-32"
+          />
+        </label>
+      </form>
+    </label>
+  </label>
+
+  <input type="checkbox" id="skills-modal" class="modal-toggle" />
+  <label for="skills-modal" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+      <h3 class="mb-4">Skills Filters</h3>
+      <select multiple class="select select-bordered select-sm w-full font-normal" v-model="filterSkills">
+        <option v-for="skill in skills" :value="skill.id">
+          {{ skill.name }}
+        </option>
+      </select>
     </label>
   </label>
 </template>
@@ -154,9 +184,20 @@
       if (!membershipCount) throw new Error('Invalid membership credentials')
     }
 
-    candidates.value = await getCandidates()
+    let loadedCandidates = await getCandidates()
+    if (loadedCandidates instanceof Error) return false
+
+    candidates.value = loadedCandidates
     skills.value = await getSkills()
   })
+
+  const toggleVerified = (evt: Event) => {
+    verified.value = !verified.value
+  }
+
+  const toggleApproved = () => {
+    approved.value = !approved.value
+  }
 
   const filteredCandidates = computed(() => {
     return candidates.value.filter((dev) => {

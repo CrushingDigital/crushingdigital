@@ -51,7 +51,9 @@
   const explanation = ref('')
 
   onBeforeMount(async () => {
-    developer.value = await loadCandidateProfile(Number.parseInt(route.params.id as string, 10))
+    let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string, 10))
+    if (loadedProfile instanceof Error) return false
+    developer.value = loadedProfile
   })
 
   const verifyCandidate = async (verify = true) => {
@@ -86,6 +88,7 @@
 
   const completeReview = async () => {
     let newDev = await saveCandidate(developer.value!, developer.value!.verify_req === null ? true : false)
+    if (newDev instanceof Error) return false
     developer.value!.verify_req = newDev.verify_req
   }
 </script>

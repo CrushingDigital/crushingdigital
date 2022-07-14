@@ -182,7 +182,10 @@
   const { saveCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
-    candidate.value = await loadProfile(user.value!.id)
+    let loadedProfile = await loadProfile(user.value!.id)
+    if (loadedProfile instanceof Error) return false
+
+    candidate.value = loadedProfile
   })
 
   const save = async (e: Event) => {
@@ -193,7 +196,10 @@
     target.classList.toggle('disabledButton')
     target.classList.toggle('button')
 
-    candidate.value = await saveCandidate(candidate.value)
+    let savedProfile = await saveCandidate(candidate.value)
+    if (savedProfile instanceof Error) return false
+
+    candidate.value = savedProfile
 
     target.innerText = 'Save'
     target.classList.toggle('disabledButton')
