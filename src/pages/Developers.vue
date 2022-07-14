@@ -144,11 +144,16 @@
   <label for="skills-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="">
       <h3 class="mb-4">Skills Filters</h3>
-      <select multiple class="select select-bordered select-sm w-full font-normal" v-model="filterSkills">
-        <option v-for="skill in skills" :value="skill.id">
+      <div class="flex flex-row justify-center my-4 flex-wrap mx-auto">
+        <span
+          @click="toggleSkill(skill)"
+          v-for="skill in skills"
+          class="p-2 rounded-full text-sm border-2 m-4 cursor-pointer"
+          :class="filterSkills.findIndex((item) => item.id == skill.id) == -1 ? 'disabledSkill' : skill.name"
+        >
           {{ skill.name }}
-        </option>
-      </select>
+        </span>
+      </div>
     </label>
   </label>
 </template>
@@ -175,7 +180,7 @@
   const searchVal = ref<string>('')
 
   const skills = ref<Array<Skill>>([])
-  const filterSkills = ref([])
+  const filterSkills = ref<Skill[]>([])
   const candidates = ref<Array<Candidate>>([])
 
   onBeforeMount(async () => {
@@ -190,6 +195,15 @@
     candidates.value = loadedCandidates
     skills.value = await getSkills()
   })
+
+  const toggleSkill = (skill: Skill) => {
+    let pos = filterSkills.value?.findIndex((item) => item.id == skill.id)
+    if (pos == -1) {
+      filterSkills.value.push(skill)
+    } else {
+      filterSkills.value.splice(pos, 1)
+    }
+  }
 
   const toggleVerified = (evt: Event) => {
     verified.value = !verified.value
@@ -213,7 +227,7 @@
       else if (!dev.active) return false
 
       const cskills = getCandidateSkillIds(dev)
-      const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill))
+      const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill.id))
 
       if (unmatched.length) return false
 
