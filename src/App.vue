@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 container mx-auto max-w-5xl">
+  <div class="navbar container mx-auto max-w-5xl">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost">

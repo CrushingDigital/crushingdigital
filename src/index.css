@@ -88,6 +88,7 @@
 @layer base {
   html,
   body {
+    @apply bg-gradient-to-t from-slate-100 to-white;
     @apply m-0;
     @apply h-full;
     @apply text-lg;
@@ -113,7 +114,7 @@
     @apply no-underline text-secondary;
   }
   a {
-    @apply text-secondary underline cursor-pointer;
+    @apply link link-secondary;
   }
   .button {
     @apply bg-transparent hover:bg-primary text-primary font-semibold hover:text-white py-2 px-3 border border-primary hover:border-transparent rounded-full no-underline;
