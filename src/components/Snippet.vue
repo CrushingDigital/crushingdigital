@@ -40,8 +40,10 @@
         <span class="text-slate-700 sm:mt-1"> <i class="fa-solid fa-sack-dollar"></i></span
         ><span class="mr-2 text-xs text-slate-700 sm:mt-1 mx-1">{{ dev.rate / 1000 }}k</span>
         <!-- ********* TIMEZONE **************** -->
-        <span class="text-slate-700 sm:mt-1"> <i class="fa-solid fa-earth-americas"></i></span>
-        <span class="text-xs text-slate-700 mr-2 sm:mt-1 mx-1">{{ dev.timezone }}</span>
+        <span class="text-slate-700 sm:mt-1 mr-1"> <i class="fa-solid fa-earth-americas"></i></span>
+        <span class="text-xs text-slate-700 sm:mt-1 mr-2">{{
+          dev.timezone > 0 ? '+' + dev.timezone : dev.timezone
+        }}</span>
         <!-- ********* CODE **************** -->
         <a :href="dev.gitsource" class="sm:mt-1 mr-2" v-if="dev.gitsource"
           ><span class="text-black sm:mt-1"><i class="fa-brands fa-git-square"></i></span
@@ -55,8 +57,9 @@
       <div class="flex flex-wrap">
         <span
           v-for="cskill in dev.candidate_skills"
-          class="px-2 py-1 text-xs rounded-full mr-1 my-1"
+          class="px-2 py-1 text-xs rounded-full mr-1 my-1 cursor-pointer"
           :class="cskill.skills?.name"
+          @click="$emit('skill-toggle', cskill.skills)"
         >
           {{ cskill.skills?.name }}
         </span>
@@ -70,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-  import { Candidate } from '@/types'
+  import { Candidate, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
 
   const { memberships } = useAuthUser()
