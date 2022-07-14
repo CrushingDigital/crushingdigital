@@ -3,18 +3,19 @@
     <div class="flex justify-start items-center align-middle my-2">
       <span class="mr-2 flower">Filters:</span>
       <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-earth-americas"></i>
+        <i class="fa-solid fa-earth-americas" title="Timezone"></i>
       </label>
       <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-tags"></i>
+        <i class="fa-solid fa-tags" title="Skills"></i>
       </label>
       <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-sack-dollar"></i>
+        <i class="fa-solid fa-sack-dollar" title="Rate"></i>
       </label>
       <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-graduation-cap" title="Experience"></i>
       </label>
       <label
+        title="Approved"
         class="modal-button my-auto cursor-pointer mr-2"
         @click="toggleApproved"
         :class="approved ? 'text-yellow-400' : 'text-gray-300'"
@@ -22,6 +23,7 @@
         <i class="fa-solid fa-star"></i>
       </label>
       <label
+        title="Verified"
         class="modal-button my-auto cursor-pointer mr-2"
         @click="toggleVerified"
         :class="verified ? 'text-green-500' : 'text-gray-300'"
@@ -38,7 +40,7 @@
     </div>
     <ul>
       <li v-for="dev in filteredCandidates">
-        <Snippet :dev="dev" />
+        <Snippet :dev="dev" @skill-toggle="toggleSkill" />
       </li>
     </ul>
   </div>
