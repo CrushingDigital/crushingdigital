@@ -1,41 +1,43 @@
 <template>
   <div class="collapse" v-if="candidates.length">
-    <div class="flex justify-start items-center align-middle my-2">
-      <span class="mr-2 flower">Filters:</span>
-      <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-earth-americas" title="Timezone"></i>
-      </label>
-      <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-tags" title="Skills"></i>
-      </label>
-      <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-sack-dollar" title="Rate"></i>
-      </label>
-      <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-graduation-cap" title="Experience"></i>
-      </label>
-      <label
-        title="Approved"
-        class="modal-button my-auto cursor-pointer mr-2"
-        @click="toggleApproved"
-        :class="approved ? 'text-yellow-400' : 'text-gray-300'"
-      >
-        <i class="fa-solid fa-star"></i>
-      </label>
-      <label
-        title="Verified"
-        class="modal-button my-auto cursor-pointer mr-2"
-        @click="toggleVerified"
-        :class="verified ? 'text-green-500' : 'text-gray-300'"
-      >
-        <i class="fa-solid fa-clipboard-check"></i>
-      </label>
+    <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center my-2">
+      <div>
+        <span class="mr-2 flower">Filters:</span>
+        <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-earth-americas" title="Timezone"></i>
+        </label>
+        <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-tags" title="Skills"></i>
+        </label>
+        <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-sack-dollar" title="Rate"></i>
+        </label>
+        <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-graduation-cap" title="Experience"></i>
+        </label>
+        <label
+          title="Approved"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleApproved"
+          :class="approved ? 'text-yellow-400' : 'text-gray-300'"
+        >
+          <i class="fa-solid fa-star"></i>
+        </label>
+        <label
+          title="Verified"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleVerified"
+          :class="verified ? 'text-green-500' : 'text-gray-300'"
+        >
+          <i class="fa-solid fa-clipboard-check"></i>
+        </label>
+      </div>
 
       <input
         v-model="searchVal"
         type="text"
         placeholder="Search by name..."
-        class="input input-bordered w-50 max-w-xs ml-4"
+        class="input input-bordered w-72 sm:ml-4"
       />
     </div>
     <ul>
@@ -52,33 +54,59 @@
   <label for="tz-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="tz-modal">
       <h3 class="mb-4">Timezone (UTC)</h3>
-      <form class="text-center flex justify-start">
-        <label class="input-group input-group-xs">
-          <span>From</span>
-          <input
-            v-model="startTz"
-            type="number"
-            max="12"
-            min="-12"
-            name="timezone-start"
-            id="timezone-start"
-            placeholder="Starting timezone"
-            class="input input-bordered input-lg w-32"
-          />
-        </label>
-        <label class="input-group input-group-xs">
-          <span>To</span>
-          <input
-            v-model="endTz"
-            type="number"
-            max="12"
-            min="-12"
-            name="timezone-end"
-            id="timezone-end"
-            placeholder="Ending timezone"
-            class="input input-bordered input-lg w-32"
-          />
-        </label>
+      <form class="text-center flex flex-col justify-start">
+        <label for="timezone-start" class="flower">From</label>
+        <input
+          type="range"
+          min="-12"
+          max="12"
+          v-model="startTz"
+          class="range range-primary"
+          step="2"
+          name="timezone-start"
+          id="timezone-start"
+        />
+        <div class="w-full flex justify-between text-xxs px-2 mb-2">
+          <span>-12</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>0</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>12</span>
+        </div>
+        <label for="timezone-end" class="flower">To</label>
+        <input
+          type="range"
+          min="-12"
+          max="12"
+          v-model="endTz"
+          class="range range-secondary"
+          step="2"
+          name="timezone-end"
+          id="timezone-end"
+        />
+        <div class="w-full flex justify-between text-xxs px-2">
+          <span>-12</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>0</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>12</span>
+        </div>
       </form>
     </label>
   </label>
@@ -88,19 +116,29 @@
     <label class="modal-box relative" for="exp-modal">
       <h3 class="mb-4">Experience filter</h3>
       <form class="text-center">
-        <label class="input-group input-group-lg mt-2 flex justify-start">
-          <span>Years</span>
-          <input
-            v-model="reqExp"
-            type="number"
-            max="45"
-            min="0"
-            name="req-experience"
-            id="req-experience"
-            placeholder="Required experience"
-            class="input input-bordered input-lg w-32"
-          />
-        </label>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          v-model="reqExp"
+          class="range range-secondary"
+          step="1"
+          name="req-experience"
+          id="req-experience"
+        />
+        <div class="w-full flex justify-between text-xxs px-2">
+          <span>0</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span>6</span>
+          <span>7</span>
+          <span>8</span>
+          <span>9</span>
+          <span>10</span>
+        </div>
       </form>
     </label>
   </label>
@@ -109,35 +147,77 @@
   <label for="rate-modal" class="modal cursor-pointer">
     <label class="modal-box relative" for="rate-modal">
       <h3 class="mb-4">Rate (per month in USD)</h3>
-      <form class="text-center flex justify-start">
-        <label class="input-group input-group-xs mt-2">
-          <span>Lower</span>
-          <input
-            v-model="lowRate"
-            type="number"
-            max="24000"
-            min="1000"
-            step="100"
-            name="high-rate"
-            id="high-rate"
-            placeholder="Upper boundary"
-            class="input input-bordered input-lg w-32"
-          />
-        </label>
-        <label class="input-group input-group-xs mt-2">
-          <span>Upper</span>
-          <input
-            v-model="highRate"
-            type="number"
-            max="30000"
-            min="1000"
-            step="100"
-            name="low-rate"
-            id="low-rate"
-            placeholder="Lower boundary"
-            class="input input-bordered input-lg w-32"
-          />
-        </label>
+      <form class="text-center flex flex-col justify-start">
+        <label for="timezone-start" class="flower">Lower</label>
+        <input
+          type="range"
+          min="1000"
+          max="24000"
+          v-model="lowRate"
+          class="range range-primary"
+          step="1000"
+          name="low-rate"
+          id="low-rate"
+        />
+        <div class="w-full flex justify-between text-xxs px-2 mb-2">
+          <span>1k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>5k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>10k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>15k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>20k</span>
+          <span>|</span>
+          <span>|</span>
+        </div>
+        <label for="timezone-end" class="flower">Upper</label>
+        <input
+          type="range"
+          min="2000"
+          max="24000"
+          v-model="highRate"
+          class="range range-secondary"
+          step="1000"
+          name="high-rate"
+          id="high-rate"
+        />
+        <div class="w-full flex justify-between text-xxs px-2">
+          <span>1k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>5k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>10k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>15k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>20k</span>
+          <span>|</span>
+          <span>|</span>
+        </div>
       </form>
     </label>
   </label>
