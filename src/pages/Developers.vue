@@ -1,41 +1,43 @@
 <template>
   <div class="collapse" v-if="candidates.length">
-    <div class="flex justify-start items-center align-middle my-2">
-      <span class="mr-2 flower">Filters:</span>
-      <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-earth-americas" title="Timezone"></i>
-      </label>
-      <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-tags" title="Skills"></i>
-      </label>
-      <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-sack-dollar" title="Rate"></i>
-      </label>
-      <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
-        <i class="fa-solid fa-graduation-cap" title="Experience"></i>
-      </label>
-      <label
-        title="Approved"
-        class="modal-button my-auto cursor-pointer mr-2"
-        @click="toggleApproved"
-        :class="approved ? 'text-yellow-400' : 'text-gray-300'"
-      >
-        <i class="fa-solid fa-star"></i>
-      </label>
-      <label
-        title="Verified"
-        class="modal-button my-auto cursor-pointer mr-2"
-        @click="toggleVerified"
-        :class="verified ? 'text-green-500' : 'text-gray-300'"
-      >
-        <i class="fa-solid fa-clipboard-check"></i>
-      </label>
+    <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center my-2">
+      <div>
+        <span class="mr-2 flower">Filters:</span>
+        <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-earth-americas" title="Timezone"></i>
+        </label>
+        <label for="skills-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-tags" title="Skills"></i>
+        </label>
+        <label for="rate-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-sack-dollar" title="Rate"></i>
+        </label>
+        <label for="exp-modal" class="modal-button my-auto cursor-pointer mr-2">
+          <i class="fa-solid fa-graduation-cap" title="Experience"></i>
+        </label>
+        <label
+          title="Approved"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleApproved"
+          :class="approved ? 'text-yellow-400' : 'text-gray-300'"
+        >
+          <i class="fa-solid fa-star"></i>
+        </label>
+        <label
+          title="Verified"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleVerified"
+          :class="verified ? 'text-green-500' : 'text-gray-300'"
+        >
+          <i class="fa-solid fa-clipboard-check"></i>
+        </label>
+      </div>
 
       <input
         v-model="searchVal"
         type="text"
         placeholder="Search by name..."
-        class="input input-bordered w-50 max-w-xs ml-4"
+        class="input input-bordered w-72 sm:ml-4"
       />
     </div>
     <ul>
