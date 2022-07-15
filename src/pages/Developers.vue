@@ -134,7 +134,7 @@
             step="100"
             name="low-rate"
             id="low-rate"
-            placeholder="Lower boundary"
+            placeholder="Upper boundary"
             class="input input-bordered input-lg w-32"
           />
         </label>
