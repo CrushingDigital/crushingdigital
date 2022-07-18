@@ -31,6 +31,15 @@
         >
           <i class="fa-solid fa-clipboard-check"></i>
         </label>
+        <label
+          title="Review"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleReview"
+          :class="verify_req ? 'text-blue-400' : 'text-gray-300'"
+          v-if="memberships.includes('admin')"
+        >
+          <i class="fa-solid fa-eye"></i>
+        </label>
       </div>
 
       <input
@@ -260,6 +269,7 @@
   const approved = ref<boolean>(false)
   const verified = ref<boolean>(false)
   const searchVal = ref<string>('')
+  const verify_req = ref<boolean>(false)
 
   const skills = ref<Array<Skill>>([])
   const filterSkills = ref<Skill[]>([])
@@ -287,6 +297,10 @@
     }
   }
 
+  const toggleReview = (evt: Event) => {
+    verify_req.value = !verify_req.value
+  }
+
   const toggleVerified = (evt: Event) => {
     verified.value = !verified.value
   }
@@ -304,6 +318,7 @@
       else if (dev.yoe < reqExp.value) return false
       else if (approved.value && !dev.approved) return false
       else if (verified.value && !dev.verified) return false
+      else if (verify_req.value && !dev.verify_req) return false
       else if (searchVal.value && searchVal.value.length >= 3 && !dev.display_name.includes(searchVal.value))
         return false
       else if (!dev.active) return false
