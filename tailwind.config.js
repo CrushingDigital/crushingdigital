@@ -23,6 +23,7 @@ module.exports = {
         elixir: '#644473',
         rust: '#000',
         kotlin: '#7F52FF',
+        rust: '#634B3B',
       },
     },
   },

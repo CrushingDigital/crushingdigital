@@ -151,7 +151,7 @@
           <span>7</span>
           <span>8</span>
           <span>9</span>
-          <span>10</span>
+          <span>10+</span>
         </div>
       </form>
     </label>
