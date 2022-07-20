@@ -16,6 +16,7 @@ import Basic from '@/pages/profile/Basic.vue'
 import Tech from '@/pages/profile/Tech.vue'
 import Review from '@/pages/Review.vue'
 import Notifications from '@/pages/Notifications.vue'
+import Playground from '@/pages/Playground.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
@@ -31,6 +32,7 @@ const routes = [
   { path: '/profile/tech', component: Tech, name: 'tech' },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   { path: '/review/:id', component: Review, name: 'review' },
+  { path: '/playground', component: Playground, name: 'playground' },
 ]
 
 const router = createRouter({
