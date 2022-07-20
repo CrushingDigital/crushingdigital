@@ -1,7 +1,10 @@
 <template>
-  <div class="text-center mb-4">
-    <h1>Your <span class="italic text-secondary">real</span> career starts here!</h1>
+  <div class="flex justify-center items-center my-8">
+    <i class="fa-solid fa-circle-arrow-down mr-4 text-primary"></i>
+    <h3>Get the <span class="text-secondary">basics</span> right</h3>
+    <i class="fa-solid fa-circle-arrow-down ml-4 text-primary"></i>
   </div>
+
   <form>
     <div class="flex flex-col justify-center container mx-auto">
       <div class="form-control w-full">
@@ -32,57 +35,116 @@
         />
       </div>
       <div class="form-control">
-        <label class="label w-min">
-          <span class="label-text">Experience</span>
+        <label class="label">
+          <span class="label-text">Experience</span
+          ><span class="text-gray-400 text-xs">({{ candidate.yoe }} years)</span>
         </label>
-        <label class="input-group">
-          <span>Years</span>
-          <input
-            v-model="candidate.yoe"
-            placeholder="0"
-            type="number"
-            max="50"
-            min="0"
-            name="yoe"
-            id="yoe"
-            class="input input-bordered input-ghost bg-gray-100"
-          />
-        </label>
-      </div>
-      <div class="form-control">
-        <label class="label w-1/3">
-          <span class="label-text">Monthly rate</span><span class="text-gray-400 text-xs">(minimum accepted)</span>
-        </label>
-        <label class="input-group w-min">
-          <span>USD</span>
-          <input
-            v-model="candidate.rate"
-            class="input input-bordered input-ghost bg-gray-100"
-            type="number"
-            placeholder="4000"
-            max="45000"
-            min="0"
-            name="rate"
-            id="rate"
-          />
-        </label>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          v-model="candidate.yoe"
+          class="range range-primary"
+          step="1"
+          name="req-experience"
+          id="req-experience"
+        />
+        <div class="w-full flex justify-between text-xxs px-2">
+          <span>0</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span>6</span>
+          <span>7</span>
+          <span>8</span>
+          <span>9</span>
+          <span>10+</span>
+        </div>
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Timezone</span>
+          <span class="label-text">Monthly rate</span
+          ><span class="text-gray-400 text-xs">(min: ${{ candidate.rate }} pm)</span>
         </label>
-        <label class="input-group">
-          <span>UTC</span>
-          <input
-            v-model="candidate.timezone"
-            type="number"
-            max="12"
-            min="-12"
-            name="timezone"
-            id="timezone"
-            class="input input-bordered input-ghost bg-gray-100"
-          />
+        <input
+          type="range"
+          min="1000"
+          max="20000"
+          v-model="candidate.rate"
+          class="range range-secondary"
+          step="1000"
+          name="low-rate"
+          id="low-rate"
+        />
+        <div class="w-full flex justify-between text-xxs px-2 mb-2">
+          <span>1k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>5k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>10k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>15k</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>20k</span>
+        </div>
+      </div>
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Timezone (UTC)</span
+          ><span class="text-gray-400 text-xs"
+            >(Location: UTC{{ candidate.timezone >= 0 ? '+' + candidate.timezone : candidate.timezone }})</span
+          >
         </label>
+        <input
+          type="range"
+          min="-12"
+          max="12"
+          v-model="candidate.timezone"
+          class="range range-accent"
+          step="1"
+          name="timezone-start"
+          id="timezone-start"
+        />
+        <div class="w-full flex justify-between text-xxs px-2 mb-2">
+          <span>-12</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>0</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>12</span>
+        </div>
       </div>
       <div class="form-control w-full">
         <label class="label">
@@ -109,6 +171,17 @@
           id="linkedin"
           placeholder="https://www.linkedin.com/in/davidproberts/"
         />
+      </div>
+      <div class="form-control w-full sm:w-1/3">
+        <label class="label cursor-pointer">
+          <span class="label-text">Display on site?</span>
+          <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.active" />
+        </label>
+      </div>
+      <div class="flex justify-center items-center my-8">
+        <i class="fa-solid fa-circle-arrow-down mr-4 text-primary"></i>
+        <h3>Now <span class="text-secondary">sell</span> yourself!</h3>
+        <i class="fa-solid fa-circle-arrow-down ml-4 text-primary"></i>
       </div>
       <div class="form-control w-full">
         <label class="label">
@@ -153,12 +226,6 @@
           @blur="checkLinkUrl"
         />
       </div>
-      <div class="form-control">
-        <label class="cursor-pointer label">
-          <span class="label-text">Active?</span><span class="text-xxs">(Do you want to appear on the site?)</span>
-          <input v-model="candidate.active" type="checkbox" class="checkbox checkbox-secondary" />
-        </label>
-      </div>
     </div>
   </form>
   <div class="flex justify-center mt-8">
@@ -177,15 +244,15 @@
   const { events, getEvents } = useEvents()
   const router = useRouter()
   const { user } = useAuthUser()
-  const candidate = ref<Candidate>({} as Candidate)
+  const candidate = ref<Candidate>({ user_id: user.value?.id } as Candidate)
 
   const { saveCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
     let loadedProfile = await loadProfile(user.value!.id)
-    if (loadedProfile instanceof Error) return false
+    if (loadedProfile == undefined) return false
 
-    candidate.value = loadedProfile
+    candidate.value = loadedProfile as Candidate
   })
 
   const save = async (e: Event) => {
