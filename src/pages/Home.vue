@@ -20,12 +20,6 @@
         or
         <a href="https://www.tiktok.com/@crushingdigital" target="_blank">TikTok</a>
       </p>
-
-      <p class="text-center">
-        Are you a Junior Developer?
-        <a href="https://airtable.com/shrULAoNT7YD73RDu" target="_blank">Click here</a>
-        to change your career!
-      </p>
     </div>
   </div>
 </template>
