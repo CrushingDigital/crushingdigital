@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center my-8">
+  <div class="flex justify-center items-center my-4">
     <i class="fa-solid fa-circle-arrow-down mr-4 text-primary"></i>
     <h3>Get the <span class="text-secondary">basics</span> right</h3>
     <i class="fa-solid fa-circle-arrow-down ml-4 text-primary"></i>
@@ -123,11 +123,11 @@
           <span>|</span>
           <span>|</span>
           <span>|</span>
+          <span>-8</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
-          <span>|</span>
-          <span>|</span>
+          <span>-4</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
@@ -135,11 +135,11 @@
           <span>|</span>
           <span>|</span>
           <span>|</span>
+          <span>4</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
-          <span>|</span>
-          <span>|</span>
+          <span>8</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
