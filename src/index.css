@@ -110,6 +110,9 @@
 .Kotlin {
   @apply text-white bg-kotlin border-2 border-kotlin;
 }
+.Dart {
+  @apply text-white bg-dart border-2 border-dart;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
