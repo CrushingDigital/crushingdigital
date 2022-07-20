@@ -49,11 +49,16 @@
         class="input input-bordered w-72 sm:ml-4"
       />
     </div>
-    <ul>
+    <ul v-if="filteredCandidates.length">
       <li v-for="dev in filteredCandidates">
         <Snippet :dev="dev" @skill-toggle="toggleSkill" />
       </li>
     </ul>
+    <div v-else class="mt-12">
+      <h3>
+        Want to see more developers? Find <router-link to="notifications">verified and approved developers</router-link>
+      </h3>
+    </div>
   </div>
   <div class="text-center" v-else>
     <h3>Nothing to see here!</h3>
@@ -319,9 +324,12 @@
       else if (approved.value && !dev.approved) return false
       else if (verified.value && !dev.verified) return false
       else if (verify_req.value && !dev.verify_req) return false
-      else if (searchVal.value && searchVal.value.length >= 3 && !dev.display_name.includes(searchVal.value))
+      else if (
+        searchVal.value &&
+        searchVal.value.length >= 3 &&
+        !dev.display_name.toLowerCase().includes(searchVal.value)
+      )
         return false
-      else if (!dev.active) return false
 
       const cskills = getCandidateSkillIds(dev)
       const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill.id))
