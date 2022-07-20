@@ -80,6 +80,36 @@
 .AWS {
   @apply text-black bg-orange-400 border-2 border-orange-400;
 }
+.CSharp {
+  @apply text-white bg-black border-2 border-black;
+}
+.Swift {
+  @apply text-white bg-swift border-2 border-swift;
+}
+.Flutter {
+  @apply text-white bg-flutter border-2 border-flutter;
+}
+.MongoDB {
+  @apply text-white bg-mongodb border-2 border-mongodb;
+}
+.MySQL {
+  @apply text-white bg-mysql border-2 border-mysql;
+}
+.PostgreSQL {
+  @apply text-white bg-postgresql border-2 border-postgresql;
+}
+.GraphQL {
+  @apply text-white bg-graphql border-2 border-graphql;
+}
+.Elixir {
+  @apply text-white bg-elixir border-2 border-elixir;
+}
+.Rust {
+  @apply text-white bg-black border-2 border-black;
+}
+.Kotlin {
+  @apply text-white bg-kotlin border-2 border-kotlin;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
