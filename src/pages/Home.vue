@@ -2,7 +2,7 @@
   <h1 class="text-center mt-16">Are you <span class="text-secondary">crushing</span> it?</h1>
   <div class="main mt-12">
     <div>
-      <p class="p-8 bg-red-200 rounded-full">
+      <p class="p-8 bg-accent rounded-full">
         <i class="fa-solid fa-person-digging"></i>
         I'm currently building the site, but do feel free to look around and enter your profile. Also, stay tuned on our
         social channels for updates
