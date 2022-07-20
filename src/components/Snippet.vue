@@ -65,8 +65,8 @@
         </span>
       </div>
       <!-- ********* BLURB **************** -->
-      <div class="flex flex-row justify-start text-xs md:text-sm px-1 mt-2">
-        {{ dev.blurb }}
+      <div class="flex flex-row justify-start text-xs md:text-sm px-1 mt-2 items-center">
+        <i class="fa-solid fa-bullhorn mr-2"></i>{{ dev.blurb }}
       </div>
     </div>
   </div>
