@@ -24,6 +24,7 @@ module.exports = {
         rust: '#000',
         kotlin: '#7F52FF',
         rust: '#634B3B',
+        dart: '#0799C4',
       },
     },
   },
