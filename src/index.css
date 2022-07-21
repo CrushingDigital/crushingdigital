@@ -72,7 +72,7 @@
   @apply text-white bg-php border-2 border-php;
 }
 .Go {
-  @apply text-black bg-cyan-200 border-2 border-cyan-200;
+  @apply text-white bg-go border-2 border-go;
 }
 .Angular {
   @apply text-white bg-angular border-2 border-angular;

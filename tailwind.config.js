@@ -33,6 +33,7 @@ module.exports = {
         angular: '#DD0031',
         aws: '#FF9D00',
         java: '#C74634',
+        go: '#00ADD8',
       },
     },
   },
