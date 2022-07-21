@@ -148,7 +148,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Code samples</span><span class="text-gray-400 text-xs">(GitHub or similar)</span>
+          <span class="label-text">Coding Profile</span><span class="text-gray-400 text-xs">(GitHub or similar)</span>
         </label>
         <input
           type="text"
@@ -156,7 +156,7 @@
           v-model="candidate.gitsource"
           name="gitsource"
           id="gitsource"
-          placeholder="GitHub (or similar) profile?"
+          placeholder="e.g. https://github.com/your-name"
         />
       </div>
       <div class="form-control w-full">
@@ -169,7 +169,7 @@
           v-model="candidate.linkedin"
           name="linkedin"
           id="linkedin"
-          placeholder="https://www.linkedin.com/in/davidproberts/"
+          placeholder="e.g. https://www.linkedin.com/in/your-name/"
         />
       </div>
       <div class="form-control w-full sm:w-1/3">
