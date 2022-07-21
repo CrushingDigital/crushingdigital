@@ -249,10 +249,15 @@
   const { saveCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
-    let loadedProfile = await loadProfile(user.value!.id)
-    if (loadedProfile == undefined) return false
+    let loadedProfile
 
-    candidate.value = loadedProfile as Candidate
+    try {
+      loadedProfile = await loadProfile(user.value!.id)
+      candidate.value = loadedProfile as Candidate
+    } catch (error) {
+      // Do something
+    }
+    // if (loadedProfile == undefined) return false
   })
 
   const save = async (e: Event) => {

@@ -87,6 +87,7 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
 
   if (error) throw error
 
+  if (Array.isArray(data) && !data.length) throw 'Candidate profile not found'
   return data?.pop()
 }
 

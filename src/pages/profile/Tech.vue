@@ -15,9 +15,12 @@
       {{ skill.name }}
     </span>
   </div>
-  <div class="flex justify-center mt-8">
+  <div class="flex justify-center mt-8" v-if="candidate.id">
     <button class="btn rounded-full mx-1" type="submit" @click.prevent="goBack">Back</button>
     <button class="btn rounded-full mx-1" type="submit" @click.prevent="save">Save</button>
+  </div>
+  <div v-else class="text-center">
+    <h3>Sorry, you need to <router-link to="basic">create your profile</router-link> first</h3>
   </div>
 </template>
 
@@ -44,9 +47,9 @@
     let loadedProfile
     ;[loadedProfile, skills.value] = await Promise.all([loadProfile(user.value!.id), getSkills()])
 
-    if (loadedProfile instanceof Error) return false
-    candidate.value = loadedProfile
+    if (loadedProfile == undefined || loadedProfile instanceof Error) return false
 
+    candidate.value = loadedProfile
     selectedSkills.value = unpackSkills(candidate.value)
   })
 
@@ -71,7 +74,7 @@
     target.classList.toggle('disabledButton')
     target.classList.toggle('button')
 
-    if (candidate) {
+    if (candidate.value) {
       await saveSkillsForCandidate(candidate.value, selectedSkills.value)
     }
 

@@ -40,6 +40,8 @@ const loadSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => 
 }
 
 const saveSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => {
+  if (!candidate) throw 'Candidate profile required before saving skills'
+
   await deleteSkillsForCandidate(candidate.id!)
   let insertSkills = skills.map((skill) => {
     return { candidate_id: candidate.id, skill_id: skill.id }
@@ -56,6 +58,7 @@ const getCandidateSkillIds = (candidate: Candidate) => {
 }
 
 const unpackSkills = (candidate: Candidate) => {
+  if (!candidate) throw 'Cannot unpack skills for undefined candidate'
   return candidate.candidate_skills!.map((cskills) => cskills.skills as Skill)
 }
 
