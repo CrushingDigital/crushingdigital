@@ -51,34 +51,34 @@
   @apply text-white bg-red-700 border-2 border-red-700;
 }
 .Laravel {
-  @apply text-white bg-orange-600 border-2 border-orange-600;
+  @apply text-white bg-laravel border-2 border-laravel;
 }
 .React {
   @apply text-black bg-sky-200 border-2 border-sky-200;
 }
 .JavaScript {
-  @apply text-black bg-yellow-300 border-2 border-yellow-200;
+  @apply text-black bg-javascript border-2 border-javascript;
 }
 .Typescript {
   @apply text-white bg-blue-400 border-2 border-blue-400;
 }
 .Vue {
-  @apply text-white bg-emerald-400 border-2 border-emerald-400;
+  @apply text-white bg-vue border-2 border-vue;
 }
 .Node {
   @apply text-white bg-green-400 border-2 border-green-400;
 }
 .PHP {
-  @apply text-white bg-blue-900 border-2 border-blue-900;
+  @apply text-white bg-php border-2 border-php;
 }
 .Go {
   @apply text-black bg-cyan-200 border-2 border-cyan-200;
 }
 .Angular {
-  @apply text-white bg-red-600 border-2 border-red-600;
+  @apply text-white bg-angular border-2 border-angular;
 }
 .AWS {
-  @apply text-black bg-orange-400 border-2 border-orange-400;
+  @apply text-black bg-aws border-2 border-aws;
 }
 .CSharp {
   @apply text-white bg-black border-2 border-black;
@@ -112,6 +112,9 @@
 }
 .Dart {
   @apply text-white bg-dart border-2 border-dart;
+}
+.Java {
+  @apply text-white bg-java border-2 border-java;
 }
 
 .disabledSkill {
