@@ -242,7 +242,7 @@
       <h3 class="mb-4">Skills Filters</h3>
       <div class="flex flex-row justify-center my-4 flex-wrap mx-auto">
         <span
-          @click="toggleSkill(skill)"
+          @click.prevent="toggleSkill(skill)"
           v-for="skill in skills"
           class="p-2 rounded-full text-sm border-2 m-4 cursor-pointer"
           :class="filterSkills.findIndex((item) => item.id == skill.id) == -1 ? 'disabledSkill' : skill.name"
