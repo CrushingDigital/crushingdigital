@@ -28,6 +28,9 @@
       placeholder="Explain your decision..."
     ></textarea>
   </div>
+  <div id="notifications" class="mt-4" v-if="developer">
+    <Events :userId="developer?.user_id" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -37,14 +40,13 @@
   import useCandidate from '@/composables/useCandidate'
   import { useRoute } from 'vue-router'
   import { Candidate } from '@/types'
-  import useAuthUser from '@/composables/useAuthUser'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
+  import Events from '@/components/Events.vue'
 
   const { addEvent } = useEvents()
   const toast = useToast()
   const route = useRoute()
-  const { memberships } = useAuthUser()
   const { loadCandidateProfile, saveCandidate } = useCandidate()
   const developer = ref<Candidate | null>(null)
   const reason = ref('')
