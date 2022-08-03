@@ -40,7 +40,6 @@
   import useCandidate from '@/composables/useCandidate'
   import { useRoute } from 'vue-router'
   import { Candidate } from '@/types'
-  import useAuthUser from '@/composables/useAuthUser'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
@@ -48,7 +47,6 @@
   const { addEvent } = useEvents()
   const toast = useToast()
   const route = useRoute()
-  const { memberships } = useAuthUser()
   const { loadCandidateProfile, saveCandidate } = useCandidate()
   const developer = ref<Candidate | null>(null)
   const reason = ref('')
