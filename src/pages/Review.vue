@@ -28,6 +28,9 @@
       placeholder="Explain your decision..."
     ></textarea>
   </div>
+  <div id="notifications" class="mt-4" v-if="developer">
+    <Events :userId="developer?.user_id" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -40,6 +43,7 @@
   import useAuthUser from '@/composables/useAuthUser'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
+  import Events from '@/components/Events.vue'
 
   const { addEvent } = useEvents()
   const toast = useToast()
