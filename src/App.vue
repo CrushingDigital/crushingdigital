@@ -27,7 +27,7 @@
           Crushing<span class="text-primary">Digital</span>
         </h2>
       </a>
-      <i class="fa-solid fa-person-digging text-gray-300 mt-2" title="In Alpha"></i>
+      <i class="fa-solid fa-person-digging text-gray-300 mt-2" title="v0.1 - The only way is up!"></i>
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
