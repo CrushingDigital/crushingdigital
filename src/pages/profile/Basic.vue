@@ -260,6 +260,16 @@
     // if (loadedProfile == undefined) return false
   })
 
+  const linkFix = (link: string | undefined) => {
+    console.log(link)
+    if (link == undefined) return undefined
+    if (!/^https?:\/\//i.test(link)) {
+      return 'https://' + link
+    }
+
+    return link
+  }
+
   const save = async (e: Event) => {
     const target = e.target as HTMLButtonElement
 
@@ -267,6 +277,12 @@
     target.innerText = 'saving...'
     target.classList.toggle('disabledButton')
     target.classList.toggle('button')
+
+    candidate.value.gitsource = linkFix(candidate.value.gitsource)
+    candidate.value.linkedin = linkFix(candidate.value.linkedin)
+    candidate.value.link_1 = linkFix(candidate.value.link_1)
+    candidate.value.link_2 = linkFix(candidate.value.link_2)
+    candidate.value.link_3 = linkFix(candidate.value.link_3)
 
     let savedProfile = await saveCandidate(candidate.value)
     if (savedProfile instanceof Error) return false
