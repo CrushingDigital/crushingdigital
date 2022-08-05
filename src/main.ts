@@ -25,7 +25,7 @@ const { isLoggedIn } = useAuthUser()
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/about', component: About },
-  { path: '/recruiters', component: RecruiterSignup },
+  { path: '/recruiters', component: RecruiterSignup, name: 'recruiters' },
   { path: '/developers', component: DevList },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
   { path: '/notifications', component: Notifications, name: 'notifications' },
