@@ -17,6 +17,7 @@ import Tech from '@/pages/profile/Tech.vue'
 import Review from '@/pages/Review.vue'
 import Notifications from '@/pages/Notifications.vue'
 import Playground from '@/pages/Playground.vue'
+import RecruiterSignup from '@/pages/RecruiterSignup.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
@@ -24,6 +25,7 @@ const { isLoggedIn } = useAuthUser()
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/about', component: About },
+  { path: '/recruiters', component: RecruiterSignup },
   { path: '/developers', component: DevList },
   { path: '/jobs', component: Jobs, meta: { requiresAuth: true } },
   { path: '/notifications', component: Notifications, name: 'notifications' },
