@@ -56,7 +56,7 @@
     </ul>
     <div v-else class="mt-12">
       <h3>
-        Want to see more developers? Find <router-link to="notifications">verified and approved developers</router-link>
+        Want to see more developers? Find <router-link to="recruiters">verified and approved developers</router-link>
       </h3>
     </div>
   </div>
