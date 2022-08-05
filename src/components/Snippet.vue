@@ -57,7 +57,7 @@
       <div class="flex flex-wrap">
         <span
           v-for="cskill in dev.candidate_skills"
-          class="px-2 py-1 text-xs rounded-full mr-1 my-1 cursor-pointer"
+          class="px-2 py-1 text-xs rounded-full mr-1 my-1 cursor-pointer text-white bg-black border-2"
           :class="cskill.skills?.name"
           @click="$emit('skill-toggle', cskill.skills)"
         >
