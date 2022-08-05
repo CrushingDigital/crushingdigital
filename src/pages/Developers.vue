@@ -270,7 +270,7 @@
   const endTz = ref<number>(12)
   const lowRate = ref<number>(1000)
   const highRate = ref<number>(25000)
-  const reqExp = ref<number>(3)
+  const reqExp = ref<number>(0)
   const approved = ref<boolean>(false)
   const verified = ref<boolean>(false)
   const searchVal = ref<string>('')
