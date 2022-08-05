@@ -12,9 +12,9 @@ interface Candidate {
   verified?: boolean
   approved?: boolean
   user_id: string
-  link_1: string
-  link_2: string
-  link_3: string
+  link_1?: string
+  link_2?: string
+  link_3?: string
   verify_req: number | null
   active?: boolean
 }

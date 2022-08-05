@@ -15,13 +15,13 @@
 
           <span class="text-sm sm:text-lg mx-2">{{ dev.display_name }}</span>
 
+          <a v-if="dev.link_1" :href="dev.link_1" class="threeLink mt-1 mr-1"
+            ><i class="fa-solid fa-fire-flame-curved"></i
+          ></a>
           <a v-if="dev.link_2" :href="dev.link_2" class="threeLink mt-1 mr-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
-          <a v-if="dev.link_3" :href="dev.link_3" class="threeLink mt-1 mr-1"
-            ><i class="fa-solid fa-fire-flame-curved"></i
-          ></a>
-          <a v-if="dev.link_1" :href="dev.link_1" class="threeLink mt-1"
+          <a v-if="dev.link_3" :href="dev.link_3" class="threeLink mt-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
 
