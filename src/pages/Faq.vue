@@ -17,7 +17,7 @@
       question: 'What are the 3 links?',
       img: `<i class="fa-solid fa-fire-flame-curved text-secondary"></i>`,
       answer: `This is the real 💪 of Crushing Digital. Our belief is that we, as developers, need to improve how
-      we present ourselves. These 3 links are your opportunity to seel or market yourself. Don't overthink it, but at
+      we present ourselves. These 3 links are your opportunity to sell or market yourself. Don't overthink it, but at
       the same time, don't waste it. It could be a link to something in addition to your GitHub or LinkedIn profile (both
       of which you can enter on the site), but they could also be pointing to the highlights of those profiles. Do you
       have a blog, personal website/project or perhaps some content that showcases your skills and experience?`,
