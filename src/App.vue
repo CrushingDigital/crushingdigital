@@ -54,6 +54,26 @@
   <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col justify-start mt-1">
     <router-view></router-view>
   </div>
+
+  <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col mt-8 text-gray-400" id="footer">
+    <div class="flex justify-center">
+      <a href="https://www.linkedin.com/company/crushingdigital/"
+        ><i class="fa-brands fa-2xl fa-linkedin mx-4 text-gray-400"></i
+      ></a>
+      <a href="https://www.tiktok.com/@crushingdigital" class="text-gray-400"
+        ><i class="fa-brands fa-2xl fa-tiktok mx-4"></i
+      ></a>
+      <a href="https://twitter.com/crushingdigital" class="text-gray-400"
+        ><i class="fa-brands fa-2xl fa-twitter mx-4"></i
+      ></a>
+      <a href="https://www.instagram.com/crushingdigital/" class="text-gray-400"
+        ><i class="fa-brands fa-2xl fa-instagram mx-4"></i
+      ></a>
+    </div>
+    <div class="flex justify-center mt-4">
+      <h5>&#169;copyright 2022 - Crushing Digital Ltd.</h5>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
