@@ -18,6 +18,7 @@ import Review from '@/pages/Review.vue'
 import Notifications from '@/pages/Notifications.vue'
 import Playground from '@/pages/Playground.vue'
 import RecruiterSignup from '@/pages/RecruiterSignup.vue'
+import Faq from '@/pages/Faq.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
@@ -34,6 +35,7 @@ const routes = [
   { path: '/profile/tech', component: Tech, name: 'tech' },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   { path: '/review/:id', component: Review, name: 'review' },
+  { path: '/faq', component: Faq, name: 'faq' },
   { path: '/playground', component: Playground, name: 'playground' },
 ]
 

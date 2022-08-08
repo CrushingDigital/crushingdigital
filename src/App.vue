@@ -11,6 +11,9 @@
           <li class="py-1">
             <router-link to="/about" @click="closeMenu">About</router-link>
           </li>
+          <li class="py-1">
+            <router-link to="/faq" @click="closeMenu">FAQ's</router-link>
+          </li>
           <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/profile/basic">Personal Info</router-link>
           </li>
