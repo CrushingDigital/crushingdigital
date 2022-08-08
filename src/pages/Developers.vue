@@ -1,5 +1,15 @@
 <template>
-  <div class="collapse" v-if="candidates.length">
+  <div class="mt-4">
+    <div>
+      <p class="px-8 py-4 bg-accent rounded-full">
+        <i class="fa-solid fa-person-digging"></i>
+        I'm currently building the site, but do feel free to look around and enter your profile. Also, stay tuned on our
+        social channels for updates
+      </p>
+    </div>
+  </div>
+
+  <div class="collapse mt-4" v-if="candidates.length">
     <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center my-2">
       <div>
         <span class="mr-2 flower">Filters:</span>
@@ -327,7 +337,7 @@
       else if (
         searchVal.value &&
         searchVal.value.length >= 3 &&
-        !dev.display_name.toLowerCase().includes(searchVal.value)
+        !dev.display_name.toLowerCase().includes(searchVal.value.toLowerCase())
       )
         return false
 

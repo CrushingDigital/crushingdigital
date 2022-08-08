@@ -146,6 +146,10 @@
     font-family: 'Cabin Sketch', cursive;
     @apply text-2xl;
   }
+  h5 {
+    font-family: 'Cabin Sketch', cursive;
+    @apply text-xl;
+  }
   .flower {
     font-family: 'Indie Flower', cursive;
   }
