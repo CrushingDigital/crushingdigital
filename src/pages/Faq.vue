@@ -23,13 +23,21 @@
       have a blog, personal website/project or perhaps some content that showcases your skills and experience?`,
     },
     {
+      question: 'Can I hide my salary?',
+      answer: `Monthly rate on the site is NOT your actual salary. Salary is subjective. You might request more money for
+      a role upon hearing the requirements and expectations. This is purely down to search filtering. Is there
+      a minimum limit you do not wish to be contacted for? Set the monthly rate. You are telling employers and recruiters that 
+      you are open to negotiation above that rate once you hear more about the role. Open to all offers? Lower that rate and
+      appear in more searches!`,
+    },
+    {
       question: 'What is verification?',
       img: `<i class="fa-solid fa-clipboard-check text-green-500"></i>`,
-      answer: `Most of the time spent by recruiters is focussed on filtering profiles, looking for a profile that warrants more time
-      and attention and is a profile that demonstrates that this person is a fit for their search. A tall order if the recruiter is not 
-      technical. Verification is our stamp to say this profile demostrates the qualities showcased in the list. So, 
-      if the developer says they are a ReactJS developer and
-      they are verified, we agree that this profile shows significant promise.`,
+      answer: `Recruiters spend most of their time filtering profiles, looking for those that warrant more time
+      and attention. Is this profile a good fit for their requirements. This is a tall order if the recruiter is not 
+      technical. Verification is our stamp to say this profile demonstrates the qualities showcased in the list. So, 
+      if the developer says they are a ReactJS developer and they are verified, we agree that this profile shows 
+      significant promise.`,
     },
     {
       question: 'What is Approval?',
@@ -42,7 +50,7 @@
     {
       question: 'How do I become a Crushing Digital verified developer?',
       img: `<i class="fa-solid fa-clipboard-check text-green-500"></i>`,
-      answer: `The good news is that this is automated. Sign up and save your profile and the verification process will being. Don't
+      answer: `The good news is that this is automated. Sign up and save your profile and the verification process will begin. Don't
       worry, it's all FREE. If your profile meets the standard, you will be verified. If your profile needs work, you will
       receive feedback via the 🔔 page. Each change will trigger a profile review. We can work on this together until you become
       a verified developer!`,
@@ -50,7 +58,7 @@
     {
       question: 'How to get approved?',
       img: `<i class="fa-solid fa-star text-yellow-400"></i>`,
-      answer: `Once you are Verified, you can apply for Approval. This is currently a manual process and you can email david @ crushing.digital
+      answer: `Once you are Verified, you can apply for Approval. This is currently a manual process and you can email david@crushing.digital
       to begin the process.`,
     },
     {
