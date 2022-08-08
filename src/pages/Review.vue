@@ -11,6 +11,7 @@
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
       <option disabled selected>Reason</option>
+      <option>Verify: Bad Profile</option>
       <option>Verify: Bad LinkedIn</option>
       <option>Verify: Bad GitHub</option>
       <option>Verify: Link #1</option>

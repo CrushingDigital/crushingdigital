@@ -26,7 +26,7 @@ const getCandidates = async (): Promise<Candidate[] | Error> => {
     .order('approved', { ascending: false })
     .order('verified', { ascending: false })
     .order('link_3')
-    .order('link_3')
+    .order('link_2')
     .order('link_1')
   // .order('id', { ascending: false })
 
