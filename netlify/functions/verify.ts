@@ -12,18 +12,29 @@ const handler: Handler = async (event, context) => {
     text: 'and easy to do anywhere, even with Node.js',
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  let response
+  try {
+    response = await sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  } catch (error) {
+    console.log('Err', error)
+    return {
+      statusCode: error.statusCode || 500,
+      body: JSON.stringify({
+        error: error.message,
+      }),
+    }
+  }
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'Hello World' }),
+    body: JSON.stringify({ message: response.message }),
   }
 }
 
