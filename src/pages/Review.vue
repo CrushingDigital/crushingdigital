@@ -7,6 +7,7 @@
     <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
     <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
+    <button class="btn btn-xs btn-primary mx-1" @click="sendEmail()">Test Email</button>
   </div>
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
@@ -93,6 +94,10 @@
     let newDev = await saveCandidate(developer.value!, developer.value!.verify_req === null ? true : false)
     if (newDev instanceof Error) return false
     developer.value!.verify_req = newDev.verify_req
+  }
+
+  const sendEmail = async () => {
+    console.log('Send email from SendGrid')
   }
 </script>
 
