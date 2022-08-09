@@ -56,22 +56,22 @@
   </div>
 
   <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col mt-8 text-gray-400" id="footer">
-    <div class="flex justify-end">
+    <div class="flex sm:justify-end justify-center">
       <a href="https://www.linkedin.com/company/crushingdigital/"
-        ><i class="fa-brands fa-xl fa-linkedin mx-4 text-gray-400"></i
+        ><i class="fa-brands fa-xl fa-linkedin mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
-      <a href="https://www.tiktok.com/@crushingdigital" class="text-gray-400"
-        ><i class="fa-brands fa-xl fa-tiktok mx-4"></i
+      <a href="https://www.tiktok.com/@crushingdigital"
+        ><i class="fa-brands fa-xl fa-tiktok mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
-      <a href="https://twitter.com/crushingdigital" class="text-gray-400"
-        ><i class="fa-brands fa-xl fa-twitter mx-4"></i
+      <a href="https://twitter.com/crushingdigital"
+        ><i class="fa-brands fa-xl fa-twitter mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
-      <a href="https://www.instagram.com/crushingdigital/" class="text-gray-400"
-        ><i class="fa-brands fa-xl fa-instagram mx-4"></i
+      <a href="https://www.instagram.com/crushingdigital/"
+        ><i class="fa-brands fa-xl fa-instagram mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
     </div>
-    <div class="flex justify-end mt-4">
-      <h5>&#169;copyright 2022 - Crushing Digital Ltd.</h5>
+    <div class="flex sm:justify-end justify-center mt-4">
+      <span class="text-gray-300">&#169; Copyright 2022 - Crushing Digital Ltd.</span>
     </div>
   </div>
 </template>
