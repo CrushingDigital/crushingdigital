@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@netlify/functions": "^1.0.0",
+    "@sendgrid/mail": "^7.7.0",
     "@supabase/supabase-js": "^1.35.3",
     "@tailwindcss/typography": "^0.5.2",
     "daisyui": "^2.17.0",
