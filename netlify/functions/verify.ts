@@ -15,6 +15,10 @@ const handler: Handler = async (event, context) => {
   let response
   try {
     response = await sgMail.send(msg)
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: response.message }),
+    }
   } catch (error) {
     console.log('Err', error)
     return {
@@ -23,11 +27,6 @@ const handler: Handler = async (event, context) => {
         error: error.message,
       }),
     }
-  }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: response.message }),
   }
 }
 
