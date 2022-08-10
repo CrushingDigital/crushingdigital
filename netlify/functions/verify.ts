@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions'
-import sgMail from '@sendgrid/mail'
+import sgMail, { MailDataRequired } from '@sendgrid/mail'
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!
 
@@ -8,20 +8,21 @@ const handler: Handler = async (event, context) => {
     sgMail.setApiKey(SENDGRID_API_KEY)
     if (!event.body) throw new VerifyException('Invalid request', event)
     let body = JSON.parse(event.body)
-    const msg = {
+
+    const msg: MailDataRequired = {
       to: 'davidproberts@gmail.com',
       from: 'david@crushing.digital',
-      subject: 'Profile verification - success (' + body.to + ')',
-      text: 'Congratulations! Your profile has now been verified',
-      html: '<strong>Congratulations! Your profile has now been verified</strong>',
+      subject: 'I am not here',
+      text: 'This goes away!',
+      templateId: 'd-0b60cc57ba334337bcc2f3ba579b0f5b',
     }
+
     await sgMail.send(msg)
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'sent' }),
     }
   } catch (error) {
-    console.log('Err', error)
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({
