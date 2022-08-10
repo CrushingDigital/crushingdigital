@@ -45,6 +45,7 @@
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
+  import axios from 'axios'
 
   const { addEvent } = useEvents()
   const toast = useToast()
@@ -97,7 +98,16 @@
   }
 
   const sendEmail = async () => {
-    console.log('Send email from SendGrid')
+    axios
+      .post(import.meta.env.VERIFY_EMAIL_URL, {
+        to: developer.value?.email,
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 </script>
 

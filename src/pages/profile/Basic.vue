@@ -244,7 +244,7 @@
   const { events, getEvents } = useEvents()
   const router = useRouter()
   const { user } = useAuthUser()
-  const candidate = ref<Candidate>({ user_id: user.value?.id } as Candidate)
+  const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
 
   const { saveCandidate, loadProfile } = useCandidate()
 
