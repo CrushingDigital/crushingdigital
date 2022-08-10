@@ -6,7 +6,7 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!
 const handler: Handler = async (event, context) => {
   try {
     sgMail.setApiKey(SENDGRID_API_KEY)
-    if (!event.body) throw new Error('Invalid request')
+    if (!event.body) throw new VerifyException('Invalid request', event)
     let body = JSON.parse(event.body)
     const msg = {
       to: 'davidproberts@gmail.com',
@@ -29,6 +29,11 @@ const handler: Handler = async (event, context) => {
       }),
     }
   }
+}
+
+function VerifyException(msg: string, event) {
+  this.message = msg
+  this.event = event
 }
 
 export { handler }
