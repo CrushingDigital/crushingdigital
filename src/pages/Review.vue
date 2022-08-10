@@ -56,7 +56,7 @@
   const explanation = ref('')
 
   onBeforeMount(async () => {
-    let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string, 10))
+    let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string))
     if (loadedProfile instanceof Error) return false
     developer.value = loadedProfile
   })
@@ -99,7 +99,7 @@
 
   const sendEmail = async () => {
     axios
-      .get('https://crushing.digital/.netlify/functions/verify', { params: { email: 'david@here.com' } })
+      .get('https://crushing.digital/.netlify/functions/verify', { params: { email: developer.value?.email } })
       .then(function (response) {
         console.log(response)
       })
