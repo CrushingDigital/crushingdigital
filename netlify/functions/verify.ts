@@ -7,7 +7,7 @@ const handler: Handler = async (event, context) => {
   try {
     sgMail.setApiKey(SENDGRID_API_KEY)
 
-    if (!event.queryStringParameters) throw 'Invaid request'
+    if (!event.queryStringParameters) throw 'Invalid request'
 
     let email = event.queryStringParameters!.email
     const msg: MailDataRequired = {
@@ -21,7 +21,7 @@ const handler: Handler = async (event, context) => {
     await sgMail.send(msg)
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'sent to ' + email }),
+      body: JSON.stringify({ message: 'sent to ' + email, data: event.queryStringParameters }),
     }
   } catch (error) {
     return {
