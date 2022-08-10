@@ -17,6 +17,7 @@ interface Candidate {
   link_3?: string
   verify_req: number | null
   active?: boolean
+  email: string
 }
 
 interface Skill {

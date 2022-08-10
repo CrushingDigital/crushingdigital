@@ -28,7 +28,6 @@ const getCandidates = async (): Promise<Candidate[] | Error> => {
     .order('link_3')
     .order('link_2')
     .order('link_1')
-  // .order('id', { ascending: false })
 
   if (error) throw error
 
@@ -55,8 +54,6 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     verified,
     active,
   } = candidate
-
-  console.log(link_1, link_2, link_3)
 
   let { data, error } = await supabase.from('candidates').upsert([
     {
