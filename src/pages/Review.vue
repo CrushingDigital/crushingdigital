@@ -99,9 +99,7 @@
 
   const sendEmail = async () => {
     axios
-      .post('https://crushing.digital/.netlify/functions/verify', {
-        to: developer.value?.email,
-      })
+      .get('https://crushing.digital/.netlify/functions/verify?email=' + developer.value?.email)
       .then(function (response) {
         console.log(response)
       })
