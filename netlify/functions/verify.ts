@@ -11,7 +11,7 @@ const handler: Handler = async (event, context) => {
     const msg = {
       to: 'davidproberts@gmail.com',
       from: 'david@crushing.digital',
-      subject: 'Profile verification - success (' + body.data.to + ')',
+      subject: 'Profile verification - success (' + body.to + ')',
       text: 'Congratulations! Your profile has now been verified',
       html: '<strong>Congratulations! Your profile has now been verified</strong>',
     }
