@@ -99,7 +99,7 @@
 
   const sendEmail = async () => {
     axios
-      .post(import.meta.env.VERIFY_EMAIL_URL, {
+      .post('https://crushing.digital/.netlify/functions/verify', {
         to: developer.value?.email,
       })
       .then(function (response) {
