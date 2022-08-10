@@ -21,7 +21,7 @@ const handler: Handler = async (event, context) => {
     await sgMail.send(msg)
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'sent to ' + email, data: event.queryStringParameters }),
+      body: JSON.stringify({ message: 'sent to ' + email }),
     }
   } catch (error) {
     return {
