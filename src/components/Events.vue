@@ -1,5 +1,6 @@
 <template>
   <h3>Notifications</h3>
+  <span class="text-xs"><i class="fa-solid fa-clock"></i> {{ lastUpdated }}</span>
   <div>
     <ul class="p-4">
       <li v-for="event in personalEvents">
@@ -31,14 +32,18 @@
   import useEvents from '@/composables/useEvent'
   import useAuthUser from '@/composables/useAuthUser'
   import moment from 'moment'
-  import { onBeforeMount } from 'vue'
+  import { computed, onMounted } from 'vue'
 
-  const props = defineProps(['userId'])
+  const props = defineProps(['userId', 'lastUpdate'])
+
+  const lastUpdated = computed(() => {
+    return moment(props.lastUpdate).format('lll')
+  })
 
   const { user } = useAuthUser()
   const { personalEvents, getEventsForUser } = useEvents()
 
-  onBeforeMount(async () => {
+  onMounted(async () => {
     await getEventsForUser(props.userId)
   })
 </script>
