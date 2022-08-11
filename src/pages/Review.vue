@@ -72,7 +72,7 @@
 
       let descr = verify ? 'Profile verified' : reason.value
       let note = verify ? 'Verified' : 'Verification declined: ' + explanation.value
-      addEvent(verify ? 'CANDIDATE.VERIFIED' : 'CANDIDATE:UNVERIFIED', descr, note, developer.value!.user_id)
+      await addEvent(verify ? 'CANDIDATE.VERIFIED' : 'CANDIDATE:UNVERIFIED', descr, note, developer.value!.user_id)
 
       if (verify) {
         sendVerificationEmail().catch(() => {
