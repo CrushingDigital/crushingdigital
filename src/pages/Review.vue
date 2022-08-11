@@ -7,6 +7,7 @@
     <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
     <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
+    <button class="btn btn-xs btn-primary mx-1" @click="notifyFeedbackWaiting()">Feedback Awaits!</button>
   </div>
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
@@ -98,6 +99,14 @@
       let descr = approve ? 'Profile approved' : reason.value
       let note = approve ? 'Approved' : 'Approval declined: ' + explanation.value
       await addEvent(approve ? 'CANDIDATE.APPROVED' : 'CANDIDATE:DISAPPROVED', descr, note, developer.value!.user_id)
+
+      if (approve) {
+        sendApprovalEmail().catch(() => {
+          developer.value!.approved = initVal
+          toast.error('Approval failure')
+        })
+      }
+
       lastUpdate.value = moment()
     } catch (err) {
       developer.value!.approved = initVal
@@ -113,9 +122,35 @@
     toast.success('Review complete')
   }
 
+  const notifyFeedbackWaiting = async () => {
+    toast.success('Feedback waiting - sent')
+    axios
+      .get('https://crushing.digital/.netlify/functions/email', {
+        params: { email: developer.value?.email, template_id: 'd-224be0601d244b58b298bb27ae4d6c00' },
+      })
+      .then(function (response) {
+        addEvent(
+          'EMAIL.FEEDDBACK',
+          'You have feedback',
+          'Feedback email sent to ' + developer.value!.email,
+          developer.value!.user_id
+        )
+      })
+      .catch(function (error) {
+        addEvent(
+          'EMAIL.FEEDBACK',
+          'Feedback Email - Failed',
+          'Failed to send feedback email to ' + developer.value!.email,
+          developer.value!.user_id
+        )
+      })
+  }
+
   const sendVerificationEmail = async () => {
     axios
-      .get('https://crushing.digital/.netlify/functions/verify', { params: { email: developer.value?.email } })
+      .get('https://crushing.digital/.netlify/functions/email', {
+        params: { email: developer.value?.email, template_id: 'd-0b60cc57ba334337bcc2f3ba579b0f5b' },
+      })
       .then(function (response) {
         addEvent(
           'EMAIL.VERIFICATION',
@@ -125,11 +160,33 @@
         )
       })
       .catch(function (error) {
-        console.error(error)
         addEvent(
           'EMAIL.VERIFICATION',
           'Verification Email - Failed',
-          'Failed to send verification email sent to ' + developer.value!.email,
+          'Failed to send verification email to ' + developer.value!.email,
+          developer.value!.user_id
+        )
+      })
+  }
+
+  const sendApprovalEmail = async () => {
+    axios
+      .get('https://crushing.digital/.netlify/functions/email', {
+        params: { email: developer.value?.email, template_id: 'd-82a72ed6af364bafac2740bd00f6eb59' },
+      })
+      .then(function (response) {
+        addEvent(
+          'EMAIL.APPROVAL',
+          'Approval Email',
+          'Approval email sent to ' + developer.value!.email,
+          developer.value!.user_id
+        )
+      })
+      .catch(function (error) {
+        addEvent(
+          'EMAIL.APPROVAL',
+          'Approval Email - Failed',
+          'Failed to send approval email to ' + developer.value!.email,
           developer.value!.user_id
         )
       })
