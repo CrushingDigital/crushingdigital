@@ -7,7 +7,6 @@
     <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
     <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
-    <button class="btn btn-xs btn-primary mx-1" @click="sendEmail()">Test Email</button>
   </div>
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
@@ -31,7 +30,7 @@
     ></textarea>
   </div>
   <div id="notifications" class="mt-4" v-if="developer">
-    <Events :userId="developer?.user_id" />
+    <Events :userId="developer?.user_id" :lastUpdate="lastUpdate" :key="lastUpdate.format('x')" />
   </div>
 </template>
 
@@ -54,6 +53,7 @@
   const developer = ref<Candidate | null>(null)
   const reason = ref('')
   const explanation = ref('')
+  let lastUpdate = ref(moment())
 
   onBeforeMount(async () => {
     let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string))
@@ -66,10 +66,22 @@
     try {
       developer.value!.verified = verify
       await saveCandidate(developer.value!, false)
-      toast.success('Verified flag updated')
+
+      let toastMsg = verify ? 'Profile verified' : 'Verification removed'
+      toast.success(toastMsg)
+
       let descr = verify ? 'Profile verified' : reason.value
       let note = verify ? 'Verified' : 'Verification declined: ' + explanation.value
       addEvent(verify ? 'CANDIDATE.VERIFIED' : 'CANDIDATE:UNVERIFIED', descr, note, developer.value!.user_id)
+
+      if (verify) {
+        sendVerificationEmail().catch(() => {
+          developer.value!.verified = initVal
+          toast.error('Verification failure')
+        })
+      }
+
+      lastUpdate.value = moment()
     } catch (err) {
       developer.value!.verified = initVal
       toast.error('Permission denied')
@@ -81,10 +93,12 @@
     try {
       developer.value!.approved = approve
       await saveCandidate(developer.value!, false)
-      toast.success('Approved flag updated')
+      let toastMsg = approve ? 'Profile approved' : 'Approval removed'
+      toast.success(toastMsg)
       let descr = approve ? 'Profile approved' : reason.value
       let note = approve ? 'Approved' : 'Approval declined: ' + explanation.value
-      addEvent(approve ? 'CANDIDATE.APPROVED' : 'CANDIDATE:DISAPPROVED', descr, note, developer.value!.user_id)
+      await addEvent(approve ? 'CANDIDATE.APPROVED' : 'CANDIDATE:DISAPPROVED', descr, note, developer.value!.user_id)
+      lastUpdate.value = moment()
     } catch (err) {
       developer.value!.approved = initVal
       toast.error('Permission denied')
@@ -95,16 +109,29 @@
     let newDev = await saveCandidate(developer.value!, developer.value!.verify_req === null ? true : false)
     if (newDev instanceof Error) return false
     developer.value!.verify_req = newDev.verify_req
+    lastUpdate.value = moment()
+    toast.success('Review complete')
   }
 
-  const sendEmail = async () => {
+  const sendVerificationEmail = async () => {
     axios
       .get('https://crushing.digital/.netlify/functions/verify', { params: { email: developer.value?.email } })
       .then(function (response) {
-        console.log(response)
+        addEvent(
+          'EMAIL.VERIFICATION',
+          'Verification Email',
+          'Verification email sent to ' + developer.value!.email,
+          developer.value!.user_id
+        )
       })
       .catch(function (error) {
-        console.log(error)
+        console.error(error)
+        addEvent(
+          'EMAIL.VERIFICATION',
+          'Verification Email - Failed',
+          'Failed to send verification email sent to ' + developer.value!.email,
+          developer.value!.user_id
+        )
       })
   }
 </script>
