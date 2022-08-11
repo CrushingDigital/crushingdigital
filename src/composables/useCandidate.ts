@@ -84,7 +84,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
 
 const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
   let { data, error } = await supabase
-    .from('candidates_basic')
+    .from('candidates')
     .select(
       `
       *,
@@ -103,7 +103,7 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
 
 const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
   let { data, error } = await supabase
-    .from('candidates_basic')
+    .from('candidates')
     .select(
       `
         *,
