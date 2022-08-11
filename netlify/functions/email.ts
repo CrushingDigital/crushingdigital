@@ -10,7 +10,6 @@ const handler: Handler = async (event, context) => {
     if (!event.queryStringParameters) throw 'Invalid request'
 
     let email = event.queryStringParameters!.email
-    email = 'davidproberts@gmail.com'
     let template_id = event.queryStringParameters!.template_id
     const msg: MailDataRequired = {
       to: email,
