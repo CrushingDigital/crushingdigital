@@ -66,18 +66,22 @@
     try {
       developer.value!.verified = verify
       await saveCandidate(developer.value!, false)
-      toast.success('Verified flag updated')
+
+      let toastMsg = verify ? 'Profile verified' : 'Verification removed'
+      toast.success(toastMsg)
+
       let descr = verify ? 'Profile verified' : reason.value
       let note = verify ? 'Verified' : 'Verification declined: ' + explanation.value
       addEvent(verify ? 'CANDIDATE.VERIFIED' : 'CANDIDATE:UNVERIFIED', descr, note, developer.value!.user_id)
-      sendVerificationEmail()
-        .then(async () => {
-          lastUpdate.value = moment()
-        })
-        .catch(() => {
+
+      if (verify) {
+        sendVerificationEmail().catch(() => {
           developer.value!.verified = initVal
           toast.error('Verification failure')
         })
+      }
+
+      lastUpdate.value = moment()
     } catch (err) {
       developer.value!.verified = initVal
       toast.error('Permission denied')
@@ -119,17 +123,15 @@
           'Verification email sent to ' + developer.value!.email,
           developer.value!.user_id
         )
-        return true
       })
       .catch(function (error) {
+        console.error(error)
         addEvent(
           'EMAIL.VERIFICATION',
           'Verification Email - Failed',
           'Failed to send verification email sent to ' + developer.value!.email,
           developer.value!.user_id
         )
-
-        return false
       })
   }
 </script>
