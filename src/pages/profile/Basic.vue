@@ -172,10 +172,16 @@
           placeholder="e.g. https://www.linkedin.com/in/davidproberts/"
         />
       </div>
-      <div class="form-control w-full sm:w-1/3">
+      <div class="form-control w-full sm:w-1/2">
         <label class="label cursor-pointer">
           <span class="label-text">Display on site?</span>
           <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.active" />
+        </label>
+      </div>
+      <div class="form-control w-full sm:w-1/2">
+        <label class="label cursor-pointer">
+          <span class="label-text">Receive profile review notifications via email?</span>
+          <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.allow_emails" />
         </label>
       </div>
       <div class="flex justify-center items-center my-8">
@@ -261,7 +267,6 @@
   })
 
   const linkFix = (link: string | undefined) => {
-    console.log(link)
     if (link == undefined) return undefined
     if (!/^https?:\/\//i.test(link)) {
       return 'https://' + link

@@ -53,6 +53,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     link_3,
     verified,
     active,
+    allow_emails,
   } = candidate
 
   let { data, error } = await supabase.from('candidates').upsert([
@@ -74,6 +75,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
       verified,
       verify_req,
       active,
+      allow_emails,
     },
   ])
 

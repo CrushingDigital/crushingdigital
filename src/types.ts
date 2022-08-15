@@ -18,6 +18,7 @@ interface Candidate {
   verify_req: number | null
   active?: boolean
   email: string
+  allow_emails: boolean
 }
 
 interface Skill {
