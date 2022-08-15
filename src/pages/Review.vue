@@ -123,73 +123,85 @@
   }
 
   const notifyFeedbackWaiting = async () => {
-    toast.success('Feedback waiting - sent')
-    axios
-      .get('https://crushing.digital/.netlify/functions/email', {
-        params: { email: developer.value?.email, template_id: 'd-224be0601d244b58b298bb27ae4d6c00' },
-      })
-      .then(function (response) {
-        addEvent(
-          'EMAIL.FEEDDBACK',
-          'You have feedback',
-          'Feedback email sent to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
-      .catch(function (error) {
-        addEvent(
-          'EMAIL.FEEDBACK',
-          'Feedback Email - Failed',
-          'Failed to send feedback email to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
+    if (developer.value?.allow_emails) {
+      toast.success('Feedback waiting - sent')
+      axios
+        .get('https://crushing.digital/.netlify/functions/email', {
+          params: { email: developer.value?.email, template_id: 'd-224be0601d244b58b298bb27ae4d6c00' },
+        })
+        .then(function (response) {
+          addEvent(
+            'EMAIL.FEEDDBACK',
+            'You have feedback',
+            'Feedback email sent to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+        .catch(function (error) {
+          addEvent(
+            'EMAIL.FEEDBACK',
+            'Feedback Email - Failed',
+            'Failed to send feedback email to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+    } else {
+      toast.success('Email skipped due to account preferences')
+    }
   }
 
   const sendVerificationEmail = async () => {
-    axios
-      .get('https://crushing.digital/.netlify/functions/email', {
-        params: { email: developer.value?.email, template_id: 'd-0b60cc57ba334337bcc2f3ba579b0f5b' },
-      })
-      .then(function (response) {
-        addEvent(
-          'EMAIL.VERIFICATION',
-          'Verification Email',
-          'Verification email sent to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
-      .catch(function (error) {
-        addEvent(
-          'EMAIL.VERIFICATION',
-          'Verification Email - Failed',
-          'Failed to send verification email to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
+    if (developer.value?.allow_emails) {
+      axios
+        .get('https://crushing.digital/.netlify/functions/email', {
+          params: { email: developer.value?.email, template_id: 'd-0b60cc57ba334337bcc2f3ba579b0f5b' },
+        })
+        .then(function (response) {
+          addEvent(
+            'EMAIL.VERIFICATION',
+            'Verification Email',
+            'Verification email sent to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+        .catch(function (error) {
+          addEvent(
+            'EMAIL.VERIFICATION',
+            'Verification Email - Failed',
+            'Failed to send verification email to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+    } else {
+      toast.success('Email skipped due to account preferences')
+    }
   }
 
   const sendApprovalEmail = async () => {
-    axios
-      .get('https://crushing.digital/.netlify/functions/email', {
-        params: { email: developer.value?.email, template_id: 'd-82a72ed6af364bafac2740bd00f6eb59' },
-      })
-      .then(function (response) {
-        addEvent(
-          'EMAIL.APPROVAL',
-          'Approval Email',
-          'Approval email sent to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
-      .catch(function (error) {
-        addEvent(
-          'EMAIL.APPROVAL',
-          'Approval Email - Failed',
-          'Failed to send approval email to ' + developer.value!.email,
-          developer.value!.user_id
-        )
-      })
+    if (developer.value?.allow_emails) {
+      axios
+        .get('https://crushing.digital/.netlify/functions/email', {
+          params: { email: developer.value?.email, template_id: 'd-82a72ed6af364bafac2740bd00f6eb59' },
+        })
+        .then(function (response) {
+          addEvent(
+            'EMAIL.APPROVAL',
+            'Approval Email',
+            'Approval email sent to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+        .catch(function (error) {
+          addEvent(
+            'EMAIL.APPROVAL',
+            'Approval Email - Failed',
+            'Failed to send approval email to ' + developer.value!.email,
+            developer.value!.user_id
+          )
+        })
+    } else {
+      toast.success('Email skipped due to account preferences')
+    }
   }
 </script>
 

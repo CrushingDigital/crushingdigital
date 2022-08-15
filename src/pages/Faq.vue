@@ -23,6 +23,12 @@
       have a blog, personal website/project or perhaps some content that showcases your skills and experience?`,
     },
     {
+      question: 'Will I receive lots of emails?',
+      answer: `We only email you about your account. Currently, this is limited to notifying you that your profile has
+      been reviewed and feedback is waiting for you. There are no plans for any other types of emails. 
+      We will NEVER sell or misuse your information. EVER.`,
+    },
+    {
       question: 'Can I hide my salary?',
       answer: `Monthly rate on the site is NOT your actual salary. Salary is subjective. You might request more money for
       a role upon hearing the requirements and expectations. This is purely down to search filtering. Is there
