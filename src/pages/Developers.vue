@@ -50,6 +50,15 @@
         >
           <i class="fa-solid fa-eye"></i>
         </label>
+        <label
+          title="Active"
+          class="modal-button my-auto cursor-pointer mr-2"
+          @click="toggleActive"
+          :class="active ? 'text-red-400' : 'text-gray-300'"
+          v-if="memberships.includes('admin')"
+        >
+          <i class="fa-solid fa-person-running"></i>
+        </label>
       </div>
 
       <input
@@ -285,6 +294,7 @@
   const verified = ref<boolean>(false)
   const searchVal = ref<string>('')
   const verify_req = ref<boolean>(false)
+  const active = ref<boolean>(false)
 
   const skills = ref<Array<Skill>>([])
   const filterSkills = ref<Skill[]>([])
@@ -312,6 +322,10 @@
     }
   }
 
+  const toggleActive = (evt: Event) => {
+    active.value = !active.value
+  }
+
   const toggleReview = (evt: Event) => {
     verify_req.value = !verify_req.value
   }
@@ -334,6 +348,7 @@
       else if (approved.value && !dev.approved) return false
       else if (verified.value && !dev.verified) return false
       else if (verify_req.value && !dev.verify_req) return false
+      else if (active.value && !dev.active) return false
       else if (
         searchVal.value &&
         searchVal.value.length >= 3 &&
