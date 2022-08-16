@@ -75,6 +75,8 @@
         placeholder="Search by name..."
         class="input input-bordered w-72 sm:ml-4"
       />
+
+      <span class="flower ml-2">#{{ filteredCandidates.length }} Developers</span>
     </div>
     <ul v-if="filteredCandidates.length">
       <li v-for="dev in filteredCandidates">
