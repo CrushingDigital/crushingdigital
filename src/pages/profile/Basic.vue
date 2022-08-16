@@ -283,6 +283,8 @@
     target.classList.toggle('disabledButton')
     target.classList.toggle('button')
 
+    if (!candidate.value.email) candidate.value.email = user.value?.email
+
     candidate.value.gitsource = linkFix(candidate.value.gitsource)
     candidate.value.linkedin = linkFix(candidate.value.linkedin)
     candidate.value.link_1 = linkFix(candidate.value.link_1)

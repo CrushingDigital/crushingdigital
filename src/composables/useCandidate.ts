@@ -52,6 +52,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     link_3,
     verified,
     active,
+    email,
     allow_emails,
   } = candidate
 
@@ -74,6 +75,7 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
       verified,
       verify_req,
       active,
+      email,
       allow_emails,
     },
   ])
