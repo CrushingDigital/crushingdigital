@@ -17,7 +17,7 @@ interface Candidate {
   link_3?: string
   verify_req: number | null
   active?: boolean
-  email: string
+  email: string | undefined
   allow_emails: boolean
 }
 
