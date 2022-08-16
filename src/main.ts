@@ -7,6 +7,7 @@ import './index.css'
 import Toast, { PluginOptions } from 'vue-toastification'
 // Import the CSS or use your own!
 import 'vue-toastification/dist/index.css'
+import VueSocialSharing from 'vue-social-sharing'
 
 import Home from '@/pages/Home.vue'
 import About from '@/components/About.vue'
@@ -53,6 +54,7 @@ router.beforeEach((to) => {
 
 const app = createApp(App)
 app.use(router)
+app.use(VueSocialSharing)
 
 const options: PluginOptions = {
   timeout: 5000,

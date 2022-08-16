@@ -1,12 +1,20 @@
 <template>
-  <div class="mt-4">
-    <div>
-      <p class="px-8 py-4 bg-accent rounded-full">
-        <i class="fa-solid fa-person-digging"></i>
-        I'm currently building the site, but do feel free to look around and enter your profile. Also, stay tuned on our
-        social channels for updates
-      </p>
-    </div>
+  <div id="sharing" class="mt-4">
+    <span class="mr-2 threeLink">We could really use your help. Tell someone about us &raquo</span>
+    <ShareNetwork
+      class="mr-2"
+      v-for="social in socials"
+      :network="social.network"
+      :key="social.network"
+      :style="{ backgroundColor: social.color }"
+      :url="sharing.url"
+      :title="sharing.title"
+      :description="sharing.description"
+      :hashtags="sharing.hashtags"
+      :twitterUser="sharing.twitterUser"
+    >
+      <i :class="social.icon"></i>
+    </ShareNetwork>
   </div>
 
   <div class="collapse mt-4" v-if="candidates.length">
@@ -299,6 +307,20 @@
   const skills = ref<Array<Skill>>([])
   const filterSkills = ref<Skill[]>([])
   const candidates = ref<Array<Candidate>>([])
+
+  const sharing = ref({
+    url: 'https://crushing.digital',
+    title: "I'm getting my developer profile verified for FREE. You should too!",
+    description: 'Become a verified or approved developer. Get the job you deserve!',
+    hashtags: 'coding,programming,jobs',
+    twitterUser: 'crushingdigital',
+  })
+
+  const socials = ref([
+    { network: 'linkedin', name: 'LinkedIn', icon: 'fab fah fa-lg fa-linkedin', color: '#007bb5' },
+    { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
+    { network: 'whatsapp', name: 'Whatsapp', icon: 'fab fah fa-lg fa-whatsapp', color: '#25d366' },
+  ])
 
   onBeforeMount(async () => {
     if (user.value && !memberships.value.length) {
