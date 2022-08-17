@@ -1,21 +1,29 @@
 <template>
-  <div id="sharing" class="mt-4" v-if="candidate.approved || candidate.verified">
-    <span class="mr-2 threeLink" v-if="candidate.approved">{{ sharing.approvedMessage }}</span>
-    <span class="mr-2 threeLink" v-else-if="candidate.verified">{{ sharing.verifiedMessage }}</span>
-    <ShareNetwork
-      class="mr-2"
-      v-for="social in socials"
-      :network="social.network"
-      :key="social.network"
-      :style="{ backgroundColor: social.color }"
-      :url="sharing.url"
-      :title="sharing.title"
-      :description="sharing.description"
-      :hashtags="sharing.hashtags"
-      :twitterUser="sharing.twitterUser"
-    >
-      <i :class="social.icon"></i>
-    </ShareNetwork>
+  <div
+    id="sharing"
+    class="sm:mt-4 flex flex-col sm:flex-row justify-start sm:justify-center items-center"
+    v-if="candidate.approved || candidate.verified"
+  >
+    <span class="mr-2 threeLink text-center sm:text-left" v-if="candidate.approved">{{ sharing.approvedMessage }}</span>
+    <span class="mr-2 threeLink text-center sm:text-left" v-else-if="candidate.verified">{{
+      sharing.verifiedMessage
+    }}</span>
+    <div class="flex flex-row sm:justify-start justify-center">
+      <ShareNetwork
+        class="mx-1"
+        v-for="social in socials"
+        :network="social.network"
+        :key="social.network"
+        :style="{ backgroundColor: social.color }"
+        :url="sharing.url"
+        :title="sharing.title"
+        :description="sharing.description"
+        :hashtags="sharing.hashtags"
+        :twitterUser="sharing.twitterUser"
+      >
+        <i :class="social.icon"></i>
+      </ShareNetwork>
+    </div>
   </div>
 
   <div id="notifications" class="mt-4" v-if="user?.id">
