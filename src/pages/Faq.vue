@@ -50,7 +50,7 @@
       img: `<i class="fa-solid fa-star text-yellow-400"></i>`,
       answer: `This is the pinnacle of Crushing Digital approval. We think this developer rocks. Approval is limited to those developers
       who are already Verified. Therefore, this stamp of approval indicates not just that their profile shows promise, but
-      that they ahve been throught the Crushing Digital technical vetting process and we are happy to endorse that this developer
+      that they have been through the Crushing Digital technical vetting process and we are happy to endorse that this developer
       has the skills to pay the bills 😉`,
     },
     {
