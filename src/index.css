@@ -179,7 +179,7 @@
     @apply bg-gray-200 border-gray-200;
   }
 
-  #sharing > a {
+  #sharing a {
     @apply text-white p-2;
   }
 }
