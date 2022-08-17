@@ -80,6 +80,8 @@
           developer.value!.verified = initVal
           toast.error('Verification failure')
         })
+      } else {
+        explanation.value = ''
       }
 
       lastUpdate.value = moment()
@@ -105,6 +107,8 @@
           developer.value!.approved = initVal
           toast.error('Approval failure')
         })
+      } else {
+        explanation.value = ''
       }
 
       lastUpdate.value = moment()
