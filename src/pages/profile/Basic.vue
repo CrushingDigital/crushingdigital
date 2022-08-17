@@ -297,7 +297,7 @@
     candidate.value.link_2 = linkFix(candidate.value.link_2)
     candidate.value.link_3 = linkFix(candidate.value.link_3)
 
-    let savedProfile = await saveCandidate(candidate.value)
+    let savedProfile = await saveCandidate(candidate.value, !candidate.value.delete_me)
     if (savedProfile instanceof Error) return false
 
     candidate.value = savedProfile
