@@ -184,6 +184,12 @@
           <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.allow_emails" />
         </label>
       </div>
+      <div class="form-control w-full sm:w-1/2">
+        <label class="label cursor-pointer">
+          <span class="label-text">Delete my account (usually takes 48hrs)</span>
+          <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.delete_me" />
+        </label>
+      </div>
       <div class="flex justify-center items-center my-8">
         <i class="fa-solid fa-circle-arrow-down mr-4 text-primary"></i>
         <h3>Now <span class="text-secondary">sell</span> yourself!</h3>

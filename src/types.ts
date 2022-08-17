@@ -19,6 +19,7 @@ interface Candidate {
   active?: boolean
   email: string | undefined
   allow_emails: boolean
+  delete_me: boolean
 }
 
 interface Skill {
