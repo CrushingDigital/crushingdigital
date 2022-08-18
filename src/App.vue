@@ -9,6 +9,9 @@
         </label>
         <ul id="menu" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 w-52">
           <li class="py-1" @click="closeMenu">
+            <router-link to="/profile/basic" class="text-secondary">&raquo; Get started &laquo;</router-link>
+          </li>
+          <li class="py-1" @click="closeMenu">
             <router-link to="/developers">Home</router-link>
           </li>
           <li class="py-1">
