@@ -1,7 +1,7 @@
 <template>
   <Share />
 
-  <div class="collapse mt-4" v-if="candidates.length">
+  <div class="collapse mt-4" v-if="filteredCandidates.length">
     <CandidateInlineFilters
       :noDevs="filteredCandidates.length"
       :memberships="memberships"
