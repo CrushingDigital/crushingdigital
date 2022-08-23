@@ -22,7 +22,7 @@
         <Snippet :dev="dev" @skill-toggle="toggleSkill" />
       </li>
     </ul>
-    <div v-else class="mt-12 mb-4">
+    <div v-else class="mt-12 mb-4 flex justify-center">
       <h3>😢 No developers found 🤷 Try adjusting your filters!</h3>
     </div>
   </div>
