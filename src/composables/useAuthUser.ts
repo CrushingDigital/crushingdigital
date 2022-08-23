@@ -20,6 +20,8 @@ export default function useAuthUser() {
   const logout = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
+
+    getUserMemberships()
   }
 
   const isLoggedIn = (): boolean => {
@@ -27,7 +29,10 @@ export default function useAuthUser() {
   }
 
   const getUserMemberships = async (): Promise<number> => {
-    if (!user.value) return 0
+    if (!user.value) {
+      memberships.value = []
+      return 0
+    }
     const { data, error } = await supabase
       .from('memberships')
       .select('*, roles(name)')

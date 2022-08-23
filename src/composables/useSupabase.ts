@@ -8,8 +8,10 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 supabase.auth.onAuthStateChange(async (event, session) => {
-  const { user, getUserMemberships, memberships } = useAuthUser()
+  const { user, getUserMemberships } = useAuthUser()
   user.value = session?.user || null
+
+  getUserMemberships()
 })
 
 const getSkills = async (): Promise<Skill[]> => {
