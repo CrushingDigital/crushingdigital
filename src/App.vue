@@ -124,8 +124,6 @@
     candidate.value.verify_req = new Date().toISOString().toLocaleString()
     const res = await saveCandidate(candidate.value)
 
-    console.log(res)
-
     if (res instanceof Error) toast.error('Review request failed')
     else toast.success('Review requested')
   }
