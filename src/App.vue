@@ -26,6 +26,9 @@
           <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/profile/tech">Your Tech Stack</router-link>
           </li>
+          <li class="py-1" v-if="user" @click="closeMenu">
+            <button class="btn btn-secondary" @click="requestReview">Request Review</button>
+          </li>
         </ul>
       </div>
       <a class="btn btn-ghost normal-case px-0">
@@ -82,13 +85,16 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
   import useAuthUser from '@/composables/useAuthUser'
+  import useCandidate from './composables/useCandidate'
   import useEvents from '@/composables/useEvent'
-  import { onBeforeMount } from 'vue'
+  import { onBeforeMount, ref } from 'vue'
   import { Provider } from '@supabase/supabase-js'
+  import { Candidate } from './types'
+  import { useToast } from 'vue-toastification'
 
-  const { events, getEvents } = useEvents()
+  const { getEvents } = useEvents()
   const router = useRouter()
-
+  const toast = useToast()
   const { user, login, logout } = useAuthUser()
 
   onBeforeMount(() => {
@@ -108,6 +114,20 @@
 
   const closeMenu = () => {
     ;(document.activeElement as HTMLElement).blur()
+  }
+
+  const requestReview = async () => {
+    let candidate = ref()
+    const { loadProfile, saveCandidate } = useCandidate()
+    if (user.value) candidate.value = await loadProfile(user.value.id)
+
+    candidate.value.verify_req = new Date().toISOString().toLocaleString()
+    const res = await saveCandidate(candidate.value)
+
+    console.log(res)
+
+    if (res instanceof Error) toast.error('Review request failed')
+    else toast.success('Review requested')
   }
 </script>
 
