@@ -12,7 +12,7 @@ import VueSocialSharing from 'vue-social-sharing'
 import Home from '@/pages/Home.vue'
 import About from '@/components/About.vue'
 import Jobs from '@/components/Jobs.vue'
-import DevList from '@/pages/Developers.vue'
+import Developers from '@/pages/Developers.vue'
 import Basic from '@/pages/profile/Basic.vue'
 import Tech from '@/pages/profile/Tech.vue'
 import Review from '@/pages/Review.vue'
@@ -25,7 +25,8 @@ const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
 
 const routes = [
-  { path: '/', component: DevList, name: 'Home' },
+  { path: '/', component: Developers, name: 'Home' },
+  { path: '/', component: Jobs, name: 'Jobs' },
   { path: '/about', component: About },
   { path: '/recruiters', component: RecruiterSignup, name: 'recruiters' },
   { path: '/developers', redirect: '/' },

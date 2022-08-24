@@ -1,4 +1,4 @@
-import { Candidate, Skill } from '@/types'
+import { Candidate, Skill, Job, SkillsLink } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 
 const { supabase } = useSupabase()
@@ -53,15 +53,15 @@ const saveSkillsForCandidate = async (candidate: Candidate, skills: Skill[]) => 
   return data
 }
 
-const getCandidateSkillIds = (candidate: Candidate) => {
-  return candidate.candidate_skills!.map((cskills) => cskills.skills?.id)
+const getSkillIds = (item: Candidate | Job) => {
+  return item.skills_link!.map((skills: SkillsLink) => skills.skills?.id)
 }
 
 const unpackSkills = (candidate: Candidate) => {
   if (!candidate) throw 'Cannot unpack skills for undefined candidate'
-  return candidate.candidate_skills!.map((cskills) => cskills.skills as Skill)
+  return candidate.skills_link!.map((cskills) => cskills.skills as Skill)
 }
 
 export default function useSkill() {
-  return { getSkills, saveSkillsForCandidate, loadSkillsForCandidate, unpackSkills, getCandidateSkillIds }
+  return { getSkills, saveSkillsForCandidate, loadSkillsForCandidate, unpackSkills, getSkillIds }
 }
