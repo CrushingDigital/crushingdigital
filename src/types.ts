@@ -6,7 +6,7 @@ interface Candidate {
   gitsource?: string
   linkedin?: string
   rate: number
-  skills_link?: Array<SkillsLink>
+  candidate_skills?: Array<SkillsLink>
   timezone: number
   yoe: number
   verified?: boolean
@@ -52,7 +52,6 @@ interface Job {
   link_2?: string
   link_3?: string
   active?: boolean
-  delete_me: boolean
 }
 
 interface CDEvent {

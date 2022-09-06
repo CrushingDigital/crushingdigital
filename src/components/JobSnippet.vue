@@ -1,6 +1,6 @@
 <template>
   <div v-if="!job"><h3>Loading...</h3></div>
-  <div v-else class="flex justify-between px-4 py-2 bg-primary/5 rounded-2xl mb-1">
+  <div v-else class="flex justify-between items-center px-4 py-2 bg-primary/5 rounded-2xl mb-1">
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
@@ -11,7 +11,8 @@
             ><i class="fa-solid fa-clipboard-check fa-xl"></i>
           </span>
 
-          <span class="text-sm sm:text-lg mx-2">{{ job.title }}</span>
+          <span class="text-sm sm:text-lg ml-2">{{ job.title }}</span>
+          <span class="text-xs mx-2 text-slate-400 flower">@ {{ job.company }}</span>
 
           <a v-if="job.link_1" :href="job.link_1" class="threeLink mt-1 mr-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
@@ -22,6 +23,14 @@
           <a v-if="job.link_3" :href="job.link_3" class="threeLink mt-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
+
+          <router-link :to="{ name: 'job-edit', params: { id: job.id } }" class="hidden sm:block ml-2">
+            <span
+              v-if="memberships.includes('admin') && user?.id == job.user_id"
+              class="text-slate-400 text-xs cursor-pointer mt-2"
+              ><i class="fa-solid fa-gear"></i
+            ></span>
+          </router-link>
         </div>
       </div>
       <div class="flex flex-row justify-start text-xs md:text-sm px-1 py-1 items-center">
@@ -38,11 +47,11 @@
         }}</span>
         <!-- ********* CODE **************** -->
         <a :href="job.website" class="sm:mt-1 mr-2" v-if="job.website"
-          ><span class="text-black sm:mt-1"><i class="fa-solid fa-location-dot"></i></span
+          ><span class="text-primary sm:mt-1"><i class="fa-solid fa-laptop-code"></i></span
         ></a>
         <!-- ********* LINKEDIN **************** -->
         <a :href="job.jobspec" class="sm:mt-1" v-if="job.jobspec"
-          ><span class="text-primary sm:mt-1"><i class="fa-solid fa-location-dot"></i></span
+          ><span class="text-slate-400 sm:mt-1"><i class="fa-brands fa-readme"></i></span
         ></a>
       </div>
       <!-- ********* SKILLS **************** -->
@@ -66,6 +75,9 @@
 
 <script setup lang="ts">
   import { Job } from '@/types'
+  import useAuthUser from '@/composables/useAuthUser'
+
+  const { memberships, user } = useAuthUser()
 
   defineProps<{
     job: Job | null
