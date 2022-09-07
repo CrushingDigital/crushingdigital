@@ -6,7 +6,7 @@ interface Candidate {
   gitsource?: string
   linkedin?: string
   rate: number
-  candidate_skills?: Array<CandidateSkill>
+  candidate_skills?: Array<SkillsLink>
   timezone: number
   yoe: number
   verified?: boolean
@@ -29,8 +29,29 @@ interface Skill {
   active: boolean
 }
 
-interface CandidateSkill {
+interface SkillsLink {
   skills?: Skill
+}
+
+interface Job {
+  id?: number
+  created_at?: string
+  company: string
+  title: string
+  blurb: string
+  website?: string
+  jobspec?: string
+  rate: number
+  skills_link?: Array<SkillsLink>
+  timezone: number
+  yoe: number
+  verified?: boolean
+  approved?: boolean
+  user_id: string
+  link_1?: string
+  link_2?: string
+  link_3?: string
+  active?: boolean
 }
 
 interface CDEvent {
@@ -43,4 +64,4 @@ interface CDEvent {
   note: string
 }
 
-export type { Candidate, Skill, CandidateSkill, CDEvent }
+export type { Candidate, Skill, Job, SkillsLink, CDEvent }

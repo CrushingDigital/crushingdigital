@@ -76,7 +76,6 @@ export default function useAuthUser() {
 
     if (error) throw error
 
-    console.log('returning', data)
     return data
   }
 

@@ -116,6 +116,30 @@
 .Java {
   @apply text-white bg-java border-2 border-java;
 }
+.Ionic {
+  @apply text-white bg-ionic border-2 border-ionic;
+}
+.GatsbyJS {
+  @apply text-white bg-gatsby border-2 border-gatsby;
+}
+.NuxtJS {
+  @apply text-white bg-nuxtjs border-2 border-nuxtjs;
+}
+.NextJS {
+  @apply text-white bg-nextjs border-2 border-nextjs;
+}
+.NestJS {
+  @apply text-white bg-nestjs border-2 border-nestjs;
+}
+.Supabase {
+  @apply text-white bg-supabase border-2 border-supabase;
+}
+.Firebase {
+  @apply text-white bg-gradient-to-r from-firebaseFrom to-firebaseTo;
+}
+.Solidity {
+  @apply text-white bg-solidity border-2 border-solidity;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
