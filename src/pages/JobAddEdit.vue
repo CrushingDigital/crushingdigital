@@ -71,7 +71,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Monthly rate</span
+          <span class="label-text">Min. Monthly rate</span
           ><span class="text-gray-400 text-xs">(min: ${{ job.rate }} pm)</span>
         </label>
         <input
@@ -203,7 +203,7 @@
     <div class="form-control w-full">
       <label class="label">
         <span class="label-text">Link #2</span
-        ><span class="text-gray-400 text-xs">(e.g. a short video about the company history and mission?)</span>
+        ><span class="text-gray-400 text-xs">(e.g. A short video about the project)</span>
       </label>
       <input
         type="text"
