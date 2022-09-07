@@ -23,7 +23,7 @@
   import { computed, onBeforeMount, ref } from 'vue'
   import useSkill from '@/composables/useSkill'
   import useJob from '@/composables/useJob'
-  import { Skill } from '@/types'
+  import { Job, Skill } from '@/types'
   import JobSnippet from '@/components/JobSnippet.vue'
   import CandidateInlineFilters from '@/components/CandidateInlineFilters.vue'
   import CandidateModalFilters from '@/components/CandidateModalFilters.vue'
