@@ -1,11 +1,13 @@
 import { Job } from '@/types'
 import useSupabase from '@/composables/useSupabase'
+import { subDays } from 'date-fns'
+const JOB_EXPIRY_DAYS = 30
 
 const { supabase } = useSupabase()
 
 const getJobs = async (): Promise<Job[] | Error> => {
   let from = 'jobs'
-
+  let thirtyDaysAgo = subDays(new Date(), JOB_EXPIRY_DAYS).toISOString()
   let { data: jobs, error } = await supabase
     .from(from)
     .select(
@@ -15,6 +17,8 @@ const getJobs = async (): Promise<Job[] | Error> => {
       )
     `
     )
+    .eq('active', true)
+    .gte('created_at', thirtyDaysAgo)
     .order('approved', { ascending: false })
     .order('verified', { ascending: false })
     .order('link_3')

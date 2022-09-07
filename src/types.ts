@@ -46,6 +46,7 @@ interface Job {
   timezone: number
   yoe: number
   verified?: boolean
+  verify_req: boolean
   approved?: boolean
   user_id: string
   link_1?: string

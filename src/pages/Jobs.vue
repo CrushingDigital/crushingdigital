@@ -98,6 +98,7 @@
       else if (job.yoe < reqExp.value) return false
       else if (approved.value && !job.approved) return false
       else if (verified.value && !job.verified) return false
+      else if (verify_req.value && !job.verify_req) return false
       else if (active.value && !job.active) return false
       else if (
         searchVal.value &&
