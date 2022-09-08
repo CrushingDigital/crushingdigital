@@ -5,7 +5,7 @@
     <router-link to="/job/new" class="btn btn-accent"> Post a job for FREE!</router-link>
   </div>
   <div class="collapse mt-4" v-if="jobs.length">
-    <CandidateInlineFilters
+    <FiltersInline
       :noDevs="filteredJobs.length"
       :memberships="memberships"
       v-model:searchText="searchVal"
@@ -32,7 +32,7 @@
     <h3>Nothing to see here!</h3>
   </div>
 
-  <CandidateModalFilters
+  <FiltersModal
     v-model:skills="skills"
     :filter-skills="filterSkills"
     @skill-toggle="toggleSkill"
@@ -52,8 +52,8 @@
   import useJob from '@/composables/useJob'
   import { Job, Skill } from '@/types'
   import JobSnippet from '@/components/JobSnippet.vue'
-  import CandidateInlineFilters from '@/components/CandidateInlineFilters.vue'
-  import CandidateModalFilters from '@/components/CandidateModalFilters.vue'
+  import FiltersInline from '@/components/FiltersInline.vue'
+  import FiltersModal from '@/components/FiltersModal.vue'
   import Share from '@/components/Share.vue'
 
   const { getJobs } = useJob()

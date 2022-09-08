@@ -2,7 +2,7 @@
   <Share />
 
   <div class="collapse mt-4" v-if="candidates.length">
-    <CandidateInlineFilters
+    <FiltersInline
       :noDevs="filteredCandidates.length"
       :memberships="memberships"
       v-model:searchText="searchVal"
@@ -30,7 +30,7 @@
     <h3>Nothing to see here!</h3>
   </div>
 
-  <CandidateModalFilters
+  <FiltersModal
     v-model:skills="skills"
     :filter-skills="filterSkills"
     @skill-toggle="toggleSkill"
@@ -50,9 +50,9 @@
   import { Candidate, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import Snippet from '@/components/Snippet.vue'
-  import CandidateInlineFilters from '@/components/CandidateInlineFilters.vue'
-  import CandidateModalFilters from '@/components/CandidateModalFilters.vue'
   import Share from '@/components/Share.vue'
+  import FiltersModal from '@/components/FiltersModal.vue'
+  import FiltersInline from '@/components/FiltersInline.vue'
 
   const { user, memberships, getUserMemberships } = useAuthUser()
   const { getCandidates } = useCandidate()
