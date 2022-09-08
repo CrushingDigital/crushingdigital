@@ -168,7 +168,7 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Job Spec</span>
+        <span class="label-text">Job Spec and where to apply?</span>
       </label>
       <input
         type="text"
