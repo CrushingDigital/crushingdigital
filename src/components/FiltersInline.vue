@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center flex-col sm:flex-row items-start sm:items-center my-2">
+  <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center my-2">
     <div>
       <span class="mr-2 flower">Filters:</span>
       <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">
@@ -58,12 +58,12 @@
       class="input input-bordered w-72 sm:ml-4"
     />
 
-    <span class="flower ml-2">#{{ noDevs }} Developers</span>
+    <span class="flower ml-2">#{{ noDevs }} {{ listItems }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'memberships', 'searchText'])
+  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'memberships', 'searchText', 'listItems'])
   defineEmits(['update:searchText', 'update:active', 'update:verify_req', 'update:approved', 'update:verified'])
 </script>
 

@@ -168,7 +168,7 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Job Spec</span>
+        <span class="label-text">Job Spec and where to apply?</span>
       </label>
       <input
         type="text"
@@ -188,7 +188,7 @@
     <div class="form-control w-full">
       <label class="label">
         <span class="label-text">Link #1</span
-        ><span class="text-gray-400 text-xs">(e.g. Intro the company culture)</span>
+        ><span class="text-gray-400 text-xs">(e.g. Introduce the company and it's culture)</span>
       </label>
       <input
         type="text"
@@ -217,7 +217,8 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Link #3</span><span class="text-gray-400 text-xs">(e.g. Benefits?)</span>
+        <span class="label-text">Link #3</span
+        ><span class="text-gray-400 text-xs">(e.g. Team structure or benefits?)</span>
       </label>
       <input
         type="text"

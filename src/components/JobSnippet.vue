@@ -45,14 +45,15 @@
         <span class="text-xs text-slate-700 sm:mt-1 mr-2">{{
           job.timezone > 0 ? '+' + job.timezone : job.timezone
         }}</span>
-        <!-- ********* CODE **************** -->
+        <!-- ********* WEBSITE **************** -->
         <a :href="job.website" class="sm:mt-1 mr-2" v-if="job.website"
           ><span class="text-primary sm:mt-1"><i class="fa-solid fa-laptop-code"></i></span
         ></a>
         <!-- ********* LINKEDIN **************** -->
         <a :href="job.jobspec" class="sm:mt-1" v-if="job.jobspec"
           ><span class="text-slate-400 sm:mt-1"><i class="fa-brands fa-readme"></i></span
-        ></a>
+          ><span class="ml-1">&laquo Read spec and apply</span></a
+        >
       </div>
       <!-- ********* SKILLS **************** -->
       <div class="flex flex-wrap">
