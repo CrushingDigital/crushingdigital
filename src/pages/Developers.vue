@@ -3,6 +3,7 @@
 
   <div class="collapse mt-4" v-if="candidates.length">
     <FiltersInline
+      listItems="Developers"
       :noDevs="filteredCandidates.length"
       :memberships="memberships"
       v-model:searchText="searchVal"

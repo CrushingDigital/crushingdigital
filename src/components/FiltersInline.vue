@@ -58,12 +58,12 @@
       class="input input-bordered w-72 sm:ml-4"
     />
 
-    <span class="flower ml-2">#{{ noDevs }} Developers</span>
+    <span class="flower ml-2">#{{ noDevs }} {{ listItems }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'memberships', 'searchText'])
+  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'memberships', 'searchText', 'listItems'])
   defineEmits(['update:searchText', 'update:active', 'update:verify_req', 'update:approved', 'update:verified'])
 </script>
 

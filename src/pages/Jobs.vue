@@ -6,6 +6,7 @@
   </div>
   <div class="collapse mt-4" v-if="jobs.length">
     <FiltersInline
+      listItems="Jobs"
       :noDevs="filteredJobs.length"
       :memberships="memberships"
       v-model:searchText="searchVal"
