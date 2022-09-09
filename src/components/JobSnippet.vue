@@ -12,7 +12,7 @@
           </span>
 
           <span class="text-sm sm:text-lg ml-2">{{ job.title }}</span>
-          <span class="text-xs mx-2 text-slate-400 flower">@ {{ job.company }}</span>
+          <span class="text-xs mx-2 text-slate-600 flower">@ {{ job.company }}</span>
 
           <a v-if="job.link_1" :href="job.link_1" class="threeLink mt-1 mr-1"
             ><i class="fa-solid fa-fire-flame-curved"></i

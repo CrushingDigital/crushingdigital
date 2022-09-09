@@ -26,9 +26,9 @@
           <li class="py-1" v-if="user" @click="closeMenu">
             <router-link to="/profile/tech">Your Tech Stack</router-link>
           </li>
-          <!-- <li class="py-1" v-if="user" @click="closeMenu">
-            <router-link to="/jobs">Jobs</router-link>
-          </li> -->
+          <li class="py-1" v-if="user" @click="closeMenu">
+            <router-link to="/jobs">Jobs (coming soon)</router-link>
+          </li>
           <li class="py-1" v-if="user" @click="closeMenu">
             <button class="btn btn-secondary" @click="requestReview">Request Review</button>
           </li>
@@ -39,7 +39,7 @@
           Crushing<span class="text-primary">Digital</span>
         </h2>
       </a>
-      <i class="fa-solid fa-person-digging text-gray-300 mt-2" title="v0.1 - The only way is up!"></i>
+      <i class="fa-solid fa-person-digging text-gray-300 mt-2" title="v0.2 - Working for Devs"></i>
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
