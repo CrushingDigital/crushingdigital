@@ -27,7 +27,7 @@
             <router-link to="/profile/tech">Your Tech Stack</router-link>
           </li>
           <li class="py-1" v-if="user" @click="closeMenu">
-            <router-link to="/jobs">Jobs</router-link>
+            <router-link to="/jobs">Jobs (coming soon)</router-link>
           </li>
           <li class="py-1" v-if="user" @click="closeMenu">
             <button class="btn btn-secondary" @click="requestReview">Request Review</button>
