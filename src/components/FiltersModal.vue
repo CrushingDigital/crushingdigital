@@ -110,7 +110,7 @@
             v-for="skill in skills"
             @click.prevent="$emit('skill-toggle', skill)"
             class="p-2 rounded-full text-sm border-2 m-4 cursor-pointer"
-            :class="filterSkills.findIndex((item: Skill) => item.id == skill.id) == -1 ? 'disabledSkill' : skill.name"
+            :class="filterSkills.findIndex((item: Skill) => item.id == skill.id) == -1 ? 'disabledSkill' : skill.name.replace(/ /g, '')"
           >
             {{ skill.name }}
           </span>
