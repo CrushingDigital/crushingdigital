@@ -176,6 +176,9 @@
 .Terraform {
   @apply text-white bg-terraform border-2 border-terraform;
 }
+.Android {
+  @apply text-white bg-android border-2 border-android;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;

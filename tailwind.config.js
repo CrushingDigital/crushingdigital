@@ -55,6 +55,7 @@ module.exports = {
         docker: '#2496ED',
         kubernetes: '#2E6CE6',
         terraform: '#5C4EE5',
+        android: '#3ADD85',
       },
     },
   },
