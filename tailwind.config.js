@@ -56,6 +56,8 @@ module.exports = {
         kubernetes: '#2E6CE6',
         terraform: '#5C4EE5',
         android: '#3ADD85',
+        rabbitmq: '#FF6600',
+        kafka: '',
       },
     },
   },
