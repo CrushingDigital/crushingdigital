@@ -54,7 +54,7 @@
   @apply text-white bg-laravel border-2 border-laravel;
 }
 .React {
-  @apply text-black bg-sky-200 border-2 border-sky-200;
+  @apply text-black bg-react border-2 border-react;
 }
 .JavaScript {
   @apply text-black bg-javascript border-2 border-javascript;
@@ -139,6 +139,33 @@
 }
 .Solidity {
   @apply text-white bg-solidity border-2 border-solidity;
+}
+.Redux {
+  @apply text-white bg-redux border-2 border-redux;
+}
+.Vuex {
+  @apply text-white bg-vuex border-2 border-vuex;
+}
+.Pinia {
+  @apply text-white bg-pinia border-2 border-pinia;
+}
+.TDD {
+  @apply text-white bg-tdd border-2 border-tdd;
+}
+.BDD {
+  @apply text-white bg-tdd border-2 border-tdd;
+}
+.iOS {
+  @apply text-white bg-ios border-2 border-ios;
+}
+.RxSwift {
+  @apply text-white bg-rxswift border-2 border-rxswift;
+}
+.Linux {
+  @apply text-white bg-linux border-2 border-linux;
+}
+.ReactNative {
+  @apply text-white bg-reactnative border-2 border-reactnative;
 }
 
 .disabledSkill {
