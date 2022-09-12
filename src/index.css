@@ -167,6 +167,15 @@
 .ReactNative {
   @apply text-white bg-reactnative border-2 border-reactnative;
 }
+.Docker {
+  @apply text-white bg-docker border-2 border-docker;
+}
+.Kubernetes {
+  @apply text-white bg-kubernetes border-2 border-kubernetes;
+}
+.Terraform {
+  @apply text-white bg-terraform border-2 border-terraform;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
