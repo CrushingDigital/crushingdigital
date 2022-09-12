@@ -1,7 +1,7 @@
 <template>
   <Share />
 
-  <div class="flex justify-center my-4" v-if="jobs.length">
+  <div class="flex justify-center my-4">
     <router-link to="/job/new" class="btn btn-accent"> Post a job for FREE!</router-link>
   </div>
   <div class="collapse mt-4" v-if="jobs.length">
