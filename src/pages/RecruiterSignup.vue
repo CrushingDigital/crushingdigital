@@ -45,27 +45,16 @@
 
 <script setup lang="ts">
   import useAuthUser from '@/composables/useAuthUser'
-  import { onBeforeMount } from 'vue'
-  const { memberships, getUserMemberships, registerLite, registerPro } = useAuthUser()
-
-  onBeforeMount(async () => {
-    await getUserMemberships()
-  })
+  import useRegister from '@/composables/useRegister'
+  const { user, memberships, getUserMemberships } = useAuthUser()
+  const { registerLite, registerPro } = useRegister()
 
   const clickLite = async () => {
-    let res = await registerLite()
-
-    if (res) {
-      getUserMemberships()
-    }
+    await registerLite(user.value!.id)
   }
 
   const clickPro = async () => {
-    let res = await registerPro()
-
-    if (res) {
-      getUserMemberships()
-    }
+    await registerPro(user.value!.id)
   }
 </script>
 

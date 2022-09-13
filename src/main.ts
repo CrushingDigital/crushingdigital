@@ -52,7 +52,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  const { isLoggedIn } = useAuthUser()
   if (!isLoggedIn() && to.meta.requiresAuth) {
     return { name: 'Home' }
   }
