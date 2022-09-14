@@ -2,13 +2,13 @@
   <Share />
 
   <div class="flex justify-center my-4">
-    <router-link to="/job/new" class="btn btn-accent"> Post a job for FREE!</router-link>
+    <router-link v-if="isLoggedIn()" to="/job/new" class="btn btn-accent">Post a job for FREE!</router-link>
+    <span v-else class="p-4 rounded-lg bg-accent text-black">Sign in to post jobs for FREE!</span>
   </div>
   <div class="collapse mt-4" v-if="jobs.length">
     <FiltersInline
       listItems="Jobs"
       :noDevs="filteredJobs.length"
-      :memberships="memberships"
       v-model:searchText="searchVal"
       v-model:approved="approved"
       v-model:verified="verified"
@@ -58,7 +58,7 @@
   import Share from '@/components/Share.vue'
 
   const { getJobs } = useJob()
-  const { user, memberships, getUserMemberships } = useAuthUser()
+  const { isLoggedIn, hasMembership } = useAuthUser()
   const { getSkills, getJobSkillIds } = useSkill()
 
   const startTz = ref<number>(-12)
@@ -76,11 +76,6 @@
   const jobs = ref<Array<Job>>([])
 
   onBeforeMount(async () => {
-    if (user.value && !memberships.value.length) {
-      let membershipCount = await getUserMemberships()
-      if (!membershipCount) throw new Error('Invalid membership credentials')
-    }
-
     let loadedJobs = await getJobs()
     if (loadedJobs instanceof Error) return false
 

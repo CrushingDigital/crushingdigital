@@ -26,6 +26,28 @@ const isLoggedIn = (): boolean => {
   return !!user.value
 }
 
+const currentUserId = (): string | false => {
+  if (isLoggedIn()) return user.value!.id
+
+  return false
+}
+
+const isRecruiterLite = (): boolean => {
+  return memberships.value.includes('recruiter_lite')
+}
+
+const isRecruiterPro = (): boolean => {
+  return memberships.value.includes('recruiter_pro')
+}
+
+const hasMembership = (): boolean => {
+  return memberships.value.includes('general')
+}
+
+const isAdmin = (): boolean => {
+  return memberships.value.includes('admin')
+}
+
 const getUserMemberships = async (): Promise<number> => {
   if (!user.value) {
     memberships.value = []
@@ -46,5 +68,10 @@ export default function useAuthUser() {
     logout,
     isLoggedIn,
     getUserMemberships,
+    isRecruiterLite,
+    isRecruiterPro,
+    isAdmin,
+    currentUserId,
+    hasMembership,
   }
 }

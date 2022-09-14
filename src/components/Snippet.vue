@@ -26,7 +26,7 @@
           ></a>
 
           <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block ml-2">
-            <span v-if="memberships.includes('admin')" class="text-blue-200 text-xxs cursor-pointer mt-2"
+            <span v-if="isAdmin()" class="text-blue-200 text-xxs cursor-pointer mt-2"
               ><i class="fa-solid fa-gear"></i
             ></span>
           </router-link>
@@ -76,7 +76,7 @@
   import { Candidate, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
 
-  const { memberships } = useAuthUser()
+  const { isAdmin } = useAuthUser()
 
   defineProps<{
     dev: Candidate | null

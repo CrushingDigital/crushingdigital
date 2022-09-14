@@ -270,7 +270,6 @@
     } catch (error) {
       // Do something
     }
-    // if (loadedProfile == undefined) return false
   })
 
   const save = async (e: Event) => {

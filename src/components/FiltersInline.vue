@@ -35,7 +35,7 @@
         class="modal-button my-auto cursor-pointer mr-2"
         @click="$emit('update:verify_req', !verify_req)"
         :class="verify_req ? 'text-blue-400' : 'text-gray-300'"
-        v-if="memberships.includes('admin')"
+        v-if="isAdmin()"
       >
         <i class="fa-solid fa-eye"></i>
       </label>
@@ -44,7 +44,7 @@
         class="modal-button my-auto cursor-pointer mr-2"
         @click="$emit('update:active', !active)"
         :class="active ? 'text-red-400' : 'text-gray-300'"
-        v-if="memberships.includes('admin')"
+        v-if="isAdmin()"
       >
         <i class="fa-solid fa-person-running"></i>
       </label>
@@ -63,8 +63,12 @@
 </template>
 
 <script setup lang="ts">
-  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'memberships', 'searchText', 'listItems'])
+  import useAuthUser from '@/composables/useAuthUser'
+
+  defineProps(['active', 'approved', 'verified', 'verify_req', 'noDevs', 'searchText', 'listItems'])
   defineEmits(['update:searchText', 'update:active', 'update:verify_req', 'update:approved', 'update:verified'])
+
+  const { isAdmin } = useAuthUser()
 </script>
 
 <style scoped></style>
