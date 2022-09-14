@@ -58,7 +58,7 @@
   import Share from '@/components/Share.vue'
 
   const { getJobs } = useJob()
-  const { isLoggedIn, hasMembership } = useAuthUser()
+  const { isLoggedIn } = useAuthUser()
   const { getSkills, getJobSkillIds } = useSkill()
 
   const startTz = ref<number>(-12)

@@ -40,7 +40,9 @@ const isRecruiterPro = (): boolean => {
   return memberships.value.includes('recruiter_pro')
 }
 
-const hasMembership = (): boolean => {
+const hasMembership = async (): Promise<boolean> => {
+  if (!memberships.value.includes('general') && isLoggedIn()) await getUserMemberships()
+
   return memberships.value.includes('general')
 }
 
