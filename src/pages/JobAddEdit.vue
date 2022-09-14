@@ -258,7 +258,6 @@
       if (loadedJob instanceof Error) return false
 
       job.value = loadedJob
-      console.log(job.value)
     }
   })
 

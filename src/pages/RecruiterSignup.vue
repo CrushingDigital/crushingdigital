@@ -19,7 +19,7 @@
           with the skills listed therein.
         </p>
         <div class="flex flex-row justify-end">
-          <button class="btn btn-primary btn-sm" @click="clickLite" v-if="!memberships.includes('recruiter_lite')">
+          <button class="btn btn-primary btn-sm" @click="clickLite" v-if="isRecruiterLite()">
             Recruiter Lite &raquo
           </button>
           <i class="fa-solid fa-circle-check text-green-500" v-else></i>
@@ -33,9 +33,7 @@
           put them through our technical vetting process. These developers come recommended!
         </p>
         <div class="flex flex-row justify-end">
-          <button class="btn btn-primary btn-sm" @click="clickPro" v-if="!memberships.includes('recruiter_pro')">
-            Recruiter Pro &raquo
-          </button>
+          <button class="btn btn-primary btn-sm" @click="clickPro" v-if="isRecruiterPro()">Recruiter Pro &raquo</button>
           <i class="fa-solid fa-circle-check text-green-500" v-else></i>
         </div>
       </div>
@@ -45,27 +43,25 @@
 
 <script setup lang="ts">
   import useAuthUser from '@/composables/useAuthUser'
-  import { onBeforeMount } from 'vue'
-  const { memberships, getUserMemberships, registerLite, registerPro } = useAuthUser()
+  import useRegister from '@/composables/useRegister'
+  import { useToast } from 'vue-toastification'
 
-  onBeforeMount(async () => {
-    await getUserMemberships()
-  })
+  const toast = useToast()
+  const { currentUserId, isRecruiterLite, isRecruiterPro } = useAuthUser()
+  const { registerLite, registerPro } = useRegister()
 
   const clickLite = async () => {
-    let res = await registerLite()
+    let userId = currentUserId()
 
-    if (res) {
-      getUserMemberships()
-    }
+    if (userId) await registerLite(userId)
+    else toast.error('You appear to be logged out?')
   }
 
   const clickPro = async () => {
-    let res = await registerPro()
+    let userId = currentUserId()
 
-    if (res) {
-      getUserMemberships()
-    }
+    if (userId) await registerPro(userId)
+    else toast.error('You appear to be logged out?')
   }
 </script>
 

@@ -27,7 +27,7 @@
   </div>
 
   <div id="notifications" class="mt-4" v-if="user?.id">
-    <Events :userId="user?.id" />
+    <Events :userId="currentUserId()" />
   </div>
 </template>
 
@@ -39,7 +39,7 @@
   import { Candidate } from '@/types'
 
   const { loadProfile } = useCandidate()
-  const { user } = useAuthUser()
+  const { user, currentUserId } = useAuthUser()
   const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
 
   const sharing = ref({

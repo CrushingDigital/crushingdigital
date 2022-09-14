@@ -20,16 +20,16 @@
           <li class="py-1">
             <router-link to="/faq" @click="closeMenu">FAQ's</router-link>
           </li>
-          <li class="py-1" v-if="user" @click="closeMenu">
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
             <router-link to="/profile/basic">Personal Info</router-link>
           </li>
-          <li class="py-1" v-if="user" @click="closeMenu">
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
             <router-link to="/profile/tech">Your Tech Stack</router-link>
           </li>
-          <li class="py-1" v-if="user" @click="closeMenu">
+          <li class="py-1" @click="closeMenu">
             <router-link to="/jobs">Jobs</router-link>
           </li>
-          <li class="py-1" v-if="user" @click="closeMenu">
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
             <button class="btn btn-secondary" @click="requestReview">Request Review</button>
           </li>
         </ul>
@@ -43,7 +43,7 @@
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
-      <div class="flex justify-end align-bottom" v-if="user">
+      <div class="flex justify-end align-bottom" v-if="isLoggedIn()">
         <router-link to="/notifications">
           <i class="fa-regular fa-bell"></i>
         </router-link>
@@ -92,13 +92,12 @@
   import useEvents from '@/composables/useEvent'
   import { onBeforeMount, ref } from 'vue'
   import { Provider } from '@supabase/supabase-js'
-  import { Candidate } from './types'
   import { useToast } from 'vue-toastification'
 
   const { getEvents } = useEvents()
   const router = useRouter()
   const toast = useToast()
-  const { user, login, logout } = useAuthUser()
+  const { user, login, logout, isLoggedIn } = useAuthUser()
 
   onBeforeMount(() => {
     getEvents()

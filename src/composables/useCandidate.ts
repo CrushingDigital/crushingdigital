@@ -3,13 +3,13 @@ import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
 
 const { supabase } = useSupabase()
-const { user, memberships } = useAuthUser()
+const { isRecruiterLite, isRecruiterPro, isAdmin } = useAuthUser()
 
 const getCandidates = async (): Promise<Candidate[] | Error> => {
   let from = 'candidates_basic'
-  if (memberships.value.includes('recruiter_pro') || memberships.value.includes('recruiter_lite')) {
+  if (isRecruiterLite() || isRecruiterPro()) {
     from = 'candidates_pro'
-  } else if (memberships.value.includes('admin')) {
+  } else if (isAdmin()) {
     from = 'candidates_admin'
   }
 

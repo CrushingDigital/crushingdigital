@@ -5,7 +5,6 @@
     <FiltersInline
       listItems="Developers"
       :noDevs="filteredCandidates.length"
-      :memberships="memberships"
       v-model:searchText="searchVal"
       v-model:approved="approved"
       v-model:verified="verified"
@@ -48,6 +47,7 @@
   import { computed, onBeforeMount, ref } from 'vue'
   import useCandidate from '@/composables/useCandidate'
   import useSkill from '@/composables/useSkill'
+  import { useToast } from 'vue-toastification'
   import { Candidate, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import Snippet from '@/components/Snippet.vue'
@@ -55,7 +55,8 @@
   import FiltersModal from '@/components/FiltersModal.vue'
   import FiltersInline from '@/components/FiltersInline.vue'
 
-  const { user, memberships, getUserMemberships } = useAuthUser()
+  const toast = useToast()
+  const { hasMembership, isLoggedIn } = useAuthUser()
   const { getCandidates } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
@@ -74,9 +75,9 @@
   const candidates = ref<Array<Candidate>>([])
 
   onBeforeMount(async () => {
-    if (user.value && !memberships.value.length) {
-      let membershipCount = await getUserMemberships()
-      if (!membershipCount) throw new Error('Invalid membership credentials')
+    if (isLoggedIn() && !hasMembership()) {
+      toast.error('Invalid membership credentials')
+      throw new Error('Invalid membership credentials')
     }
 
     let loadedCandidates = await getCandidates()
