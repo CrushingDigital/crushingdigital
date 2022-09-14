@@ -75,12 +75,16 @@
   const candidates = ref<Array<Candidate>>([])
 
   onBeforeMount(async () => {
-    if (isLoggedIn() && !hasMembership()) {
+    let isMember = await hasMembership()
+    if (isLoggedIn() && !isMember) {
+      console.log(isLoggedIn())
+      console.log(hasMembership())
       toast.error('Invalid membership credentials')
       throw new Error('Invalid membership credentials')
     }
 
     let loadedCandidates = await getCandidates()
+    console.log(loadedCandidates)
     if (loadedCandidates instanceof Error) return false
 
     candidates.value = loadedCandidates
