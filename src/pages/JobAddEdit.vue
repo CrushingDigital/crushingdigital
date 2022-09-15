@@ -35,6 +35,8 @@
           type="text"
           class="input input-bordered input-ghost bg-gray-100"
           v-model="job.blurb"
+          @input="checkInputLength(job)"
+          maxlength="140"
           name="displayName"
           id="displayName"
           placeholder="Working in a team of ~5 developers on a new portal to manage crypto currency wallets. Strong UI/UX required."
@@ -245,6 +247,7 @@
   import useAuthUser from '@/composables/useAuthUser'
   import useJob from '@/composables/useJob'
 
+  const MAX_LENGTH_IN_CHARS = 140
   const props = defineProps(['id'])
 
   const router = useRouter()
@@ -287,6 +290,12 @@
     router.push(`/job/${job.value.id}/tech`)
 
     return job
+  }
+
+  const checkInputLength = (job: Job) => {
+    if (job.blurb.length >= MAX_LENGTH_IN_CHARS) {
+      job.blurb = job.blurb.substring(0, MAX_LENGTH_IN_CHARS)
+    }
   }
 </script>
 
