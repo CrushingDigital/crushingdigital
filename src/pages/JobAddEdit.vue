@@ -73,7 +73,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Min. Monthly rate</span
+          <span class="label-text">Min. Monthly rate (USD)</span
           ><span class="text-gray-400 text-xs">(min: ${{ job.rate }} pm)</span>
         </label>
         <input
@@ -181,9 +181,9 @@
         placeholder="e.g. Web link or Google Doc"
       />
     </div>
-    <div class="form-control w-full sm:w-1/2">
+    <div class="form-control w-full sm:w-1/2 mt-4">
       <label class="label cursor-pointer">
-        <span class="label-text">Display on site?</span>
+        <span class="label-text">Publish this role on the website?</span>
         <input type="checkbox" class="toggle toggle-secondary" v-model="job.active" />
       </label>
     </div>
