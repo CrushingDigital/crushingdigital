@@ -22,7 +22,7 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">About you</span><span class="text-gray-400 text-xs">(limit: 100 chars)</span>
+          <span class="label-text">About you</span><span class="text-gray-400 text-xs">(limit: 300 chars)</span>
         </label>
         <input
           type="text"
