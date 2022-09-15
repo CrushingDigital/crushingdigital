@@ -29,14 +29,14 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Brief description (140 chars)</span>
+          <span class="label-text">Brief description (300 chars)</span>
         </label>
         <input
           type="text"
           class="input input-bordered input-ghost bg-gray-100"
           v-model="job.blurb"
           @input="checkInputLength(job)"
-          maxlength="140"
+          maxlength="300"
           name="displayName"
           id="displayName"
           placeholder="Working in a team of ~5 developers on a new portal to manage crypto currency wallets. Strong UI/UX required."
@@ -247,7 +247,7 @@
   import useAuthUser from '@/composables/useAuthUser'
   import useJob from '@/composables/useJob'
 
-  const MAX_LENGTH_IN_CHARS = 140
+  const MAX_LENGTH_IN_CHARS = 300
   const props = defineProps(['id'])
 
   const router = useRouter()
