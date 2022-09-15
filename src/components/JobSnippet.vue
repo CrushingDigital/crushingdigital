@@ -26,7 +26,7 @@
 
           <router-link :to="{ name: 'job-edit', params: { id: job.id } }" class="hidden sm:block ml-2">
             <span
-              v-if="memberships.includes('admin') && user?.id == job.user_id"
+              v-if="memberships.includes('admin') || user?.id == job.user_id"
               class="text-slate-400 text-xs cursor-pointer mt-2"
               ><i class="fa-solid fa-gear"></i
             ></span>
