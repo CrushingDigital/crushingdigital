@@ -28,9 +28,10 @@
           type="text"
           class="input input-bordered input-ghost bg-gray-100"
           v-model="candidate.blurb"
+          @input="checkInputLength(candidate)"
           name="blurb"
           id="blurb"
-          maxlength="100"
+          maxlength="300"
           placeholder="Front end developer specialising in React"
         />
       </div>
@@ -249,12 +250,11 @@
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from '@/composables/useCandidate'
   import { onBeforeMount, ref } from 'vue'
-  import { Candidate } from '@/types'
+  import { Candidate, Job } from '@/types'
   import { useRouter } from 'vue-router'
-  import useEvents from '@/composables/useEvent'
   import { checkLinkUrl, linkFix } from '@/helpers'
 
-  const { events, getEvents } = useEvents()
+  const MAX_LENGTH_IN_CHARS = 300
   const router = useRouter()
   const { user } = useAuthUser()
   const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
@@ -301,6 +301,12 @@
     router.push('/profile/tech')
 
     return candidate
+  }
+
+  const checkInputLength = (candidate: Candidate) => {
+    if (candidate.blurb.length >= MAX_LENGTH_IN_CHARS) {
+      candidate.blurb = candidate.blurb.substring(0, MAX_LENGTH_IN_CHARS)
+    }
   }
 </script>
 
