@@ -73,7 +73,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Min. Monthly rate</span
+          <span class="label-text">Min. Monthly rate (USD)</span
           ><span class="text-gray-400 text-xs">(min: ${{ job.rate }} pm)</span>
         </label>
         <input
