@@ -4,6 +4,7 @@
   <div class="py-4">
     <button class="btn btn-xs btn-secondary mx-1" @click="verifyCandidate(true)">Verify</button>
     <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Unverify</button>
+    <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Comment</button>
     <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
     <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
@@ -12,12 +13,13 @@
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
       <option disabled selected>Reason</option>
-      <option>Verify: Bad Profile</option>
-      <option>Verify: Bad LinkedIn</option>
-      <option>Verify: Bad GitHub</option>
-      <option>Verify: Link #1</option>
-      <option>Verify: Link #2</option>
-      <option>Verify: Link #3</option>
+      <option>General Comment</option>
+      <option>Profile</option>
+      <option>LinkedIn</option>
+      <option>GitHub</option>
+      <option>Link #1</option>
+      <option>Link #2</option>
+      <option>Link #3</option>
       <option>Approve: Language</option>
       <option>Approve: Insufficient evidence</option>
       <option>Approve: Focus</option>
@@ -71,8 +73,14 @@
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
       toast.success(toastMsg)
 
+      let note = ''
+      if (reason.value == 'General Comment') {
+        note = 'ℹ️ ' + explanation.value
+      } else {
+        note = verify ? '👍 Profile verified' : '👎 ' + reason.value + ': ' + explanation.value
+      }
+
       let descr = verify ? 'Profile verified' : reason.value
-      let note = verify ? 'Verified' : 'Verification declined: ' + explanation.value
       await addEvent(verify ? 'CANDIDATE.VERIFIED' : 'CANDIDATE:UNVERIFIED', descr, note, developer.value!.user_id)
 
       if (verify) {
