@@ -253,7 +253,7 @@
   const router = useRouter()
   const { saveJob, loadJob } = useJob()
   const { user } = useAuthUser()
-  const job = ref<Job>({ user_id: user.value?.id } as Job)
+  const job = ref<Job>({ user_id: user.value?.id, yoe: 3, rate: 5000, timezone: -4 } as Job)
 
   onBeforeMount(async () => {
     if (props.id) {
