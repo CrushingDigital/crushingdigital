@@ -64,7 +64,7 @@
     <router-view></router-view>
   </div>
 
-  <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col mt-8 text-gray-400" id="footer">
+  <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col mt-8 text-gray-400 text-sm" id="footer">
     <div class="flex sm:justify-end justify-center">
       <a href="https://www.linkedin.com/company/crushingdigital/"
         ><i class="fa-brands fa-xl fa-linkedin mx-4 text-gray-300 hover:text-gray-400"></i

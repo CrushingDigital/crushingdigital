@@ -1,6 +1,12 @@
 <template>
-  <Share />
-
+  <div class="flex justify-center">
+    <router-link :to="{ name: 'jobs' }">
+      <span class="btn rounded-full mr-2 mb-2">Want to see 😎 jobs?</span>
+    </router-link>
+    <router-link :to="{ name: 'job-new' }" v-if="isLoggedIn()">
+      <span class="btn btn-primary rounded-full">Post a job for FREE!</span>
+    </router-link>
+  </div>
   <div class="collapse mt-4" v-if="candidates.length">
     <FiltersInline
       listItems="Developers"
@@ -41,6 +47,8 @@
     v-model:reqExp="reqExp"
     v-model:searchVal="searchVal"
   />
+
+  <Share />
 </template>
 
 <script setup lang="ts">

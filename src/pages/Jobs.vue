@@ -1,8 +1,8 @@
 <template>
-  <Share />
-
   <div class="flex justify-center my-4">
-    <router-link v-if="isLoggedIn()" to="/job/new" class="btn btn-accent">Post a job for FREE!</router-link>
+    <router-link v-if="isLoggedIn()" to="/job/new">
+      <span class="btn btn-primary rounded-full">Post a job for FREE!</span></router-link
+    >
     <span v-else class="p-4 rounded-lg bg-accent text-black">Sign in to post jobs for FREE!</span>
   </div>
   <div class="collapse mt-4" v-if="jobs.length">
@@ -44,6 +44,8 @@
     v-model:reqExp="reqExp"
     v-model:searchVal="searchVal"
   />
+
+  <Share />
 </template>
 
 <script setup lang="ts">
