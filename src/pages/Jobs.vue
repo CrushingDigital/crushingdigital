@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center my-4">
     <router-link v-if="isLoggedIn()" to="/job/new">
-      <span class="btn btn-primary rounded-full">Post a job for FREE!</span></router-link
+      <span class="btn btn-primary btn-sm rounded-full">Post a job for FREE!</span></router-link
     >
     <span v-else class="p-4 rounded-lg bg-accent text-black">Sign in to post jobs for FREE!</span>
   </div>
