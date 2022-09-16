@@ -1,9 +1,33 @@
 import { Candidate } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
+import { ref, watch } from 'vue'
 
+const candidate = ref<Candidate | null>(null)
 const { supabase } = useSupabase()
-const { isRecruiterLite, isRecruiterPro, isAdmin } = useAuthUser()
+const { isRecruiterLite, isRecruiterPro, isAdmin, user } = useAuthUser()
+
+watch(user, async () => {
+  console.log('check isCandidate')
+  let res = await isCandidate()
+
+  console.log(res)
+  return res
+})
+
+const isCandidate = async (): Promise<boolean> => {
+  let loadedProfile
+
+  if (!user.value) return false
+
+  try {
+    loadedProfile = await loadProfile(user.value?.id)
+    candidate.value = loadedProfile as Candidate
+    return true
+  } catch (error) {
+    return false
+  }
+}
 
 const getCandidates = async (): Promise<Candidate[] | Error> => {
   let from = 'candidates_basic'
@@ -103,7 +127,7 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
   if (error) throw error
 
   if (Array.isArray(data) && !data.length) throw 'Candidate profile not found'
-  return data?.pop()
+  return data?.pop() as Candidate
 }
 
 const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
@@ -125,5 +149,5 @@ const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
 }
 
 export default function useCandidate() {
-  return { getCandidates, saveCandidate, loadProfile, loadCandidateProfile }
+  return { getCandidates, saveCandidate, loadProfile, loadCandidateProfile, isCandidate, candidate }
 }

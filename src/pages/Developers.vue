@@ -1,10 +1,13 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex sm:justify-center items-center flex-col sm:flex-row">
+    <router-link :to="{ name: 'basic' }" v-if="!isCandidate()">
+      <span class="btn btn-secondary btn-sm rounded-full">Developer? Get Started &raquo</span>
+    </router-link>
     <router-link :to="{ name: 'jobs' }">
-      <span class="btn rounded-full mr-2 mb-2">Want to see 😎 jobs?</span>
+      <span class="btn btn-sm rounded-full sm:mx-2 my-2 sm:my-0">Want to see 😎 jobs?</span>
     </router-link>
     <router-link :to="{ name: 'job-new' }" v-if="isLoggedIn()">
-      <span class="btn btn-primary rounded-full">Post a job for FREE!</span>
+      <span class="btn btn-sm btn-primary rounded-full">Post a job for FREE!</span>
     </router-link>
   </div>
   <div class="collapse mt-4" v-if="candidates.length">
@@ -64,8 +67,8 @@
   import FiltersInline from '@/components/FiltersInline.vue'
 
   const toast = useToast()
-  const { hasMembership, isLoggedIn } = useAuthUser()
-  const { getCandidates } = useCandidate()
+  const { hasMembership, isLoggedIn, user } = useAuthUser()
+  const { getCandidates, isCandidate } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
   const startTz = ref<number>(-12)
@@ -81,6 +84,7 @@
   const filterSkills = ref<Skill[]>([])
   const skills = ref<Array<Skill>>([])
   const candidates = ref<Array<Candidate>>([])
+  const getStarted = ref(false)
 
   onBeforeMount(async () => {
     let isMember = await hasMembership()
@@ -94,6 +98,7 @@
 
     candidates.value = loadedCandidates
     skills.value = await getSkills()
+    getStarted.value = await isCandidate()
   })
 
   const filteredCandidates = computed(() => {
