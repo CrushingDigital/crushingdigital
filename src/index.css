@@ -183,7 +183,19 @@
   @apply text-white bg-rabbitmq border-2 border-rabbitmq;
 }
 .Kafka {
-  @apply text-black bg-white border-2 border-black;
+  @apply text-kafka bg-white border-2 border-kafka;
+}
+.WordPress {
+  @apply text-white bg-wordpress border-2 border-wordpress;
+}
+.Prometheus {
+  @apply text-white bg-prometheus border-2 border-prometheus;
+}
+.DataDog {
+  @apply text-white bg-datadog border-2 border-datadog;
+}
+.RxJava {
+  @apply text-white bg-rxjava border-2 border-rxjava;
 }
 
 .disabledSkill {

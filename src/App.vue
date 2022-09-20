@@ -65,7 +65,7 @@
   </div>
 
   <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col mt-8 text-gray-400 text-sm" id="footer">
-    <div class="flex sm:justify-end justify-center">
+    <div class="flex justify-center">
       <a href="https://www.linkedin.com/company/crushingdigital/"
         ><i class="fa-brands fa-xl fa-linkedin mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
@@ -79,7 +79,7 @@
         ><i class="fa-brands fa-xl fa-instagram mx-4 text-gray-300 hover:text-gray-400"></i
       ></a>
     </div>
-    <div class="flex sm:justify-end justify-center mt-4">
+    <div class="flex justify-center mt-4">
       <span class="text-gray-300">&#169; Copyright 2022 - Crushing Digital Ltd.</span>
     </div>
   </div>
