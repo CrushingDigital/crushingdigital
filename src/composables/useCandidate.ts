@@ -8,10 +8,8 @@ const { supabase } = useSupabase()
 const { isRecruiterLite, isRecruiterPro, isAdmin, user } = useAuthUser()
 
 watch(user, async () => {
-  console.log('check isCandidate')
   let res = await isCandidate()
 
-  console.log(res)
   return res
 })
 
