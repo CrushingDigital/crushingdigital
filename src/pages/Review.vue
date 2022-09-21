@@ -43,17 +43,19 @@
   import Snippet from '@/components/Snippet.vue'
   import useCandidate from '@/composables/useCandidate'
   import { useRoute } from 'vue-router'
-  import { Candidate } from '@/types'
+  import { Candidate, CandidateVerification } from '@/types'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
   import axios from 'axios'
 
+  const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
   const { addEvent } = useEvents()
   const toast = useToast()
   const route = useRoute()
-  const { loadCandidateProfile, saveCandidate } = useCandidate()
+  const { loadCandidateProfile, saveCandidate, saveCandidateVerification } = useCandidate()
   const developer = ref<Candidate | null>(null)
+  const developer_verification = ref<CandidateVerification | null>(null)
   const reason = ref('')
   const explanation = ref('')
   let lastUpdate = ref(moment())
@@ -61,14 +63,22 @@
   onBeforeMount(async () => {
     let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string))
     if (loadedProfile instanceof Error) return false
+
     developer.value = loadedProfile
+    if (developer.value!.candidate_verification?.length)
+      developer_verification.value = developer.value.candidate_verification.pop() as CandidateVerification
+    else {
+      developer_verification.value!.candidate_id = developer.value.id
+    }
   })
 
   const verifyCandidate = async (verify = true) => {
-    const initVal = developer.value!.verified
+    const initVal = developer_verification.value?.verified
     try {
-      developer.value!.verified = verify
-      await saveCandidate(developer.value!, false)
+      developer_verification.value!.verified = verify
+      developer_verification.value!.candidate_id = developer.value!.id
+      console.log(developer_verification.value)
+      await saveCandidateVerification(developer_verification.value!, false)
 
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
       toast.success(toastMsg)
@@ -85,7 +95,7 @@
 
       if (verify) {
         sendVerificationEmail().catch(() => {
-          developer.value!.verified = initVal
+          developer_verification.value!.verified = initVal
           toast.error('Verification failure')
         })
       } else {
@@ -94,7 +104,7 @@
 
       lastUpdate.value = moment()
     } catch (err) {
-      developer.value!.verified = initVal
+      //   developer_verification.value!.verified = initVal
       toast.error('Permission denied')
     }
   }
@@ -163,7 +173,7 @@
   }
 
   const sendVerificationEmail = async () => {
-    if (developer.value?.allow_emails) {
+    if (developer.value?.allow_emails && ENVIRONMENT == 'Prd') {
       axios
         .get('https://crushing.digital/.netlify/functions/email', {
           params: { email: developer.value?.email, template_id: 'd-0b60cc57ba334337bcc2f3ba579b0f5b' },
@@ -190,7 +200,7 @@
   }
 
   const sendApprovalEmail = async () => {
-    if (developer.value?.allow_emails) {
+    if (developer.value?.allow_emails && ENVIRONMENT == 'Prd') {
       axios
         .get('https://crushing.digital/.netlify/functions/email', {
           params: { email: developer.value?.email, template_id: 'd-82a72ed6af364bafac2740bd00f6eb59' },

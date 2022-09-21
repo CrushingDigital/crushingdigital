@@ -1,4 +1,4 @@
-import { Candidate } from '@/types'
+import { Candidate, CandidateVerification } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
 import { ref, watch } from 'vue'
@@ -65,14 +65,12 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
     timezone,
     yoe,
     user_id,
-    approved,
     blurb,
     created_at,
     id,
     link_1,
     link_2,
     link_3,
-    verified,
     active,
     email,
     allow_emails,
@@ -88,19 +86,34 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
       timezone,
       yoe,
       user_id,
-      approved,
       blurb,
       created_at,
       id,
       link_1,
       link_2,
       link_3,
-      verified,
-      verify_req,
       active,
       email,
       allow_emails,
       delete_me,
+    },
+  ])
+
+  if (error) throw error
+
+  return data?.pop()
+}
+
+const saveCandidateVerification = async (
+  candidate_verification: CandidateVerification,
+  requestVerify: boolean = true
+): Promise<CandidateVerification | Error> => {
+  const { candidate_id, verified, verify_req } = candidate_verification
+  let { data, error } = await supabase.from('candidate_verification').upsert([
+    {
+      candidate_id,
+      verified,
+      verify_req,
     },
   ])
 
@@ -117,7 +130,8 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
       *,
       candidate_skills(
         skills(*)
-      )
+      ),
+      candidate_verification(*)
     `
     )
     .eq('user_id', user_id)
@@ -136,7 +150,8 @@ const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
         *,
         candidate_skills(
           skills(*)
-        )
+        ),
+        candidate_verification(*)
       `
     )
     .eq('id', id)
@@ -147,5 +162,13 @@ const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
 }
 
 export default function useCandidate() {
-  return { getCandidates, saveCandidate, loadProfile, loadCandidateProfile, isCandidate, candidate }
+  return {
+    getCandidates,
+    saveCandidate,
+    saveCandidateVerification,
+    loadProfile,
+    loadCandidateProfile,
+    isCandidate,
+    candidate,
+  }
 }
