@@ -123,7 +123,7 @@
       else if (verified.value && !isVerified(dev)) return false
       else if (verify_req.value && (!dev.candidate_verification?.length || !dev.candidate_verification![0].verify_req))
         return false
-      else if (active.value && !dev.active) return false
+      else if (!dev.active && !active.value) return false
       else if (
         searchVal.value &&
         searchVal.value.length >= 3 &&
