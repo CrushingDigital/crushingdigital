@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, onBeforeMount, ref } from 'vue'
+  import { computed, onBeforeMount, ref, watch } from 'vue'
   import useCandidate from '@/composables/useCandidate'
   import useSkill from '@/composables/useSkill'
   import { useToast } from 'vue-toastification'
@@ -68,7 +68,7 @@
 
   const toast = useToast()
   const { hasMembership, isLoggedIn, user } = useAuthUser()
-  const { getCandidates, isCandidate } = useCandidate()
+  const { getCandidates, isCandidate, isApproved, isVerified } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
   const startTz = ref<number>(-12)
@@ -86,6 +86,10 @@
   const candidates = ref<Array<Candidate>>([])
   const getStarted = ref(false)
 
+  watch(user, async () => {
+    loadCandidates()
+  })
+
   onBeforeMount(async () => {
     let isMember = await hasMembership()
     if (isLoggedIn() && !isMember) {
@@ -101,6 +105,13 @@
     getStarted.value = await isCandidate()
   })
 
+  const loadCandidates = async () => {
+    let loadedCandidates = await getCandidates()
+    if (loadedCandidates instanceof Error) return false
+
+    candidates.value = loadedCandidates
+  }
+
   const filteredCandidates = computed(() => {
     return candidates.value.filter((dev) => {
       if (dev.timezone < startTz.value) return false
@@ -108,9 +119,10 @@
       else if (dev.rate < lowRate.value) return false
       else if (dev.rate > highRate.value) return false
       else if (dev.yoe < reqExp.value) return false
-      else if (approved.value && !dev.approved) return false
-      else if (verified.value && !dev.verified) return false
-      else if (verify_req.value && !dev.verify_req) return false
+      else if (approved.value && !isApproved(dev)) return false
+      else if (verified.value && !isVerified(dev)) return false
+      else if (verify_req.value && (!dev.candidate_verification?.length || !dev.candidate_verification![0].verify_req))
+        return false
       else if (active.value && !dev.active) return false
       else if (
         searchVal.value &&

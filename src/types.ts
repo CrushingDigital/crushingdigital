@@ -1,5 +1,5 @@
 interface Candidate {
-  id?: number
+  id: number
   created_at?: string
   blurb: string
   display_name: string
@@ -7,19 +7,29 @@ interface Candidate {
   linkedin?: string
   rate: number
   candidate_skills?: Array<SkillsLink>
+  candidate_verification?: Array<CandidateVerification>
+  candidate_approval?: Array<CandidateApproval>
   timezone: number
   yoe: number
-  verified?: boolean
-  approved?: boolean
   user_id: string
   link_1?: string
   link_2?: string
   link_3?: string
-  verify_req: number | null
   active?: boolean
   email: string | undefined
   allow_emails: boolean
   delete_me: boolean
+}
+
+interface CandidateVerification {
+  candidate_id: number
+  verified?: boolean
+  verify_req: string | null
+}
+
+interface CandidateApproval {
+  candidate_id: number
+  approved?: boolean
 }
 
 interface Skill {
@@ -65,4 +75,4 @@ interface CDEvent {
   note: string
 }
 
-export type { Candidate, Skill, Job, SkillsLink, CDEvent }
+export type { Candidate, Skill, Job, SkillsLink, CDEvent, CandidateVerification, CandidateApproval }

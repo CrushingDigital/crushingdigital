@@ -1,6 +1,8 @@
 <template>
   <Snippet :dev="developer" />
-  <span class="text-sm text-gray-400 ml-4">Review requested: {{ moment(developer?.verify_req).fromNow() }}</span>
+  <span class="text-sm text-gray-400 ml-4"
+    >Review requested: {{ moment(developer_verification?.verify_req).fromNow() }}</span
+  >
   <div class="py-4">
     <button class="btn btn-xs btn-secondary mx-1" @click="verifyCandidate(true)">Verify</button>
     <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Unverify</button>
@@ -43,17 +45,21 @@
   import Snippet from '@/components/Snippet.vue'
   import useCandidate from '@/composables/useCandidate'
   import { useRoute } from 'vue-router'
-  import { Candidate } from '@/types'
+  import { Candidate, CandidateVerification, CandidateApproval } from '@/types'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
   import axios from 'axios'
 
+  const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
   const { addEvent } = useEvents()
   const toast = useToast()
   const route = useRoute()
-  const { loadCandidateProfile, saveCandidate } = useCandidate()
+  const { loadCandidateProfile, saveCandidateVerification, saveCandidateApproval, isApproved, isVerified } =
+    useCandidate()
   const developer = ref<Candidate | null>(null)
+  const developer_verification = ref<CandidateVerification | null>(null)
+  const developer_approval = ref<CandidateApproval | null>(null)
   const reason = ref('')
   const explanation = ref('')
   let lastUpdate = ref(moment())
@@ -61,14 +67,27 @@
   onBeforeMount(async () => {
     let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string))
     if (loadedProfile instanceof Error) return false
+
     developer.value = loadedProfile
+    if (isVerified(developer.value))
+      developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
+    else {
+      developer_verification.value!.candidate_id = developer.value.id
+    }
+    if (isApproved(developer.value))
+      developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
+    else {
+      developer_approval.value!.candidate_id = developer.value.id
+    }
   })
 
   const verifyCandidate = async (verify = true) => {
-    const initVal = developer.value!.verified
+    const initVal = isVerified(developer.value!)
     try {
-      developer.value!.verified = verify
-      await saveCandidate(developer.value!, false)
+      developer_verification.value!.verified = verify
+      developer_verification.value!.candidate_id = developer.value!.id
+      console.log(developer_verification.value)
+      await saveCandidateVerification(developer_verification.value!, false)
 
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
       toast.success(toastMsg)
@@ -85,7 +104,7 @@
 
       if (verify) {
         sendVerificationEmail().catch(() => {
-          developer.value!.verified = initVal
+          developer_verification.value!.verified = initVal
           toast.error('Verification failure')
         })
       } else {
@@ -94,16 +113,16 @@
 
       lastUpdate.value = moment()
     } catch (err) {
-      developer.value!.verified = initVal
+      //   developer_verification.value!.verified = initVal
       toast.error('Permission denied')
     }
   }
 
   const approveCandidate = async (approve = true) => {
-    const initVal = developer.value!.approved
+    const initVal = isApproved(developer.value!)
     try {
-      developer.value!.approved = approve
-      await saveCandidate(developer.value!, false)
+      developer_approval.value!.approved = approve
+      await saveCandidateApproval(developer_approval.value!)
       let toastMsg = approve ? 'Profile approved' : 'Approval removed'
       toast.success(toastMsg)
       let descr = approve ? 'Profile approved' : reason.value
@@ -112,7 +131,7 @@
 
       if (approve) {
         sendApprovalEmail().catch(() => {
-          developer.value!.approved = initVal
+          developer_approval.value!.approved = initVal
           toast.error('Approval failure')
         })
       } else {
@@ -121,15 +140,15 @@
 
       lastUpdate.value = moment()
     } catch (err) {
-      developer.value!.approved = initVal
+      developer_approval.value!.approved = initVal
       toast.error('Permission denied')
     }
   }
 
   const completeReview = async () => {
-    let newDev = await saveCandidate(developer.value!, developer.value!.verify_req === null ? true : false)
-    if (newDev instanceof Error) return false
-    developer.value!.verify_req = newDev.verify_req
+    let newDevVerification = await saveCandidateVerification({ candidate_id: developer.value!.id, verify_req: null })
+    if (newDevVerification instanceof Error) return false
+    developer_verification.value!.verify_req = newDevVerification.verify_req
     lastUpdate.value = moment()
     toast.success('Review complete')
   }
@@ -163,7 +182,7 @@
   }
 
   const sendVerificationEmail = async () => {
-    if (developer.value?.allow_emails) {
+    if (developer.value?.allow_emails && ENVIRONMENT == 'Prd') {
       axios
         .get('https://crushing.digital/.netlify/functions/email', {
           params: { email: developer.value?.email, template_id: 'd-0b60cc57ba334337bcc2f3ba579b0f5b' },
@@ -190,7 +209,7 @@
   }
 
   const sendApprovalEmail = async () => {
-    if (developer.value?.allow_emails) {
+    if (developer.value?.allow_emails && ENVIRONMENT == 'Prd') {
       axios
         .get('https://crushing.digital/.netlify/functions/email', {
           params: { email: developer.value?.email, template_id: 'd-82a72ed6af364bafac2740bd00f6eb59' },
