@@ -2,12 +2,19 @@
   <div
     id="sharing"
     class="sm:mt-4 flex flex-col sm:flex-row justify-start sm:justify-center items-center"
-    v-if="candidate.approved || candidate.verified"
+    v-if="(candidate.candidate_approval?.length && candidate.candidate_approval![0].approved) || 
+        (candidate.candidate_verification?.length && candidate.candidate_verification![0].verified)"
   >
-    <span class="mr-2 threeLink text-center sm:text-left" v-if="candidate.approved">{{ sharing.approvedMessage }}</span>
-    <span class="mr-2 threeLink text-center sm:text-left" v-else-if="candidate.verified">{{
-      sharing.verifiedMessage
-    }}</span>
+    <span
+      class="mr-2 threeLink text-center sm:text-left"
+      v-if="(candidate.candidate_approval?.length && candidate.candidate_approval![0].approved)"
+      >{{ sharing.approvedMessage }}</span
+    >
+    <span
+      class="mr-2 threeLink text-center sm:text-left"
+      v-else-if="(candidate.candidate_verification?.length && candidate.candidate_verification![0].verified)"
+      >{{ sharing.verifiedMessage }}</span
+    >
     <div class="flex flex-row sm:justify-start justify-center">
       <ShareNetwork
         class="mx-1"
@@ -67,10 +74,13 @@
       if (loadedProfile) {
         candidate.value = loadedProfile as Candidate
 
-        if (candidate.value.approved) {
+        if (candidate.value.candidate_approval?.length && candidate.value.candidate_approval![0].approved) {
           sharing.value.title =
             "Proud to announce that I am now an Approved developer. You should get approved too. It's FREE!"
-        } else if (candidate.value.verified) {
+        } else if (
+          candidate.value.candidate_verification?.length &&
+          candidate.value.candidate_verification![0].verified
+        ) {
           sharing.value.title =
             "Proud to announce that I am now a Verified developer. You should get verified too. It's FREE!"
         }

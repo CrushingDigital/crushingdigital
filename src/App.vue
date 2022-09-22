@@ -98,6 +98,7 @@
   const router = useRouter()
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
+  const { loadProfile, saveCandidate, saveCandidateVerification } = useCandidate()
 
   onBeforeMount(() => {
     getEvents()
@@ -120,11 +121,10 @@
 
   const requestReview = async () => {
     let candidate = ref()
-    const { loadProfile, saveCandidate } = useCandidate()
     if (user.value) candidate.value = await loadProfile(user.value.id)
 
-    candidate.value.verify_req = new Date().toISOString().toLocaleString()
-    const res = await saveCandidate(candidate.value)
+    let verifyTS = new Date().toISOString().toLocaleString()
+    const res = await saveCandidateVerification({ candidate_id: candidate.value.id, verify_req: verifyTS })
 
     if (res instanceof Error) toast.error('Review request failed')
     else toast.success('Review requested')

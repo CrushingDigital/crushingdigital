@@ -5,11 +5,11 @@
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
           <!-- ********* APPROVED **************** -->
-          <span :class="dev.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
-            <i class="fa-solid fa-star fa-xl"></i
-          ></span>
+          <span :class="isApproved(dev) ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
+            <i class="fa-solid fa-star fa-xl"></i>
+          </span>
           <!-- ********* VERIFIED **************** -->
-          <span :class="dev.verified ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
+          <span :class="isVerified(dev) ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
             ><i class="fa-solid fa-clipboard-check fa-xl"></i>
           </span>
 
@@ -73,10 +73,12 @@
 </template>
 
 <script setup lang="ts">
-  import { Candidate, Skill } from '@/types'
+  import { Candidate } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
+  import useCandidate from '@/composables/useCandidate'
 
   const { isAdmin } = useAuthUser()
+  const { isApproved, isVerified } = useCandidate()
 
   defineProps<{
     dev: Candidate | null

@@ -8,6 +8,7 @@ interface Candidate {
   rate: number
   candidate_skills?: Array<SkillsLink>
   candidate_verification?: Array<CandidateVerification>
+  candidate_approval?: Array<CandidateApproval>
   timezone: number
   yoe: number
   user_id: string
@@ -21,10 +22,14 @@ interface Candidate {
 }
 
 interface CandidateVerification {
-  id: number
   candidate_id: number
   verified?: boolean
-  verify_req: number | null
+  verify_req: string | null
+}
+
+interface CandidateApproval {
+  candidate_id: number
+  approved?: boolean
 }
 
 interface Skill {
@@ -70,4 +75,4 @@ interface CDEvent {
   note: string
 }
 
-export type { Candidate, Skill, Job, SkillsLink, CDEvent, CandidateVerification }
+export type { Candidate, Skill, Job, SkillsLink, CDEvent, CandidateVerification, CandidateApproval }

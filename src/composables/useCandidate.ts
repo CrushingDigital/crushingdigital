@@ -1,17 +1,11 @@
-import { Candidate, CandidateVerification } from '@/types'
+import { Candidate, CandidateVerification, CandidateApproval } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const candidate = ref<Candidate | null>(null)
 const { supabase } = useSupabase()
-const { isRecruiterLite, isRecruiterPro, isAdmin, user } = useAuthUser()
-
-watch(user, async () => {
-  let res = await isCandidate()
-
-  return res
-})
+const { user } = useAuthUser()
 
 const isCandidate = async (): Promise<boolean> => {
   let loadedProfile
@@ -27,21 +21,28 @@ const isCandidate = async (): Promise<boolean> => {
   }
 }
 
-const getCandidates = async (): Promise<Candidate[] | Error> => {
-  let from = 'candidates_basic'
-  if (isRecruiterLite() || isRecruiterPro()) {
-    from = 'candidates_pro'
-  } else if (isAdmin()) {
-    from = 'candidates_admin'
-  }
+const isVerified = (developer: Candidate) => {
+  if (!developer.candidate_verification?.length) return false
 
+  return developer.candidate_verification![0].verified
+}
+
+const isApproved = (developer: Candidate) => {
+  if (!developer.candidate_approval?.length) return false
+
+  return developer.candidate_approval![0].approved
+}
+
+const getCandidates = async (): Promise<Candidate[] | Error> => {
   let { data: candidates, error } = await supabase
-    .from(from)
+    .from('candidates')
     .select(
       `*,
       candidate_skills(
         skills(*)
-      )
+      ),
+      candidate_verification(*),
+      candidate_approval(*)
     `
     )
     .order('approved', { ascending: false })
@@ -56,7 +57,6 @@ const getCandidates = async (): Promise<Candidate[] | Error> => {
 }
 
 const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true): Promise<Candidate | Error> => {
-  const verify_req = requestVerify ? new Date().toISOString().toLocaleString() : null
   const {
     display_name,
     gitsource,
@@ -122,6 +122,20 @@ const saveCandidateVerification = async (
   return data?.pop()
 }
 
+const saveCandidateApproval = async (candidate_approval: CandidateApproval): Promise<CandidateApproval | Error> => {
+  const { candidate_id, approved } = candidate_approval
+  let { data, error } = await supabase.from('candidate_approval').upsert([
+    {
+      candidate_id,
+      approved,
+    },
+  ])
+
+  if (error) throw error
+
+  return data?.pop()
+}
+
 const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
   let { data, error } = await supabase
     .from('candidates')
@@ -131,7 +145,8 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
       candidate_skills(
         skills(*)
       ),
-      candidate_verification(*)
+      candidate_verification(*),
+      candidate_approval(*)
     `
     )
     .eq('user_id', user_id)
@@ -151,7 +166,8 @@ const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
         candidate_skills(
           skills(*)
         ),
-        candidate_verification(*)
+        candidate_verification(*),
+        candidate_approval(*)
       `
     )
     .eq('id', id)
@@ -166,9 +182,12 @@ export default function useCandidate() {
     getCandidates,
     saveCandidate,
     saveCandidateVerification,
+    saveCandidateApproval,
     loadProfile,
     loadCandidateProfile,
     isCandidate,
     candidate,
+    isApproved,
+    isVerified,
   }
 }
