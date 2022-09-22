@@ -86,7 +86,6 @@
     try {
       developer_verification.value!.verified = verify
       developer_verification.value!.candidate_id = developer.value!.id
-      console.log(developer_verification.value)
       await saveCandidateVerification(developer_verification.value!, false)
 
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
