@@ -45,8 +45,8 @@ const getCandidates = async (): Promise<Candidate[] | Error> => {
       candidate_approval(*)
     `
     )
-    .order('approved', { ascending: false })
-    .order('verified', { ascending: false })
+    .order('approved', { foreignTable: 'candidate_approval', ascending: false })
+    .order('verified', { foreignTable: 'candidate_verification', ascending: false })
     .order('link_3')
     .order('link_2')
     .order('link_1')
