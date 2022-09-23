@@ -1,7 +1,8 @@
 <template>
   <Snippet :dev="developer" />
   <span class="text-sm text-gray-400 ml-4"
-    >Review requested: {{ moment(developer_verification?.verify_req).fromNow() }}</span
+    >Review requested:
+    {{ developer_verification?.verify_req ? moment(developer_verification?.verify_req).fromNow() : '' }}</span
   >
   <div class="py-4">
     <button class="btn btn-xs btn-secondary mx-1" @click="verifyCandidate(true)">Verify</button>
