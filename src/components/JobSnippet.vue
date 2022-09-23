@@ -1,6 +1,9 @@
 <template>
   <div v-if="!job"><h3>Loading...</h3></div>
-  <div v-else class="flex justify-between items-center px-4 py-2 bg-primary/5 rounded-2xl mb-1">
+  <div
+    v-else
+    class="flex justify-between items-center px-4 py-4 bg-primary/5 border-2 border-slate-200 rounded-2xl mb-2"
+  >
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
