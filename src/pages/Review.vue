@@ -70,11 +70,13 @@
     if (loadedProfile instanceof Error) return false
 
     developer.value = loadedProfile
+    console.log(loadedProfile)
     if (isVerified(developer.value))
       developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
     else {
       developer_verification.value!.candidate_id = developer.value.id
     }
+    console.log(developer_verification.value)
     if (isApproved(developer.value))
       developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
     else {
