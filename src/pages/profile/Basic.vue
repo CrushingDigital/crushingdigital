@@ -253,13 +253,15 @@
   import { Candidate, Job } from '@/types'
   import { useRouter } from 'vue-router'
   import { checkLinkUrl, linkFix } from '@/helpers'
+  import { useToast } from 'vue-toastification'
 
   const MAX_LENGTH_IN_CHARS = 300
   const router = useRouter()
   const { user } = useAuthUser()
   const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
+  const toast = useToast()
 
-  const { saveCandidate, loadProfile } = useCandidate()
+  const { saveCandidate, saveCandidateVerification, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
     let loadedProfile
@@ -292,6 +294,11 @@
     if (savedProfile instanceof Error) return false
 
     candidate.value = savedProfile
+
+    let verifyTS = new Date().toISOString().toLocaleString()
+    const res = await saveCandidateVerification({ candidate_id: candidate.value.id, verify_req: verifyTS })
+    if (res instanceof Error) toast.error('Review request failed')
+    else toast.success('Review requested')
 
     target.innerText = 'Save'
     target.classList.toggle('disabledButton')
