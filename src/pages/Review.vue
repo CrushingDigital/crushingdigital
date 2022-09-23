@@ -71,9 +71,11 @@
 
     developer.value = loadedProfile
     console.log(loadedProfile)
-    if (isVerified(developer.value))
+    if (isVerified(developer.value)) {
+      console.log('verified')
       developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
-    else {
+    } else {
+      console.log('not verified')
       developer_verification.value!.candidate_id = developer.value.id
     }
     console.log(developer_verification.value)
