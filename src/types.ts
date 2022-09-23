@@ -22,13 +22,13 @@ interface Candidate {
 }
 
 interface CandidateVerification {
-  candidate_id: number
+  candidate_id: number | null
   verified?: boolean
   verify_req: string | null
 }
 
 interface CandidateApproval {
-  candidate_id: number
+  candidate_id: number | null
   approved?: boolean
 }
 

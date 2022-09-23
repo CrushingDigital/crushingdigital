@@ -59,8 +59,8 @@
   const { loadCandidateProfile, saveCandidateVerification, saveCandidateApproval, isApproved, isVerified } =
     useCandidate()
   const developer = ref<Candidate | null>(null)
-  const developer_verification = ref<CandidateVerification | null>(null)
-  const developer_approval = ref<CandidateApproval | null>(null)
+  const developer_verification = ref<CandidateVerification>({ candidate_id: null, verified: false, verify_req: null })
+  const developer_approval = ref<CandidateApproval>({ candidate_id: null, approved: false })
   const reason = ref('')
   const explanation = ref('')
   let lastUpdate = ref(moment())
@@ -71,7 +71,7 @@
 
     developer.value = loadedProfile
     console.log(loadedProfile)
-    if (isVerified(developer.value)) {
+    if (developer.value.candidate_verification) {
       console.log('verified')
       developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
     } else {
@@ -79,7 +79,7 @@
       developer_verification.value!.candidate_id = developer.value.id
     }
     console.log(developer_verification.value)
-    if (isApproved(developer.value))
+    if (developer.value.candidate_approval)
       developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
     else {
       developer_approval.value!.candidate_id = developer.value.id
