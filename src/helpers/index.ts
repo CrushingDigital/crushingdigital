@@ -14,7 +14,7 @@ const checkLinkUrl = async (e: Event) => {
 }
 
 const linkFix = (link: string | undefined) => {
-  if (link == undefined) return undefined
+  if (link == undefined || !link.length) return undefined
   if (!/^https?:\/\//i.test(link)) {
     return 'https://' + link
   }
