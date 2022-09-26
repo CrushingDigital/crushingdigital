@@ -58,6 +58,7 @@ const getCandidates = async (): Promise<Candidate[] | Error> => {
     .order('link_3')
     .order('link_2')
     .order('link_1')
+    .order('created_at', { ascending: false })
 
   if (error) throw error
 
