@@ -1,33 +1,41 @@
 import { Candidate, CandidateVerification, CandidateApproval } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const candidate = ref<Candidate | null>(null)
 const { supabase } = useSupabase()
 const { user } = useAuthUser()
 
-const isCandidate = async (): Promise<boolean> => {
-  let loadedProfile
-
-  if (!user.value) return false
-
-  try {
-    loadedProfile = await loadProfile(user.value?.id)
-    candidate.value = loadedProfile as Candidate
-    return true
-  } catch (error) {
-    return false
+watch(user, async () => {
+  if (user.value) {
+    try {
+      console.log('loading candidate profile')
+      let loadedProfile = await loadProfile(user.value!.id)
+      candidate.value = loadedProfile as Candidate
+    } catch (error) {
+      //   console.error(error)
+    }
   }
+
+  return false
+})
+
+const isCandidate = (): boolean => {
+  return !!candidate.value
 }
 
-const isVerified = (developer: Candidate) => {
+const isVerified = (developer: Candidate | null) => {
+  if (!developer) return false
+
   if (!developer.candidate_verification?.length) return false
 
   return developer.candidate_verification![0].verified
 }
 
-const isApproved = (developer: Candidate) => {
+const isApproved = (developer: Candidate | null) => {
+  if (!developer) return false
+
   if (!developer.candidate_approval?.length) return false
 
   return developer.candidate_approval![0].approved

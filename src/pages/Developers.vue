@@ -1,8 +1,5 @@
 <template>
   <div class="flex sm:justify-center items-center flex-col sm:flex-row">
-    <router-link :to="{ name: 'basic' }" v-if="!isCandidate()">
-      <span class="btn btn-secondary btn-sm rounded-full">Developer? Get Started &raquo</span>
-    </router-link>
     <router-link :to="{ name: 'jobs' }">
       <span class="btn btn-sm rounded-full sm:mx-2 my-2 sm:my-0">Want to see 😎 jobs?</span>
     </router-link>
@@ -68,7 +65,7 @@
 
   const toast = useToast()
   const { hasMembership, isLoggedIn, user } = useAuthUser()
-  const { getCandidates, isCandidate, isApproved, isVerified } = useCandidate()
+  const { getCandidates, isApproved, isVerified } = useCandidate()
   const { getSkills, getCandidateSkillIds } = useSkill()
 
   const startTz = ref<number>(-12)
@@ -84,7 +81,6 @@
   const filterSkills = ref<Skill[]>([])
   const skills = ref<Array<Skill>>([])
   const candidates = ref<Array<Candidate>>([])
-  const getStarted = ref(false)
 
   watch(user, async () => {
     loadCandidates()
@@ -102,7 +98,6 @@
 
     candidates.value = loadedCandidates
     skills.value = await getSkills()
-    getStarted.value = await isCandidate()
   })
 
   const loadCandidates = async () => {
