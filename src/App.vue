@@ -9,10 +9,20 @@
         </label>
         <ul id="menu" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 w-52">
           <li class="py-1" @click="closeMenu" v-if="!isCandidate()">
-            <router-link to="/profile/basic" class="text-secondary">&raquo; Get started &laquo;</router-link>
+            <router-link
+              to="/profile/basic"
+              class="p-4 bg-secondary text-white no-underline hover:text-white hover:bg-primary"
+              >Get started</router-link
+            >
+          </li>
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
+            <router-link to="/profile/basic">My Profile</router-link>
+          </li>
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
+            <router-link to="/profile/tech">My Tech Stack</router-link>
           </li>
           <li class="py-1" @click="closeMenu">
-            <router-link to="/developers">Home</router-link>
+            <router-link to="/developers">Developer List</router-link>
           </li>
           <li class="py-1">
             <router-link to="/about" @click="closeMenu">About</router-link>
@@ -20,16 +30,10 @@
           <li class="py-1">
             <router-link to="/faq" @click="closeMenu">FAQ's</router-link>
           </li>
-          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
-            <router-link to="/profile/basic">Personal Info</router-link>
-          </li>
-          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
-            <router-link to="/profile/tech">Your Tech Stack</router-link>
-          </li>
           <li class="py-1" @click="closeMenu">
             <router-link to="/jobs">Jobs</router-link>
           </li>
-          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
+          <li class="py-1" v-if="isLoggedIn() && isCandidate()" @click="closeMenu">
             <button
               class="bg-green-500 p-4 text-white no-underline"
               @click="requestReview"
@@ -38,7 +42,7 @@
               Profile Verification<i class="fa-solid fa-clipboard-check text-white"></i>
             </button>
           </li>
-          <li class="py-1" v-if="isApproved(candidate ? candidate : null)" @click="closeMenu">
+          <li class="py-1" v-if="isVerified(candidate) && !isApproved(candidate)" @click="closeMenu">
             <button
               class="bg-yellow-400 p-4 text-black no-underline"
               @click="requestApproval"
@@ -113,7 +117,7 @@
   const router = useRouter()
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
-  const { loadProfile, saveCandidateVerification, isApproved, isCandidate, candidate } = useCandidate()
+  const { loadProfile, saveCandidateVerification, isApproved, isVerified, isCandidate, candidate } = useCandidate()
 
   onBeforeMount(() => {
     getEvents()
