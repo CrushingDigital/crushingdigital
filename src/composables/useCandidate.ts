@@ -10,7 +10,6 @@ const { user } = useAuthUser()
 watch(user, async () => {
   if (user.value) {
     try {
-      console.log('loading candidate profile')
       let loadedProfile = await loadProfile(user.value!.id)
       candidate.value = loadedProfile as Candidate
     } catch (error) {

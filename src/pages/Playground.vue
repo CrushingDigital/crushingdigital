@@ -33,8 +33,6 @@
 
     if (error) throw error
 
-    console.log(candidates)
-
     return candidates as Array<Candidate>
   }
 </script>
