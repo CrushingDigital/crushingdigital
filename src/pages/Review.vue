@@ -70,12 +70,12 @@
     if (loadedProfile instanceof Error) return false
 
     developer.value = loadedProfile
-    if (developer.value.candidate_verification) {
+    if (developer.value.candidate_verification?.length) {
       developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
     } else {
       developer_verification.value!.candidate_id = developer.value.id
     }
-    if (developer.value.candidate_approval)
+    if (developer.value.candidate_approval?.length)
       developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
     else {
       developer_approval.value!.candidate_id = developer.value.id
@@ -113,6 +113,7 @@
 
       lastUpdate.value = moment()
     } catch (err) {
+      console.error(err)
       //   developer_verification.value!.verified = initVal
       toast.error('Permission denied')
     }
