@@ -62,6 +62,7 @@ module.exports = {
         datadog: '#632DA8',
         wordpress: '#3B94B1',
         rxjava: '#DE0D8F',
+        rxjs: '#C1128E',
         microservices: '#000000',
       },
     },
