@@ -200,6 +200,9 @@
 .RxJava {
   @apply text-white bg-rxjava border-2 border-rxjava;
 }
+.RxJS {
+  @apply text-white bg-rxjs border-2 border-rxjs;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
