@@ -26,7 +26,7 @@
           ></a>
 
           <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block ml-2">
-            <span v-if="isAdmin()" class="text-blue-200 text-xxs cursor-pointer mt-2"
+            <span v-if="isAdmin()" class="text-blue-200 text-xxs cursor-pointer mt-2" :title="verificationRequestDate"
               ><i class="fa-solid fa-gear"></i
             ></span>
           </router-link>
@@ -76,13 +76,21 @@
   import { Candidate } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from '@/composables/useCandidate'
+  import moment from 'moment'
+  import { computed } from 'vue'
 
   const { isAdmin } = useAuthUser()
   const { isApproved, isVerified } = useCandidate()
 
-  defineProps<{
-    dev: Candidate | null
+  const props = defineProps<{
+    dev: Candidate
   }>()
+
+  const verificationRequestDate = computed(() => {
+    if (!props.dev.candidate_verification!.length) return 'No Request'
+
+    return moment(props.dev.candidate_verification![0].verify_req).fromNow()
+  })
 </script>
 
 <style scoped></style>
