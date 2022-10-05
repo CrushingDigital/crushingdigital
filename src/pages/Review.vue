@@ -7,7 +7,7 @@
   <div class="py-4">
     <button class="btn btn-xs btn-secondary mx-1" @click="verifyCandidate(true)">Verify</button>
     <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Unverify</button>
-    <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Comment</button>
+    <button class="btn btn-xs btn-default mx-1" @click="addComment()">Comment</button>
     <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
     <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
@@ -82,6 +82,21 @@
     }
   })
 
+  const addComment = async () => {
+    try {
+      let note = ''
+      note = 'ℹ️ ' + explanation.value
+
+      await addEvent('COMMENT', 'Comment Added', note, developer.value!.user_id)
+
+      explanation.value = ''
+
+      lastUpdate.value = moment()
+    } catch (err) {
+      toast.error('Permission denied')
+    }
+  }
+
   const verifyCandidate = async (verify = true) => {
     const initVal = isVerified(developer.value!)
     try {
@@ -113,8 +128,6 @@
 
       lastUpdate.value = moment()
     } catch (err) {
-      console.error(err)
-      //   developer_verification.value!.verified = initVal
       toast.error('Permission denied')
     }
   }
