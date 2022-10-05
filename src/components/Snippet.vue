@@ -83,10 +83,12 @@
   const { isApproved, isVerified } = useCandidate()
 
   const props = defineProps<{
-    dev: Candidate
+    dev: Candidate | null
   }>()
 
   const verificationRequestDate = computed(() => {
+    if (!props.dev) return 'No Request'
+
     if (!props.dev.candidate_verification!.length) return 'No Request'
 
     return moment(props.dev.candidate_verification![0].verify_req).fromNow()

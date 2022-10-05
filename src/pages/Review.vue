@@ -58,7 +58,7 @@
   const route = useRoute()
   const { loadCandidateProfile, saveCandidateVerification, saveCandidateApproval, isApproved, isVerified } =
     useCandidate()
-  const developer = ref<Candidate>({} as Candidate)
+  const developer = ref<Candidate | null>(null)
   const developer_verification = ref<CandidateVerification>({ candidate_id: null, verified: false, verify_req: null })
   const developer_approval = ref<CandidateApproval>({ candidate_id: null, approved: false })
   const reason = ref('')
