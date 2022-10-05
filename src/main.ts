@@ -27,9 +27,9 @@ const NotFound = () => import('./components/NotFound.vue')
 const { isLoggedIn } = useAuthUser()
 
 const routes = [
-  { path: '/', component: Developers, name: 'Home' },
-  { path: '/', component: Jobs, name: 'Jobs' },
-  { path: '/about', component: About },
+  { path: '/', component: Developers, name: 'home' },
+  { path: '/', component: Jobs, name: 'jobs' },
+  { path: '/about', component: About, name: 'about' },
   { path: '/recruiters', component: RecruiterSignup, name: 'recruiters' },
   { path: '/developers', redirect: '/' },
   { path: '/jobs', component: Jobs, name: 'jobs' },
