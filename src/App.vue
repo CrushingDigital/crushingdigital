@@ -16,22 +16,19 @@
             >
           </li>
           <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
-            <router-link to="/profile/basic">My Profile</router-link>
+            <router-link :to="{ name: 'basic' }">My Profile</router-link>
           </li>
           <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
-            <router-link to="/profile/tech">My Tech Stack</router-link>
+            <router-link :to="{ name: 'tech' }">My Tech Stack</router-link>
+          </li>
+          <li class="py-1" v-if="isLoggedIn()" @click="closeMenu">
+            <router-link :to="{ name: 'notifications' }">My Feedback</router-link>
           </li>
           <li class="py-1" @click="closeMenu">
-            <router-link to="/developers">Developer List</router-link>
-          </li>
-          <li class="py-1">
-            <router-link to="/about" @click="closeMenu">About</router-link>
-          </li>
-          <li class="py-1">
-            <router-link to="/faq" @click="closeMenu">FAQ's</router-link>
+            <router-link :to="{ name: 'home' }">Developers</router-link>
           </li>
           <li class="py-1" @click="closeMenu">
-            <router-link to="/jobs">Jobs</router-link>
+            <router-link :to="{ name: 'jobs' }">Jobs</router-link>
           </li>
           <li class="py-1" v-if="isLoggedIn() && isCandidate()" @click="closeMenu">
             <button
@@ -54,7 +51,7 @@
         </ul>
       </div>
       <a class="btn btn-ghost normal-case px-0">
-        <h2 class="text-lg sm:text-2xl cursor-pointer mr-1" @click="$router.push({ name: 'Home' })">
+        <h2 class="text-lg sm:text-2xl cursor-pointer mr-1" @click="$router.push({ name: 'home' })">
           Crushing<span class="text-primary">Digital</span>
         </h2>
       </a>
@@ -63,7 +60,10 @@
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
       <div class="flex justify-end align-bottom" v-if="isLoggedIn()">
-        <router-link to="/notifications">
+        <router-link to="/notifications" v-if="hasNewNotifications">
+          <i class="fa-solid fa-bell"></i>
+        </router-link>
+        <router-link to="/notifications" v-else>
           <i class="fa-regular fa-bell"></i>
         </router-link>
         <!-- LOGOUT -->
@@ -99,6 +99,10 @@
       ></a>
     </div>
     <div class="flex justify-center mt-4">
+      <router-link to="{ name: 'about' }" class="mx-2">About</router-link>
+      <router-link to="{ name: 'faq' }" class="mx-2">FAQ's</router-link>
+    </div>
+    <div class="flex justify-center mt-4">
       <span class="text-gray-300">&#169; Copyright 2022 - Crushing Digital Ltd.</span>
     </div>
   </div>
@@ -108,20 +112,17 @@
   import { useRouter } from 'vue-router'
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from './composables/useCandidate'
-  import useEvents from '@/composables/useEvent'
-  import { onBeforeMount, ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { Provider } from '@supabase/supabase-js'
   import { useToast } from 'vue-toastification'
+  import useEvents from './composables/useEvent'
+  import { CDEvent } from './types'
 
-  const { getEvents } = useEvents()
+  const { personalEvents, loadingEvents } = useEvents()
   const router = useRouter()
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
   const { loadProfile, saveCandidateVerification, isApproved, isVerified, isCandidate, candidate } = useCandidate()
-
-  onBeforeMount(() => {
-    getEvents()
-  })
 
   async function signInWith(provider: Provider) {
     await login(provider)
@@ -131,8 +132,20 @@
 
   async function signout() {
     await logout()
-    router.push({ name: 'Home' })
+    router.push({ name: 'home' })
   }
+
+  const newNotifications = (notification: CDEvent) => {
+    if (!user.value) return false
+    else if (!notification.created_at) return false
+    else return user.value.last_sign_in_at! < notification!.created_at
+  }
+
+  const hasNewNotifications = computed(() => {
+    if (!personalEvents.value || loadingEvents.value) return false
+
+    return !!personalEvents.value?.filter(newNotifications).length
+  })
 
   const closeMenu = () => {
     ;(document.activeElement as HTMLElement).blur()
