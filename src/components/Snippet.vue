@@ -28,10 +28,10 @@
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
 
-          <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block ml-2">
-            <span v-if="isAdmin()" class="text-blue-200 text-xxs cursor-pointer mt-2" :title="verificationRequestDate"
-              ><i class="fa-solid fa-gear"></i
-            ></span>
+          <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block ml-2 no-underline">
+            <span v-if="isAdmin()" class="text-blue-200 text-xs cursor-pointer mt-2"
+              ><i class="fa-solid fa-gear mr-2"></i></span
+            ><span class="text-xs text-blue-200">{{ verificationRequestDate }}</span>
           </router-link>
         </div>
       </div>
@@ -94,11 +94,12 @@
   }>()
 
   const verificationRequestDate = computed(() => {
-    if (!props.dev) return 'No Request'
+    if (!props.dev) return ''
 
-    if (!props.dev.candidate_verification!.length) return 'No Request'
+    if (!props.dev!.candidate_verification!.length) return ''
 
-    return moment(props.dev.candidate_verification![0].verify_req).fromNow()
+    if (!props.dev!.candidate_verification![0].verify_req) return ''
+    return moment(props.dev!.candidate_verification![0].verify_req).fromNow()
   })
 </script>
 
