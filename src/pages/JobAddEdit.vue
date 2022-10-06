@@ -3,11 +3,11 @@
     <div class="flex flex-col justify-center container mx-auto">
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Company</span>
+          <span class="label-text dark:text-slate-300">Company</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="job.company"
           name="displayName"
           id="displayName"
@@ -16,11 +16,11 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Job Title</span>
+          <span class="label-text dark:text-slate-300">Job Title</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="job.title"
           name="displayName"
           id="displayName"
@@ -29,11 +29,11 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Brief description (300 chars)</span>
+          <span class="label-text dark:text-slate-300">Brief description (300 chars)</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="job.blurb"
           @input="checkInputLength(job)"
           maxlength="300"
@@ -44,7 +44,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Experience Required</span
+          <span class="label-text dark:text-slate-300">Experience Required</span
           ><span class="text-gray-400 text-xs">({{ job.yoe }} years)</span>
         </label>
         <input
@@ -73,7 +73,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Min. Monthly rate (USD)</span
+          <span class="label-text dark:text-slate-300">Min. Monthly rate (USD)</span
           ><span class="text-gray-400 text-xs">(min: ${{ job.rate }} pm)</span>
         </label>
         <input
@@ -112,7 +112,7 @@
     </div>
     <div class="form-control">
       <label class="label">
-        <span class="label-text">Timezone (UTC)</span
+        <span class="label-text dark:text-slate-300">Timezone (UTC)</span
         ><span class="text-gray-400 text-xs"
           >(Location: UTC{{ job.timezone >= 0 ? '+' + job.timezone : job.timezone }})</span
         >
@@ -157,11 +157,11 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Company Website</span>
+        <span class="label-text dark:text-slate-300">Company Website</span>
       </label>
       <input
         type="text"
-        class="input input-bordered input-ghost bg-gray-100"
+        class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         v-model="job.website"
         name="gitsource"
         id="gitsource"
@@ -170,11 +170,11 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Job Spec and where to apply?</span>
+        <span class="label-text dark:text-slate-300">Job Spec and where to apply?</span>
       </label>
       <input
         type="text"
-        class="input input-bordered input-ghost bg-gray-100"
+        class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         v-model="job.jobspec"
         name="linkedin"
         id="linkedin"
@@ -183,14 +183,16 @@
     </div>
     <div class="form-control w-full sm:w-1/2 mt-4">
       <label class="label cursor-pointer">
-        <span class="label-text">Publish this role on the website?</span>
-        <input type="checkbox" class="toggle toggle-secondary" v-model="job.active" />
+        <span class="label-text dark:text-slate-300">Publish this role on the website?</span>
+        <input type="checkbox" class="toggle toggle-secondary dark:bg-gray-600" v-model="job.active" />
       </label>
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Link #1</span
-        ><span class="text-gray-400 text-xs">(e.g. Introduce the company and it's culture)</span>
+        <span class="label-text dark:text-slate-300">Link #1</span
+        ><span class="text-gray-400 dark:bg-gray-600 dark:text-slate-300 text-xs"
+          >(e.g. Introduce the company and it's culture)</span
+        >
       </label>
       <input
         type="text"
@@ -198,13 +200,13 @@
         name="link1"
         id="link1"
         placeholder="Evidence your abilities with your chosen tech stack"
-        class="input input-bordered input-ghost bg-gray-100"
+        class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Link #2</span
+        <span class="label-text dark:text-slate-300">Link #2</span
         ><span class="text-gray-400 text-xs">(e.g. A short video about the project)</span>
       </label>
       <input
@@ -213,13 +215,13 @@
         name="link2"
         id="link2"
         placeholder="Evidence your abilities with your chosen tech stack"
-        class="input input-bordered input-ghost bg-gray-100"
+        class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text">Link #3</span
+        <span class="label-text dark:text-slate-300">Link #3</span
         ><span class="text-gray-400 text-xs">(e.g. Team structure or benefits?)</span>
       </label>
       <input
@@ -228,7 +230,7 @@
         name="link3"
         id="link3"
         placeholder="Evidence your abilities with your chosen tech stack"
-        class="input input-bordered input-ghost bg-gray-100"
+        class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
     </div>

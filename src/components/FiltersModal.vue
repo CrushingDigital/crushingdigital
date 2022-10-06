@@ -2,7 +2,7 @@
   <div>
     <input type="checkbox" id="tz-modal" class="modal-toggle" />
     <label for="tz-modal" class="modal cursor-pointer">
-      <label class="modal-box relative" for="tz-modal">
+      <label class="modal-box relative dark:bg-slate-700" for="tz-modal">
         <h3 class="mb-4">Timezone (UTC)</h3>
         <form class="text-center flex flex-col justify-start">
           <label for="timezone-start" class="flower">From</label>
@@ -12,7 +12,7 @@
             max="12"
             :value="startTz"
             @input="$emit('update:startTz', ($event.target as HTMLInputElement).value)"
-            class="range range-primary"
+            class="range range-primary dark:bg-slate-600"
             step="2"
             name="timezone-start"
             id="timezone-start"
@@ -27,7 +27,7 @@
             max="12"
             :value="endTz"
             @input="$emit('update:endTz', ($event.target as HTMLInputElement).value)"
-            class="range range-secondary"
+            class="range range-secondary dark:bg-slate-600"
             step="2"
             name="timezone-end"
             id="timezone-end"
@@ -41,7 +41,7 @@
 
     <input type="checkbox" id="exp-modal" class="modal-toggle" />
     <label for="exp-modal" class="modal cursor-pointer">
-      <label class="modal-box relative" for="exp-modal">
+      <label class="modal-box relative dark:bg-slate-700" for="exp-modal">
         <h3 class="mb-4">Experience filter</h3>
         <form class="text-center">
           <input
@@ -50,7 +50,7 @@
             max="10"
             :value="reqExp"
             @input="$emit('update:reqExp', ($event.target as HTMLInputElement).value)"
-            class="range range-secondary"
+            class="range range-secondary dark:bg-slate-600"
             step="1"
             name="req-experience"
             id="req-experience"
@@ -64,7 +64,7 @@
 
     <input type="checkbox" id="rate-modal" class="modal-toggle" />
     <label for="rate-modal" class="modal cursor-pointer">
-      <label class="modal-box relative" for="rate-modal">
+      <label class="modal-box relative dark:bg-slate-700" for="rate-modal">
         <h3 class="mb-4">Rate (per month in USD)</h3>
         <form class="text-center flex flex-col justify-start">
           <label for="timezone-start" class="flower">Lower</label>
@@ -74,7 +74,7 @@
             max="24000"
             :value="lowRate"
             @input="$emit('update:lowRate', ($event.target as HTMLInputElement).value)"
-            class="range range-primary"
+            class="range range-primary dark:bg-slate-600"
             step="1000"
             name="low-rate"
             id="low-rate"
@@ -89,7 +89,7 @@
             max="24000"
             :value="highRate"
             @input="$emit('update:highRate', ($event.target as HTMLInputElement).value)"
-            class="range range-secondary"
+            class="range range-secondary dark:bg-slate-600"
             step="1000"
             name="high-rate"
             id="high-rate"
@@ -103,7 +103,7 @@
 
     <input type="checkbox" id="skills-modal" class="modal-toggle" />
     <label for="skills-modal" class="modal cursor-pointer">
-      <label class="modal-box relative" for="skills-modal">
+      <label class="modal-box relative dark:bg-slate-700" for="skills-modal">
         <h3 class="mb-4">Skills Filters</h3>
         <div class="flex flex-row justify-center my-4 flex-wrap mx-auto">
           <span

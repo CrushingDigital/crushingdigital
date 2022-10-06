@@ -3,12 +3,22 @@
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-3 w-3 sm:h-5 sm:w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
           </svg>
         </label>
-        <ul id="menu" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 w-52">
-          <li class="py-1" @click="closeMenu" v-if="!isCandidate()">
+        <ul
+          id="menu"
+          tabindex="0"
+          class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 dark:bg-slate-700 w-52"
+        >
+          <li class="py-1" @click="closeMenu" v-if="!isCandidate() && isLoggedIn()">
             <router-link
               to="/profile/basic"
               class="p-4 bg-secondary text-white no-underline hover:text-white hover:bg-primary"
@@ -51,15 +61,22 @@
         </ul>
       </div>
       <a class="btn btn-ghost normal-case px-0">
-        <h2 class="text-lg sm:text-2xl cursor-pointer mr-1" @click="$router.push({ name: 'home' })">
+        <h2 class="text-base md:text-2xl cursor-pointer mr-1" @click="$router.push({ name: 'home' })">
           Crushing<span class="text-primary">Digital</span>
         </h2>
       </a>
-      <i class="fa-solid fa-person-digging text-gray-300 mt-2" title="v0.2 - Working for Devs"></i>
+      <i class="fa-solid fa-person-digging text-gray-300 mt-2 text-sm" title="v0.2 - Working for Devs"></i>
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
-      <div class="flex justify-end align-bottom" v-if="isLoggedIn()">
+      <div class="flex justify-end items-center align-bottom" v-if="isLoggedIn()">
+        <button @click="toggleDark()" v-if="isDark">
+          <i class="fa-solid fa-sun mr-2"></i>
+        </button>
+        <button @click="toggleDark()" v-else>
+          <i class="fa-solid fa-moon mr-2"></i>
+        </button>
+
         <router-link to="/notifications" v-if="hasNewNotifications">
           <i class="fa-solid fa-bell"></i>
         </router-link>
@@ -73,13 +90,15 @@
       </div>
       <div class="flex justify-end" v-else>
         <span class="text-xxs mr-1">Sign in:</span>
-        <a @click.prevent="signInWith('github')" class="text-black mr-1"> <i class="fa-brands fa-github fa-lg"></i></a>
+        <a @click.prevent="signInWith('github')" class="text-black mr-1 dark:text-slate-300">
+          <i class="fa-brands fa-github fa-lg"></i
+        ></a>
         <a @click.prevent="signInWith('linkedin')" class="text-linkedin"><i class="fa-brands fa-linkedin fa-lg"></i></a>
       </div>
     </div>
   </div>
 
-  <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col justify-start mt-1">
+  <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col justify-start mt-1 dark:bg-slate-800">
     <router-view></router-view>
   </div>
 
@@ -99,8 +118,8 @@
       ></a>
     </div>
     <div class="flex justify-center mt-4">
-      <router-link to="{ name: 'about' }" class="mx-2">About</router-link>
-      <router-link to="{ name: 'faq' }" class="mx-2">FAQ's</router-link>
+      <router-link :to="{ name: 'about' }" class="mx-2">About</router-link>
+      <router-link :to="{ name: 'faq' }" class="mx-2">FAQ's</router-link>
     </div>
     <div class="flex justify-center mt-4">
       <span class="text-gray-300">&#169; Copyright 2022 - Crushing Digital Ltd.</span>
@@ -123,6 +142,7 @@
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
   const { loadProfile, saveCandidateVerification, isApproved, isVerified, isCandidate, candidate } = useCandidate()
+  const isDark = ref(false)
 
   async function signInWith(provider: Provider) {
     await login(provider)
@@ -133,6 +153,11 @@
   async function signout() {
     await logout()
     router.push({ name: 'home' })
+  }
+
+  const toggleDark = () => {
+    document.body.classList.toggle('dark')
+    isDark.value = !isDark.value
   }
 
   const newNotifications = (notification: CDEvent) => {
