@@ -1,6 +1,9 @@
 <template>
   <div v-if="!dev"><h3>Loading...</h3></div>
-  <div v-else class="flex justify-between px-4 py-4 bg-primary/5 border-2 border-slate-200 rounded-2xl mb-2">
+  <div
+    v-else
+    class="flex justify-between px-4 py-4 bg-primary/5 border-2 border-slate-200 dark:border-slate-600 rounded-2xl mb-2"
+  >
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
@@ -34,14 +37,18 @@
       </div>
       <div class="flex flex-row justify-start text-xs md:text-sm px-1 py-1 items-center">
         <!-- ********* Experience **************** -->
-        <span class="text-slate-700 sm:mt-1"> <i class="fa-solid fa-graduation-cap"></i></span
-        ><span class="mr-2 text-xs text-slate-700 sm:mt-1 mx-1" title="Years of experience">{{ dev.yoe }}yrs</span>
+        <span class="text-slate-700 dark:text-slate-500 sm:mt-1"> <i class="fa-solid fa-graduation-cap"></i></span
+        ><span class="mr-2 text-xs text-slate-700 dark:text-slate-500 sm:mt-1 mx-1" title="Years of experience"
+          >{{ dev.yoe }}yrs</span
+        >
         <!-- ********* RATE **************** -->
-        <span class="text-slate-700 sm:mt-1"> <i class="fa-solid fa-sack-dollar"></i></span
-        ><span class="mr-2 text-xs text-slate-700 sm:mt-1 mx-1" title="Minimum rate">{{ dev.rate / 1000 }}k</span>
+        <span class="text-slate-700 dark:text-slate-500 sm:mt-1"> <i class="fa-solid fa-sack-dollar"></i></span
+        ><span class="mr-2 text-xs text-slate-700 dark:text-slate-500 sm:mt-1 mx-1" title="Minimum rate"
+          >{{ dev.rate / 1000 }}k</span
+        >
         <!-- ********* TIMEZONE **************** -->
-        <span class="text-slate-700 sm:mt-1 mr-1"> <i class="fa-solid fa-earth-americas"></i></span>
-        <span class="text-xs text-slate-700 sm:mt-1 mr-2" title="Timezone">{{
+        <span class="text-slate-700 dark:text-slate-500 sm:mt-1 mr-1"> <i class="fa-solid fa-earth-americas"></i></span>
+        <span class="text-xs text-slate-700 dark:text-slate-500 sm:mt-1 mr-2" title="Timezone">{{
           dev.timezone > 0 ? '+' + dev.timezone : dev.timezone
         }}</span>
         <!-- ********* CODE **************** -->

@@ -55,7 +55,7 @@
       :value="searchText"
       @input="$emit('update:searchText', ($event.target as HTMLInputElement).value)"
       placeholder="Search by name..."
-      class="input input-bordered w-72 sm:ml-4"
+      class="input input-bordered w-72 sm:ml-4 dark:bg-slate-600 dark:text-slate-300"
     />
 
     <span class="flower ml-2">#{{ noDevs }} {{ listItems }}</span>

@@ -9,11 +9,11 @@
     <div class="flex flex-col justify-center container mx-auto">
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">What is your name?</span>
+          <span class="label-text dark:text-slate-300">What is your name?</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="candidate.display_name"
           name="displayName"
           id="displayName"
@@ -22,11 +22,12 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">About you</span><span class="text-gray-400 text-xs">(limit: 300 chars)</span>
+          <span class="label-text dark:text-slate-300">About you</span
+          ><span class="text-gray-400 text-xs">(limit: 300 chars)</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="candidate.blurb"
           @input="checkInputLength(candidate)"
           name="blurb"
@@ -37,7 +38,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Experience</span
+          <span class="label-text dark:text-slate-300">Experience</span
           ><span class="text-gray-400 text-xs">({{ candidate.yoe }} years)</span>
         </label>
         <input
@@ -66,7 +67,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Monthly rate</span
+          <span class="label-text dark:text-slate-300">Monthly rate</span
           ><span class="text-gray-400 text-xs">(min: ${{ candidate.rate }} pm)</span>
         </label>
         <input
@@ -104,7 +105,7 @@
       </div>
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Timezone (UTC)</span
+          <span class="label-text dark:text-slate-300">Timezone (UTC)</span
           ><span class="text-gray-400 text-xs"
             >(Location: UTC{{ candidate.timezone >= 0 ? '+' + candidate.timezone : candidate.timezone }})</span
           >
@@ -149,11 +150,12 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Coding Profile</span><span class="text-gray-400 text-xs">(GitHub or similar)</span>
+          <span class="label-text dark:text-slate-300">Coding Profile</span
+          ><span class="text-gray-400 text-xs">(GitHub or similar)</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="candidate.gitsource"
           name="gitsource"
           id="gitsource"
@@ -162,11 +164,11 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">LinkedIn Profile</span>
+          <span class="label-text dark:text-slate-300">LinkedIn Profile</span>
         </label>
         <input
           type="text"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           v-model="candidate.linkedin"
           name="linkedin"
           id="linkedin"
@@ -175,19 +177,19 @@
       </div>
       <div class="form-control w-full sm:w-1/2">
         <label class="label cursor-pointer">
-          <span class="label-text">Display on site?</span>
+          <span class="label-text dark:text-slate-300">Display on site?</span>
           <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.active" />
         </label>
       </div>
       <div class="form-control w-full sm:w-1/2">
         <label class="label cursor-pointer">
-          <span class="label-text">Receive profile review notifications via email?</span>
+          <span class="label-text dark:text-slate-300">Receive profile review notifications via email?</span>
           <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.allow_emails" />
         </label>
       </div>
       <div class="form-control w-full sm:w-1/2">
         <label class="label cursor-pointer">
-          <span class="label-text">Delete my account (usually takes 48hrs)</span>
+          <span class="label-text dark:text-slate-300">Delete my account (usually takes 48hrs)</span>
           <input type="checkbox" class="toggle toggle-secondary" v-model="candidate.delete_me" />
         </label>
       </div>
@@ -198,7 +200,8 @@
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #1</span><span class="text-gray-400 text-xs">(e.g. portfolio)</span>
+          <span class="label-text dark:text-slate-300">Link #1</span
+          ><span class="text-gray-400 text-xs">(e.g. portfolio)</span>
         </label>
         <input
           type="text"
@@ -206,13 +209,13 @@
           name="link1"
           id="link1"
           placeholder="Evidence your abilities with your chosen tech stack"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           @blur="checkLinkUrl"
         />
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #2</span
+          <span class="label-text dark:text-slate-300">Link #2</span
           ><span class="text-gray-400 text-xs">(e.g. a short video about you?)</span>
         </label>
         <input
@@ -221,13 +224,14 @@
           name="link2"
           id="link2"
           placeholder="Evidence your abilities with your chosen tech stack"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           @blur="checkLinkUrl"
         />
       </div>
       <div class="form-control w-full">
         <label class="label">
-          <span class="label-text">Link #3</span><span class="text-gray-400 text-xs">(e.g. blog?)</span>
+          <span class="label-text dark:text-slate-300">Link #3</span
+          ><span class="text-gray-400 text-xs">(e.g. blog?)</span>
         </label>
         <input
           type="text"
@@ -235,7 +239,7 @@
           name="link3"
           id="link3"
           placeholder="Evidence your abilities with your chosen tech stack"
-          class="input input-bordered input-ghost bg-gray-100"
+          class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
           @blur="checkLinkUrl"
         />
       </div>

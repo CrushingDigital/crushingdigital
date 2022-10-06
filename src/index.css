@@ -120,7 +120,7 @@
   @apply text-white bg-ionic border-2 border-ionic;
 }
 .GatsbyJS {
-  @apply text-white bg-gatsby border-2 border-gatsby;
+  @apply text-white bg-gatsby dark:bg-gatsby border-2 border-gatsby;
 }
 .NuxtJS {
   @apply text-white bg-nuxtjs border-2 border-nuxtjs;
@@ -205,7 +205,7 @@
 }
 
 .disabledSkill {
-  @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full;
+  @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full dark:bg-slate-600 dark:border-slate-500;
 }
 
 @layer base {
