@@ -14,7 +14,7 @@
     <button class="btn btn-xs btn-primary mx-1" @click="notifyFeedbackWaiting()">Feedback Awaits!</button>
   </div>
   <div class="flex flex-col">
-    <select class="select select-bordered w-full max-w-xs mb-4" v-model="reason">
+    <select class="select select-bordered w-full max-w-xs mb-4 dark:bg-slate-600 dark:text-slate-300" v-model="reason">
       <option disabled selected>Reason</option>
       <option>General Comment</option>
       <option>Profile</option>
@@ -31,7 +31,7 @@
 
     <textarea
       v-model="explanation"
-      class="textarea textarea-bordered"
+      class="textarea textarea-bordered dark:bg-slate-600 dark:text-slate-300"
       placeholder="Explain your decision..."
     ></textarea>
   </div>
