@@ -131,7 +131,7 @@
   import { useRouter } from 'vue-router'
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from './composables/useCandidate'
-  import { ref, computed } from 'vue'
+  import { ref, computed, onBeforeMount, watch } from 'vue'
   import { Provider } from '@supabase/supabase-js'
   import { useToast } from 'vue-toastification'
   import useEvents from './composables/useEvent'
@@ -143,6 +143,15 @@
   const { user, login, logout, isLoggedIn } = useAuthUser()
   const { loadProfile, saveCandidateVerification, isApproved, isVerified, isCandidate, candidate } = useCandidate()
   const isDark = ref(false)
+
+  onBeforeMount(() => {
+    isDark.value = localStorage.theme == 'dark' ? true : false
+  })
+
+  watch(isDark, () => {
+    localStorage.setItem('theme', isDark.value ? 'dark' : 'cmyk')
+    document.body.classList.toggle('dark')
+  })
 
   async function signInWith(provider: Provider) {
     await login(provider)
@@ -156,7 +165,6 @@
   }
 
   const toggleDark = () => {
-    document.body.classList.toggle('dark')
     isDark.value = !isDark.value
   }
 
