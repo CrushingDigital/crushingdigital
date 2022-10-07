@@ -13,6 +13,117 @@
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
     <button class="btn btn-xs btn-primary mx-1" @click="notifyFeedbackWaiting()">Feedback Awaits!</button>
   </div>
+  <div class="py-4">
+    <h3>LinkedIn</h3>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'LinkedIn: Your headline is vague. List the stack and tell recruiters and employers that they are in the right place!'
+        )
+      "
+    >
+      Vague Headline
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'LinkedIn: About section is not direct enough. Confirm what they read in the headline and tell them what you are looking for 👀'
+        )
+      "
+    >
+      Vague About
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'LinkedIn: Once recruiters and employers know you are right for the job, they want to know when you started using the tech, whether you\'re still using it and how frequently you have been using it. List the tech on each experience.'
+        )
+      "
+    >
+      Experience:Tech
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'LinkedIn: List the tech first (for scanning reasons) but then include 3-5 bullet points about your experience. What did you build? What did you learn? What was the business benefit?'
+        )
+      "
+    >
+      Experience:Bullets
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'LinkedIn: If you don\'t have experience or want too add more to it, consider documenting your journey. A short post (literally a paragraph) with screenshots, code snippets etc) to show what you\'re working on or learning is a powerful thing! 💪'
+        )
+      "
+    >
+      Document Journey
+    </button>
+    <h3 class="mt-4">GitHub</h3>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="addComment('GitHub: Add a personal description and make it match your LinkedIn headline 🔗')"
+    >
+      Headline
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'GitHub: 📌 your best repos and make sure they are using the tech you want to be found for. Confirm that this is what you do! ☑️'
+        )
+      "
+    >
+      Pinned Repos
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'GitHub: When I view the repo list for accounts and I don\'t see the tech they say they do near the top of the list (most recent commits), I worry! Is this what they really want? A recruiter might interview someone else first 🤷'
+        )
+      "
+    >
+      Recent Repos
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'GitHub: Lots of shallow repos (few commits) is a classic sign of a junior or someone in tutorial hell. One, larger project (which could house all your tutorials 🤔) is a better sign.'
+        )
+      "
+    >
+      Tutorial Hell
+    </button>
+    <h3 class="mt-4">Profile</h3>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'Profile: No links? This is how you sell yourself here and they don\'t have to be links to new things. Blog posts, screenshots, code snippets or a prtfolio site? What have you got? Also, more links means a better rank on the platform! 🤫'
+        )
+      "
+    >
+      No Links
+    </button>
+    <button
+      class="btn btn-xs btn-default mx-1"
+      @click="
+        addComment(
+          'Profile: Have you got any more links? More links means a better ranking, remember. Your faviourite personal repo or a project perhaps?'
+        )
+      "
+    >
+      More Links
+    </button>
+  </div>
   <div class="flex flex-col">
     <select class="select select-bordered w-full max-w-xs mb-4 dark:bg-slate-600 dark:text-slate-300" v-model="reason">
       <option disabled selected>Reason</option>
@@ -82,10 +193,9 @@
     }
   })
 
-  const addComment = async () => {
+  const addComment = async (note: string = '') => {
     try {
-      let note = ''
-      note = 'ℹ️ ' + explanation.value
+      note = 'ℹ️ ' + note.length ? note : explanation.value
 
       await addEvent('COMMENT', 'Comment Added', note, developer.value!.user_id)
 
