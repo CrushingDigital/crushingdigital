@@ -44,6 +44,7 @@
   const { personalEvents, getEventsForUser } = useEvents()
 
   onMounted(async () => {
+    console.log('getting events for ' + props.userId)
     await getEventsForUser(props.userId)
   })
 </script>
