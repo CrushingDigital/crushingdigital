@@ -69,14 +69,15 @@
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
-      <div class="flex justify-end items-center align-bottom" v-if="isLoggedIn()">
+      <div class="flex justify-end items-center align-bottom">
         <button @click="toggleDark()" v-if="isDark">
           <i class="fa-solid fa-sun mr-2"></i>
         </button>
         <button @click="toggleDark()" v-else>
           <i class="fa-solid fa-moon mr-2"></i>
         </button>
-
+      </div>
+      <div class="flex justify-end items-center align-bottom" v-if="isLoggedIn()">
         <router-link to="/notifications" v-if="hasNewNotifications">
           <i class="fa-solid fa-bell"></i>
         </router-link>
