@@ -11,7 +11,7 @@
               class="h-5 w-5"
               viewBox="0 0 20 20"
               fill="currentColor"
-              :class="user!.last_sign_in_at! < event.created_at! ? 'text-secondary' : ''"
+              :class="user?.last_sign_in_at! < event.created_at! ? 'text-secondary' : ''"
             >
               <path
                 fill-rule="evenodd"
@@ -44,7 +44,6 @@
   const { personalEvents, getEventsForUser } = useEvents()
 
   onMounted(async () => {
-    console.log('getting events for ' + props.userId)
     await getEventsForUser(props.userId)
   })
 </script>

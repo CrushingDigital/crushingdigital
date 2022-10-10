@@ -1,17 +1,13 @@
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
 import { CDEvent } from '@/types'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const { user } = useAuthUser()
 const { supabase } = useSupabase()
 const events = ref<CDEvent[] | null>([])
 const personalEvents = ref<CDEvent[] | null>([])
 let loadingEvents = ref<boolean>(false)
-
-watch(user, () => {
-  if (user.value) getEventsForUser(user.value.id)
-})
 
 const addEvent = async (eventType: string, eventDescr: string, note: string | null, user_id: string) => {
   let { data, error } = await supabase.from('events').insert([
@@ -43,7 +39,6 @@ const getEvents = async (): Promise<CDEvent[]> => {
 const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
   if (loadingEvents.value) return []
 
-  console.log(user_id)
   if (user_id == undefined) {
     personalEvents.value = []
     return personalEvents.value
