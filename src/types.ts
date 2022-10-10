@@ -75,4 +75,12 @@ interface CDEvent {
   note: string
 }
 
-export type { Candidate, Skill, Job, SkillsLink, CDEvent, CandidateVerification, CandidateApproval }
+interface ClickData {
+  id?: number
+  created_at?: string
+  link_type: string
+  candidate_id: number
+  who_clicked?: string
+}
+
+export type { Candidate, Skill, Job, SkillsLink, CDEvent, CandidateVerification, CandidateApproval, ClickData }
