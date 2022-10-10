@@ -18,13 +18,13 @@
 
           <span class="text-sm sm:text-lg mx-2">{{ dev.display_name }}</span>
 
-          <a v-if="dev.link_1" :href="dev.link_1" class="threeLink mt-1 mr-1"
+          <a v-if="dev.link_1" @click.prevent="clickHandler('link_1', dev?.link_1!, dev!)" class="threeLink mt-1 mr-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
-          <a v-if="dev.link_2" :href="dev.link_2" class="threeLink mt-1 mr-1"
+          <a v-if="dev.link_2" @click.prevent="clickHandler('link_2', dev?.link_2!, dev!)" class="threeLink mt-1 mr-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
-          <a v-if="dev.link_3" :href="dev.link_3" class="threeLink mt-1"
+          <a v-if="dev.link_3" @click.prevent="clickHandler('link_3', dev?.link_3!, dev!)" class="threeLink mt-1"
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
 
@@ -52,11 +52,11 @@
           dev.timezone > 0 ? '+' + dev.timezone : dev.timezone
         }}</span>
         <!-- ********* CODE **************** -->
-        <a :href="dev.gitsource" class="sm:mt-1 mr-2" v-if="dev.gitsource"
+        <a @click.prevent="clickHandler('gitsource', dev?.gitsource!, dev!)" class="sm:mt-1 mr-2" v-if="dev.gitsource"
           ><span class="text-black sm:mt-1"><i class="fa-brands fa-git-square"></i></span
         ></a>
         <!-- ********* LINKEDIN **************** -->
-        <a :href="dev.linkedin" class="sm:mt-1" v-if="dev.linkedin"
+        <a @click.prevent="clickHandler('linkedin', dev?.linkedin!, dev!)" class="sm:mt-1" v-if="dev.linkedin"
           ><span class="text-primary sm:mt-1"> <i class="fa-brands fa-linkedin text-linkedin"></i></span
         ></a>
       </div>
@@ -83,9 +83,11 @@
   import { Candidate } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from '@/composables/useCandidate'
+  import useDeveloperClicks from '@/composables/useDeveloperClicks'
   import moment from 'moment'
   import { computed } from 'vue'
 
+  const { addDeveloperClick } = useDeveloperClicks()
   const { isAdmin } = useAuthUser()
   const { isApproved, isVerified } = useCandidate()
 
@@ -101,6 +103,11 @@
     if (!props.dev!.candidate_verification![0].verify_req) return ''
     return moment(props.dev!.candidate_verification![0].verify_req).fromNow()
   })
+
+  const clickHandler = async (link_type: string, url: string, dev: Candidate) => {
+    addDeveloperClick(dev!.id, link_type)
+    window.open(url, '_blank')
+  }
 </script>
 
 <style scoped></style>
