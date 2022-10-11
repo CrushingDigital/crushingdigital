@@ -100,6 +100,28 @@
   </div>
 
   <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col justify-start mt-1 dark:bg-slate-800">
+    <div
+      class="alert alert-info shadow-lg hover:cursor-pointer mb-4"
+      v-if="hasNewNotifications"
+      @click="router.push({ name: 'notifications' })"
+    >
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="stroke-current flex-shrink-0 w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <span>You have feedback/notifications waiting for you! Ready?</span>
+      </div>
+    </div>
     <router-view></router-view>
   </div>
 
@@ -176,6 +198,7 @@
   }
 
   const hasNewNotifications = computed(() => {
+    console.log('here')
     if (!personalEvents.value || loadingEvents.value) return false
 
     return !!personalEvents.value?.filter(newNotifications).length
