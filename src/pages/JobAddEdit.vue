@@ -190,16 +190,14 @@
     <div class="form-control w-full">
       <label class="label">
         <span class="label-text dark:text-slate-300">Link #1</span
-        ><span class="text-gray-400 dark:bg-gray-600 dark:text-slate-300 text-xs"
-          >(e.g. Introduce the company and it's culture)</span
-        >
+        ><span class="text-gray-400 text-xs">(e.g. Introduce the company and it's culture)</span>
       </label>
       <input
         type="text"
         v-model="job.link_1"
         name="link1"
         id="link1"
-        placeholder="Evidence your abilities with your chosen tech stack"
+        placeholder="Reason to want this job #1"
         class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
@@ -214,7 +212,7 @@
         v-model="job.link_2"
         name="link2"
         id="link2"
-        placeholder="Evidence your abilities with your chosen tech stack"
+        placeholder="Reason to want this job #2"
         class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
@@ -229,7 +227,7 @@
         v-model="job.link_3"
         name="link3"
         id="link3"
-        placeholder="Evidence your abilities with your chosen tech stack"
+        placeholder="Reason to want this job #3"
         class="input input-bordered input-ghost bg-gray-100 dark:bg-gray-600 dark:text-slate-300"
         @blur="checkLinkUrl"
       />
