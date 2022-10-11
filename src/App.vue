@@ -198,7 +198,6 @@
   }
 
   const hasNewNotifications = computed(() => {
-    console.log('here')
     if (!personalEvents.value || loadingEvents.value) return false
 
     return !!personalEvents.value?.filter(newNotifications).length
