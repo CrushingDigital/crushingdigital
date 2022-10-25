@@ -8,11 +8,11 @@
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
           <!-- ********* APPROVED **************** -->
-          <span :class="isApproved(dev) ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
+          <span :class="dev.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
             <i class="fa-solid fa-star fa-xl"></i>
           </span>
           <!-- ********* VERIFIED **************** -->
-          <span :class="isVerified(dev) ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
+          <span :class="dev.verified ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
             ><i class="fa-solid fa-clipboard-check fa-xl"></i>
           </span>
 
@@ -63,12 +63,12 @@
       <!-- ********* SKILLS **************** -->
       <div class="flex flex-wrap">
         <span
-          v-for="cskill in dev.candidate_skills"
+          v-for="cskill in dev.skills"
           class="px-2 py-1 text-xs rounded-full mr-1 my-1 cursor-pointer text-white bg-black border-2"
-          :class="cskill.skills?.name"
-          @click="$emit('skill-toggle', cskill.skills)"
+          :class="cskill.name"
+          @click="$emit('skill-toggle', cskill)"
         >
-          {{ cskill.skills?.name }}
+          {{ cskill.name }}
         </span>
       </div>
       <!-- ********* BLURB **************** -->
@@ -80,31 +80,32 @@
 </template>
 
 <script setup lang="ts">
-  import { Candidate } from '@/types'
+  import { FilterCandidate, Skill } from '@/types'
+  import useSkill from '@/composables/useSkill'
   import useAuthUser from '@/composables/useAuthUser'
   import useCandidate from '@/composables/useCandidate'
   import useDeveloperClicks from '@/composables/useDeveloperClicks'
   import moment from 'moment'
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
 
+  const { getSkills } = useSkill()
   const { addDeveloperClick } = useDeveloperClicks()
   const { isAdmin } = useAuthUser()
   const { isApproved, isVerified } = useCandidate()
 
   const props = defineProps<{
-    dev: Candidate | null
+    dev: FilterCandidate | null
   }>()
 
   const verificationRequestDate = computed(() => {
     if (!props.dev) return ''
 
-    if (!props.dev!.candidate_verification!.length) return ''
+    if (!props.dev!.verify_req!) return ''
 
-    if (!props.dev!.candidate_verification![0].verify_req) return ''
-    return moment(props.dev!.candidate_verification![0].verify_req).fromNow()
+    return moment(props.dev!.verify_req).fromNow()
   })
 
-  const clickHandler = async (link_type: string, url: string, dev: Candidate) => {
+  const clickHandler = async (link_type: string, url: string, dev: FilterCandidate) => {
     addDeveloperClick(dev!.id, link_type)
     window.open(url, '_blank')
   }

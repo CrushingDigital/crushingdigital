@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center my-2">
+  <div class="flex justify-start flex-col sm:flex-row items-start sm:items-center mb-4 mt-8">
     <div>
       <span class="mr-2 flower">Filters:</span>
       <label for="tz-modal" class="modal-button my-auto cursor-pointer mr-2">

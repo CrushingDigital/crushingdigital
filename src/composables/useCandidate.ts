@@ -1,7 +1,8 @@
-import { Candidate, CandidateVerification, CandidateApproval } from '@/types'
+import { Candidate, CandidateVerification, CandidateApproval, Filter, FilterCandidate, SearchFilter } from '@/types'
 import useSupabase from '@/composables/useSupabase'
 import useAuthUser from '@/composables/useAuthUser'
 import { ref, watch } from 'vue'
+const PAGESIZE = import.meta.env.VITE_DEV_PAGE_SIZE
 
 const candidate = ref<Candidate | null>(null)
 const { supabase } = useSupabase()
@@ -40,28 +41,87 @@ const isApproved = (developer: Candidate | null) => {
   return developer.candidate_approval![0].approved
 }
 
-const getCandidates = async (): Promise<Candidate[] | Error> => {
-  let { data: candidates, error } = await supabase
-    .from('candidates')
-    .select(
-      `*,
-      candidate_skills(
-        skills(*)
-      ),
-      candidate_verification(*),
-      candidate_approval(*)
-    `
-    )
-    .order('approved', { foreignTable: 'candidate_approval', ascending: false })
-    .order('verified', { foreignTable: 'candidate_verification', ascending: false })
-    .order('link_3')
-    .order('link_2')
-    .order('link_1')
-    .order('created_at', { ascending: false })
+const getFilteredCandidates = async (
+  filters: Filter,
+  page: number
+): Promise<{ data: FilterCandidate[] | Error; count: number | null }> => {
+  let {
+    startTz,
+    endTz,
+    lowRate,
+    highRate,
+    reqExp,
+    approved,
+    verified,
+    verify_req,
+    active,
+    searchText,
+    filterSkills,
+    pageSize,
+  } = filters
+
+  let selectedSkills = filterSkills.value.map((skill) => skill.id)
+
+  let params: SearchFilter = {
+    end_tz: endTz.value,
+    req_exp: reqExp.value,
+    start_tz: startTz.value,
+    low_rate: lowRate.value,
+    high_rate: highRate.value,
+    is_verified: false,
+    is_approved: false,
+    req_verify: false,
+    is_active: false,
+    search_text: searchText.value,
+    ids: [],
+  }
+
+  if (approved.value) params.is_approved = true
+  if (verified.value) params.is_verified = true
+  if (verify_req.value) params.req_verify = true
+  if (active.value) params.is_active = true
+
+  if (selectedSkills.length) {
+    params.ids = selectedSkills
+  }
+
+  let query = supabase.rpc('skill_filtered_candidates', params)
+  let { data, error } = await query
+  let filteredCandidates: FilterCandidate[] = distillCandidateSkills(data as FilterCandidate[])
+
+  let count = filteredCandidates.length
+
+  let offset = page <= 1 ? 0 : (page - 1) * pageSize.value
+
+  data = filteredCandidates.slice(offset, offset + PAGESIZE) as Candidate[]
 
   if (error) throw error
 
-  return candidates as Array<Candidate>
+  return { data, count }
+}
+
+const distillCandidateSkills = (devs: FilterCandidate[]): FilterCandidate[] => {
+  let filteredCandidates: FilterCandidate[] = []
+
+  devs?.forEach((row: FilterCandidate) => {
+    let found = filteredCandidates.find((elem) => elem.id == row.id)
+
+    if (found === undefined) {
+      found = row
+      found.skills = []
+      filteredCandidates.push(row)
+    }
+
+    if (row.skill_id)
+      found.skills.push({
+        id: row.skill_id,
+        name: row.skill_name,
+        created_at: row.skill_created_at,
+        active: row.skill_active,
+      })
+  })
+
+  return filteredCandidates
 }
 
 const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true): Promise<Candidate | Error> => {
@@ -112,11 +172,24 @@ const saveCandidate = async (candidate: Candidate, requestVerify: boolean = true
   return data?.pop()
 }
 
-const saveCandidateVerification = async (
-  candidate_verification: CandidateVerification,
-  requestVerify: boolean = true
+const markReviewComplete = async (candidate_id: number): Promise<CandidateVerification | Error> => {
+  let { data, error } = await supabase.from('candidate_verification').upsert([
+    {
+      candidate_id,
+      verify_req: null,
+    },
+  ])
+
+  if (error) throw error
+
+  return data?.pop()
+}
+
+const verifyCandidate = async (
+  candidate_id: number,
+  verified: boolean,
+  verify_req: string
 ): Promise<CandidateVerification | Error> => {
-  const { candidate_id, verified, verify_req } = candidate_verification
   let { data, error } = await supabase.from('candidate_verification').upsert([
     {
       candidate_id,
@@ -130,8 +203,7 @@ const saveCandidateVerification = async (
   return data?.pop()
 }
 
-const saveCandidateApproval = async (candidate_approval: CandidateApproval): Promise<CandidateApproval | Error> => {
-  const { candidate_id, approved } = candidate_approval
+const approveCandidate = async (candidate_id: number, approved: boolean): Promise<CandidateApproval | Error> => {
   let { data, error } = await supabase.from('candidate_approval').upsert([
     {
       candidate_id,
@@ -165,37 +237,29 @@ const loadProfile = async (user_id: string): Promise<Candidate | Error> => {
   return data?.pop() as Candidate
 }
 
-const loadCandidateProfile = async (id: number): Promise<Candidate | Error> => {
-  let { data, error } = await supabase
-    .from('candidates')
-    .select(
-      `
-        *,
-        candidate_skills(
-          skills(*)
-        ),
-        candidate_verification(*),
-        candidate_approval(*)
-      `
-    )
-    .eq('id', id)
-
+const loadCandidateProfile = async (id: number): Promise<FilterCandidate | Error> => {
+  let { data, error } = await supabase.rpc('load_candidate_profile', { cid: id })
   if (error) throw error
 
-  return data?.pop()
+  let profiles = distillCandidateSkills(data as FilterCandidate[])
+
+  if (!profiles.length) throw Error('Error loading profile')
+
+  return profiles.pop()!
 }
 
 export default function useCandidate() {
   return {
-    getCandidates,
+    getFilteredCandidates,
     saveCandidate,
-    saveCandidateVerification,
-    saveCandidateApproval,
+    verifyCandidate,
+    approveCandidate,
     loadProfile,
     loadCandidateProfile,
     isCandidate,
     candidate,
-    isApproved,
+    markReviewComplete,
     isVerified,
+    isApproved,
   }
 }

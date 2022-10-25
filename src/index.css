@@ -33,7 +33,7 @@
   @apply text-white bg-orange-600 border-2 border-orange-600;
 }
 .Flask {
-  @apply text-white bg-slate-700 border-2 border-slate-700;
+  @apply text-white bg-slate-900 border-2 border-slate-400;
 }
 .Django {
   @apply text-white bg-green-800 border-2 border-green-800;
@@ -183,7 +183,7 @@
   @apply text-white bg-rabbitmq border-2 border-rabbitmq;
 }
 .Kafka {
-  @apply text-white bg-kafka border-2 border-kafka;
+  @apply text-white bg-kafka border-2 border-slate-300;
 }
 .Microservices {
   @apply text-microservices bg-white border-2 border-microservices;
