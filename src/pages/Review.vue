@@ -5,11 +5,11 @@
     {{ developer_verification ? moment(developer_verification!.verify_req).fromNow() : 'Not requested' }}</span
   >
   <div class="py-4">
-    <button class="btn btn-xs btn-secondary mx-1" @click="verifyCandidate(true)">Verify</button>
-    <button class="btn btn-xs btn-default mx-1" @click="verifyCandidate(false)">Unverify</button>
+    <button class="btn btn-xs btn-secondary mx-1" @click="verify(true)">Verify</button>
+    <button class="btn btn-xs btn-default mx-1" @click="verify(false)">Unverify</button>
     <button class="btn btn-xs btn-default mx-1" @click="addComment()">Comment</button>
-    <button class="btn btn-xs btn-secondary mx-1" @click="approveCandidate(true)">Approve</button>
-    <button class="btn btn-xs btn-default mx-1" @click="approveCandidate(false)">Disapprove</button>
+    <button class="btn btn-xs btn-secondary mx-1" @click="approve(true)">Approve</button>
+    <button class="btn btn-xs btn-default mx-1" @click="approve(false)">Disapprove</button>
     <button class="btn btn-xs btn-primary mx-1" @click="completeReview()">Complete Review</button>
     <button class="btn btn-xs btn-primary mx-1" @click="notifyFeedbackWaiting()">Feedback Awaits!</button>
   </div>
@@ -157,7 +157,7 @@
   import Snippet from '@/components/Snippet.vue'
   import useCandidate from '@/composables/useCandidate'
   import { useRoute } from 'vue-router'
-  import { Candidate, CandidateVerification, CandidateApproval } from '@/types'
+  import { FilterCandidate, CandidateVerification, CandidateApproval } from '@/types'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
@@ -167,9 +167,8 @@
   const { addEvent } = useEvents()
   const toast = useToast()
   const route = useRoute()
-  const { loadCandidateProfile, saveCandidateVerification, saveCandidateApproval, isApproved, isVerified } =
-    useCandidate()
-  const developer = ref<Candidate | null>(null)
+  const { loadCandidateProfile, verifyCandidate, approveCandidate, markReviewComplete } = useCandidate()
+  const developer = ref<FilterCandidate | null>(null)
   const developer_verification = ref<CandidateVerification>({ candidate_id: null, verified: false, verify_req: null })
   const developer_approval = ref<CandidateApproval>({ candidate_id: null, approved: false })
   const reason = ref('')
@@ -181,16 +180,16 @@
     if (loadedProfile instanceof Error) return false
 
     developer.value = loadedProfile
-    if (developer.value.candidate_verification?.length) {
-      developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
-    } else {
-      developer_verification.value!.candidate_id = developer.value.id
-    }
-    if (developer.value.candidate_approval?.length)
-      developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
-    else {
-      developer_approval.value!.candidate_id = developer.value.id
-    }
+    // if (developer.value.candidate_verification?.length) {
+    //   developer_verification.value = developer.value.candidate_verification![0] as CandidateVerification
+    // } else {
+    //   developer_verification.value!.candidate_id = developer.value.id
+    // }
+    // if (developer.value.candidate_approval?.length)
+    //   developer_approval.value = developer.value.candidate_approval![0] as CandidateApproval
+    // else {
+    //   developer_approval.value!.candidate_id = developer.value.id
+    // }
   })
 
   const addComment = async (note: string = '') => {
@@ -208,12 +207,10 @@
     }
   }
 
-  const verifyCandidate = async (verify = true) => {
-    const initVal = isVerified(developer.value!)
+  const verify = async (verify = true) => {
+    const initVal = developer.value!.verified
     try {
-      developer_verification.value!.verified = verify
-      developer_verification.value!.candidate_id = developer.value!.id
-      await saveCandidateVerification(developer_verification.value!, false)
+      await verifyCandidate(developer.value!.id, verify, moment().toISOString())
 
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
       toast.success(toastMsg)
@@ -243,11 +240,11 @@
     }
   }
 
-  const approveCandidate = async (approve = true) => {
-    const initVal = isApproved(developer.value!)
+  const approve = async (approve = true) => {
+    const initVal = !!developer.value?.approved
     try {
       developer_approval.value!.approved = approve
-      await saveCandidateApproval(developer_approval.value!)
+      await approveCandidate(developer.value!.id, approve)
       let toastMsg = approve ? 'Profile approved' : 'Approval removed'
       toast.success(toastMsg)
       let descr = approve ? 'Profile approved' : reason.value
@@ -256,7 +253,7 @@
 
       if (approve) {
         sendApprovalEmail().catch(() => {
-          developer_approval.value!.approved = initVal
+          developer.value!.approved = initVal
           toast.error('Approval failure')
         })
       } else {
@@ -271,9 +268,9 @@
   }
 
   const completeReview = async () => {
-    let newDevVerification = await saveCandidateVerification({ candidate_id: developer.value!.id, verify_req: null })
+    let newDevVerification = await markReviewComplete(developer.value!.id)
     if (newDevVerification instanceof Error) return false
-    developer_verification.value!.verify_req = newDevVerification.verify_req
+
     lastUpdate.value = moment()
     toast.success('Review complete')
   }

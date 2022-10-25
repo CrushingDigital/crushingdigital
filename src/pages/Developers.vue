@@ -7,27 +7,38 @@
       <span class="btn btn-sm btn-primary rounded-full">Post a job for FREE!</span>
     </router-link>
   </div>
+  <FiltersInline
+    listItems="Developers"
+    :noDevs="filters.totalRecords.value"
+    v-model:searchText="filters.searchText.value"
+    v-model:approved="filters.approved.value"
+    v-model:verified="filters.verified.value"
+    v-model:verify_req="filters.verify_req.value"
+    v-model:startTz="filters.startTz.value"
+    v-model:endTz="filters.endTz.value"
+    v-model:lowRate="filters.lowRate.value"
+    v-model:highRate="filters.highRate.value"
+    v-model:reqExp="filters.reqExp.value"
+    v-model:active="filters.active.value"
+  />
   <div class="collapse mt-4" v-if="candidates.length">
-    <FiltersInline
-      listItems="Developers"
-      :noDevs="filteredCandidates.length"
-      v-model:searchText="searchVal"
-      v-model:approved="approved"
-      v-model:verified="verified"
-      v-model:verify_req="verify_req"
-      v-model:startTz="startTz"
-      v-model:endTz="endTz"
-      v-model:lowRate="lowRate"
-      v-model:highRate="highRate"
-      v-model:reqExp="reqExp"
-      v-model:active="active"
-    />
-
-    <ul v-if="filteredCandidates.length">
-      <li v-for="dev in filteredCandidates">
-        <Snippet :dev="dev" @skill-toggle="toggleSkill" />
-      </li>
-    </ul>
+    <div v-if="candidates.length">
+      <ul>
+        <li v-for="dev in candidates">
+          <Snippet :dev="dev" @skill-toggle="toggleSkill" />
+        </li>
+      </ul>
+      <div class="btn-group flex justify-center mt-4">
+        <button
+          class="btn btn-sm btn-outline dark:text-slate-400 border-slate-200 dark:border-slate-600"
+          :class="isCurrent(selectedPage)"
+          v-for="selectedPage in pageCount"
+          @click="page = selectedPage"
+        >
+          {{ selectedPage }}
+        </button>
+      </div>
+    </div>
     <div v-else class="mt-12 mb-4 flex justify-center">
       <h3>😢 No developers found 🤷 Try adjusting your filters!</h3>
     </div>
@@ -37,15 +48,15 @@
   </div>
 
   <FiltersModal
-    v-model:skills="skills"
-    :filter-skills="filterSkills"
+    :skills="skills"
+    v-model:filter-skills="filters.filterSkills.value"
     @skill-toggle="toggleSkill"
-    v-model:startTz="startTz"
-    v-model:endTz="endTz"
-    v-model:lowRate="lowRate"
-    v-model:highRate="highRate"
-    v-model:reqExp="reqExp"
-    v-model:searchVal="searchVal"
+    v-model:startTz="filters.startTz.value"
+    v-model:endTz="filters.endTz.value"
+    v-model:lowRate="filters.lowRate.value"
+    v-model:highRate="filters.highRate.value"
+    v-model:reqExp="filters.reqExp.value"
+    v-model:searchVal="filters.searchText.value"
   />
 
   <Share />
@@ -56,35 +67,75 @@
   import useCandidate from '@/composables/useCandidate'
   import useSkill from '@/composables/useSkill'
   import { useToast } from 'vue-toastification'
-  import { Candidate, Skill } from '@/types'
+  import { FilterCandidate, Filter, Skill } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
   import Snippet from '@/components/Snippet.vue'
   import Share from '@/components/Share.vue'
   import FiltersModal from '@/components/FiltersModal.vue'
   import FiltersInline from '@/components/FiltersInline.vue'
 
+  const PAGESIZE = import.meta.env.VITE_DEV_PAGE_SIZE
   const toast = useToast()
   const { hasMembership, isLoggedIn, user } = useAuthUser()
-  const { getCandidates, isApproved, isVerified } = useCandidate()
-  const { getSkills, getCandidateSkillIds } = useSkill()
+  const { getFilteredCandidates } = useCandidate()
+  const { getSkills } = useSkill()
+  const candidates = ref<FilterCandidate[]>([])
 
-  const startTz = ref<number>(-12)
-  const endTz = ref<number>(12)
-  const lowRate = ref<number>(1000)
-  const highRate = ref<number>(25000)
-  const reqExp = ref<number>(0)
-  const approved = ref<boolean>(false)
-  const verified = ref<boolean>(false)
-  const searchVal = ref<string>('')
-  const verify_req = ref<boolean>(false)
-  const active = ref<boolean>(false)
-  const filterSkills = ref<Skill[]>([])
-  const skills = ref<Array<Skill>>([])
-  const candidates = ref<Array<Candidate>>([])
+  const page = ref(1)
+  const refreshRequired = ref(false)
+  const skills = ref<Skill[]>([])
 
-  watch(user, async () => {
-    loadCandidates()
+  const filters: Filter = {
+    startTz: ref(-12),
+    endTz: ref(12),
+    lowRate: ref(1000),
+    highRate: ref(25000),
+    reqExp: ref(0),
+    approved: ref(false),
+    verified: ref(false),
+    searchText: ref(''),
+    verify_req: ref(false),
+    active: ref(false),
+    pageSize: ref(PAGESIZE),
+    totalRecords: ref(0),
+    filterSkills: ref<Skill[]>([]),
+  }
+
+  watch(refreshRequired, async () => {
+    if (refreshRequired.value) loadCandidates()
+
+    refreshRequired.value = false
   })
+
+  watch(page, () => {
+    refreshRequired.value = true
+  })
+
+  watch(filters.searchText, (newVal, oldVal) => {
+    if ((newVal.length != oldVal.length && newVal.length >= 3) || newVal.length == 0) {
+      page.value = 0
+      refreshRequired.value = true
+    }
+  })
+
+  watch(
+    [
+      filters.active,
+      filters.approved,
+      filters.verified,
+      filters.verify_req,
+      filters.endTz,
+      filters.startTz,
+      filters.lowRate,
+      filters.highRate,
+      filters.reqExp,
+      filters.filterSkills.value,
+    ],
+    () => {
+      page.value = 0
+      refreshRequired.value = true
+    }
+  )
 
   onBeforeMount(async () => {
     let isMember = await hasMembership()
@@ -93,56 +144,35 @@
       throw new Error('Invalid membership credentials')
     }
 
-    let loadedCandidates = await getCandidates()
-    if (loadedCandidates instanceof Error) return false
+    loadCandidates()
 
-    candidates.value = loadedCandidates
     skills.value = await getSkills()
   })
 
   const loadCandidates = async () => {
-    let loadedCandidates = await getCandidates()
-    if (loadedCandidates instanceof Error) return false
+    let { data, count } = await getFilteredCandidates(filters, page.value)
+    if (data instanceof Error) return false
 
-    candidates.value = loadedCandidates
+    candidates.value = data
+    filters.totalRecords.value = count == null ? 0 : count
   }
-
-  const filteredCandidates = computed(() => {
-    return candidates.value.filter((dev) => {
-      if (dev.timezone < startTz.value) return false
-      else if (dev.timezone > endTz.value) return false
-      else if (dev.rate < lowRate.value) return false
-      else if (dev.rate > highRate.value) return false
-      else if (dev.yoe < reqExp.value) return false
-      else if (approved.value && !isApproved(dev)) return false
-      else if (verified.value && !isVerified(dev)) return false
-      else if (verify_req.value && (!dev.candidate_verification?.length || !dev.candidate_verification![0].verify_req))
-        return false
-      else if (!dev.active && !active.value) return false
-      else if (
-        searchVal.value &&
-        searchVal.value.length >= 3 &&
-        !dev.display_name.toLowerCase().includes(searchVal.value.toLowerCase())
-      )
-        return false
-
-      const cskills = getCandidateSkillIds(dev)
-      const unmatched = filterSkills.value.filter((fskill) => !cskills.includes(fskill.id))
-
-      if (unmatched.length) return false
-
-      return true
-    })
-  })
 
   const toggleSkill = (skill: Skill) => {
-    let pos = filterSkills.value?.findIndex((item: Skill) => item.id == skill.id)
+    let pos = filters.filterSkills.value.findIndex((item: Skill) => item.id == skill.id)
     if (pos == -1) {
-      filterSkills.value.push(skill)
+      filters.filterSkills.value.push(skill)
     } else {
-      filterSkills.value.splice(pos, 1)
+      filters.filterSkills.value.splice(pos, 1)
     }
   }
+
+  const isCurrent = (currPage: number) => {
+    return {
+      'btn-active': page.value == currPage,
+    }
+  }
+
+  const pageCount = computed(() => Math.ceil(filters.totalRecords.value / filters.pageSize.value))
 </script>
 
 <style lang="css" scoped></style>
