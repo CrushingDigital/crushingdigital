@@ -265,7 +265,7 @@
   const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
   const toast = useToast()
 
-  const { saveCandidate, saveCandidateVerification, loadProfile } = useCandidate()
+  const { saveCandidate, verifyCandidate, loadProfile } = useCandidate()
 
   onBeforeMount(async () => {
     let loadedProfile
@@ -300,7 +300,7 @@
     candidate.value = savedProfile
 
     let verifyTS = new Date().toISOString().toLocaleString()
-    const res = await saveCandidateVerification({ candidate_id: candidate.value.id, verify_req: verifyTS })
+    const res = await verifyCandidate(candidate.value.id, true, verifyTS)
     if (res instanceof Error) toast.error('Review request failed')
     else toast.success('Review requested')
 
