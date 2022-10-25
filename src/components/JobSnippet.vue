@@ -7,7 +7,7 @@
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
-          <span :class="isHot ? 'text-red-600' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
+          <span :class="isHot ? 'text-red-600' : 'text-gray-300'" class="text-xs sm:text-sm mr-1" v-if="isHot">
             <i class="fa-solid fa-pepper-hot" title="New Job!"></i
           ></span>
           <span :class="job.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
