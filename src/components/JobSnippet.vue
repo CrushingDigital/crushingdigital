@@ -7,11 +7,14 @@
     <div class="flex flex-col justify-evenly">
       <div class="flex flex-row">
         <div class="flex flex-row items-center">
+          <span :class="isHot ? 'text-red-600' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
+            <i class="fa-solid fa-pepper-hot" title="New Job!"></i
+          ></span>
           <span :class="job.approved ? 'text-yellow-400' : 'text-gray-300'" class="text-xs sm:text-sm mr-1">
-            <i class="fa-solid fa-star fa-xl"></i
+            <i class="fa-solid fa-star fa-xl" title="Approved?"></i
           ></span>
           <span :class="job.verified ? 'text-green-500' : 'text-gray-300'" class="text-xs sm:text-sm"
-            ><i class="fa-solid fa-clipboard-check fa-xl"></i>
+            ><i class="fa-solid fa-clipboard-check fa-xl" title="Verified Profile?"></i>
           </span>
 
           <span
@@ -89,12 +92,17 @@
 <script setup lang="ts">
   import { Job } from '@/types'
   import useAuthUser from '@/composables/useAuthUser'
+  import { subDays } from 'date-fns'
+  import { ref } from 'vue'
 
   const { memberships, user } = useAuthUser()
-
-  defineProps<{
+  const isHot = ref(false)
+  const props = defineProps<{
     job: Job | null
   }>()
+
+  const sevenDaysAgo = subDays(new Date(), 7)
+  isHot.value = props.job?.created_at != undefined ? new Date(props.job?.created_at) > sevenDaysAgo : false
 
   const viewJob = (url: string | undefined) => {
     if (url) window.location.href = url
