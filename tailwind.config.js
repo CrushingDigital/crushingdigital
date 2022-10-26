@@ -65,6 +65,8 @@ module.exports = {
         rxjava: '#DE0D8F',
         rxjs: '#C1128E',
         microservices: '#000000',
+        csharp: '#662079',
+        cplusplus: '#055A9C',
       },
     },
   },

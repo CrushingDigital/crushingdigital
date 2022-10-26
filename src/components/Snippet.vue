@@ -65,7 +65,7 @@
         <span
           v-for="cskill in dev.skills"
           class="px-2 py-1 text-xs rounded-full mr-1 my-1 cursor-pointer text-white bg-black border-2"
-          :class="cskill.name"
+          :class="getSkillIdentifier(cskill)"
           @click="$emit('skill-toggle', cskill)"
         >
           {{ cskill.name }}
@@ -88,10 +88,9 @@
   import moment from 'moment'
   import { computed, ref } from 'vue'
 
-  const { getSkills } = useSkill()
+  const { getSkillIdentifier } = useSkill()
   const { addDeveloperClick } = useDeveloperClicks()
   const { isAdmin } = useAuthUser()
-  const { isApproved, isVerified } = useCandidate()
 
   const props = defineProps<{
     dev: FilterCandidate | null
