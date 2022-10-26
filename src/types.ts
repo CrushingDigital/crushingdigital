@@ -63,7 +63,7 @@ interface SearchFilter {
   is_verified?: boolean
   req_verify?: boolean
   ids?: number[] | undefined
-  is_active?: boolean
+  inc_inactive?: boolean
   search_text?: string
 }
 
@@ -138,7 +138,7 @@ interface Filter {
   approved: Ref<boolean>
   verified: Ref<boolean>
   verify_req: Ref<boolean>
-  active: Ref<boolean>
+  incInactive: Ref<boolean>
   searchText: Ref<string>
   pageSize: Ref<number>
   totalRecords: Ref<number>

@@ -19,7 +19,7 @@
     v-model:lowRate="filters.lowRate.value"
     v-model:highRate="filters.highRate.value"
     v-model:reqExp="filters.reqExp.value"
-    v-model:active="filters.active.value"
+    v-model:active="filters.incInactive.value"
   />
   <div class="collapse mt-4" v-if="candidates.length">
     <div v-if="candidates.length">
@@ -95,7 +95,7 @@
     verified: ref(false),
     searchText: ref(''),
     verify_req: ref(false),
-    active: ref(false),
+    incInactive: ref(false),
     pageSize: ref(PAGESIZE),
     totalRecords: ref(0),
     filterSkills: ref<Skill[]>([]),
@@ -120,7 +120,7 @@
 
   watch(
     [
-      filters.active,
+      filters.incInactive,
       filters.approved,
       filters.verified,
       filters.verify_req,

@@ -54,7 +54,7 @@ const getFilteredCandidates = async (
     approved,
     verified,
     verify_req,
-    active,
+    incInactive,
     searchText,
     filterSkills,
     pageSize,
@@ -71,7 +71,7 @@ const getFilteredCandidates = async (
     is_verified: false,
     is_approved: false,
     req_verify: false,
-    is_active: false,
+    inc_inactive: false,
     search_text: searchText.value,
     ids: [],
   }
@@ -79,7 +79,7 @@ const getFilteredCandidates = async (
   if (approved.value) params.is_approved = true
   if (verified.value) params.is_verified = true
   if (verify_req.value) params.req_verify = true
-  if (active.value) params.is_active = true
+  if (incInactive.value) params.inc_inactive = true
 
   if (selectedSkills.length) {
     params.ids = selectedSkills
