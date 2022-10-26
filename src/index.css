@@ -81,7 +81,10 @@
   @apply text-black bg-aws border-2 border-aws;
 }
 .CSharp {
-  @apply text-white bg-black border-2 border-black;
+  @apply text-white bg-csharp border-2 border-csharp;
+}
+.CPlusPlus {
+  @apply text-white bg-cplusplus border-2 border-cplusplus;
 }
 .Swift {
   @apply text-white bg-swift border-2 border-swift;

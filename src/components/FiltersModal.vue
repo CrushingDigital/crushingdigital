@@ -106,11 +106,12 @@
       <label class="modal-box relative dark:bg-slate-700" for="skills-modal">
         <h3 class="mb-4">Skills Filters</h3>
         <div class="flex flex-row justify-center my-4 flex-wrap mx-auto">
+          <!-- regex removes all spaces in next bit! -->
           <span
             v-for="skill in skills"
             @click.prevent="$emit('skill-toggle', skill)"
             class="p-2 rounded-full text-sm border-2 m-4 cursor-pointer"
-            :class="filterSkills.findIndex((item: Skill) => item.id == skill.id) == -1 ? 'disabledSkill' : skill.name.replace(/ /g, '')"
+            :class="filterSkills.findIndex((item: Skill) => item.id == skill.id) == -1 ? 'disabledSkill' : getSkillIdentifier(skill).replace(/ /g, '')"
           >
             {{ skill.name }}
           </span>
@@ -123,6 +124,9 @@
 <script setup lang="ts">
   import { Skill } from '@/types'
   import { ref } from 'vue'
+  import useSkill from '@/composables/useSkill'
+
+  const { getSkillIdentifier } = useSkill()
 
   defineProps(['startTz', 'endTz', 'lowRate', 'highRate', 'reqExp', 'skills', 'filterSkills'])
 

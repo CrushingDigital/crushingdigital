@@ -118,6 +118,7 @@ const distillCandidateSkills = (devs: FilterCandidate[]): FilterCandidate[] => {
         name: row.skill_name,
         created_at: row.skill_created_at,
         active: row.skill_active,
+        alias: row.skill_alias,
       })
   })
 

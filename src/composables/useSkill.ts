@@ -1,5 +1,6 @@
 import { Candidate, Skill, Job, SkillsLink } from '@/types'
 import useSupabase from '@/composables/useSupabase'
+import { computed } from 'vue'
 
 const { supabase } = useSupabase()
 
@@ -13,6 +14,10 @@ const getSkills = async (): Promise<Skill[]> => {
   if (error) throw error
 
   return skills as Array<Skill>
+}
+
+const getSkillIdentifier = (sk: Skill) => {
+  return sk.alias == null ? sk.name : sk.alias
 }
 
 const deleteSkillsForCandidate = async (candidateId: number) => {
@@ -109,5 +114,6 @@ export default function useSkill() {
     getJobSkillIds,
     getCandidateSkillIds,
     saveSkillsForJob,
+    getSkillIdentifier,
   }
 }

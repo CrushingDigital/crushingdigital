@@ -47,6 +47,7 @@ interface FilterCandidate {
   skill_name: string
   skill_created_at: string
   skill_active: boolean
+  skill_alias: string
   skills: Array<Skill>
   verified: boolean
   verify_req: string
@@ -83,6 +84,7 @@ interface Skill {
   created_at?: string
   name: string
   active: boolean
+  alias: string
 }
 
 interface SkillsLink {
