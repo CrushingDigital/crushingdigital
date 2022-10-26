@@ -3,7 +3,7 @@
   <span class="text-xs"><i class="fa-solid fa-clock"></i> {{ lastUpdated }}</span>
   <div>
     <ul class="p-4">
-      <li v-for="event in personalEvents">
+      <li v-for="event in publicEvents">
         <div class="grid gap-2 grid-cols-12 grid-rows-1 text-sm sm:text-base">
           <span>
             <svg
@@ -32,8 +32,10 @@
   import useEvents from '@/composables/useEvent'
   import useAuthUser from '@/composables/useAuthUser'
   import moment from 'moment'
-  import { computed, onMounted } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
+  import { CDEvent } from '@/types'
 
+  const publicEvents = ref<CDEvent[]>([])
   const props = defineProps(['userId', 'lastUpdate'])
 
   const lastUpdated = computed(() => {
@@ -41,10 +43,10 @@
   })
 
   const { user } = useAuthUser()
-  const { personalEvents, getEventsForUser } = useEvents()
+  const { getEventsForUser } = useEvents()
 
   onMounted(async () => {
-    await getEventsForUser(props.userId)
+    publicEvents.value = await getEventsForUser(props.userId)
   })
 </script>
 

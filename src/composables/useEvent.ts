@@ -55,7 +55,9 @@ const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
   if (error) throw error
 
   loadingEvents.value = false
-  personalEvents.value = data
+
+  if (user_id == user.value?.id) personalEvents.value = data
+
   return data as Array<CDEvent>
 }
 
