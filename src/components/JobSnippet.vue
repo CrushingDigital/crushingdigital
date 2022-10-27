@@ -4,8 +4,8 @@
     v-else
     class="flex justify-between items-center px-4 py-4 bg-primary/5 border-2 border-slate-200 dark:border-slate-600 rounded-2xl mb-2"
   >
-    <div class="flex flex-col justify-evenly">
-      <div class="flex flex-row">
+    <div class="flex flex-col justify-evenly w-full">
+      <div class="flex flex-row items-center justify-between">
         <div class="flex flex-row items-center">
           <span :class="isHot ? 'text-red-600' : 'text-gray-300'" class="text-xs sm:text-sm mr-1" v-if="isHot">
             <i class="fa-solid fa-pepper-hot" title="New Job!"></i
@@ -44,6 +44,11 @@
             ></span>
           </router-link>
         </div>
+        <div class="flex flex-row align-middle items-center">
+          <button class="btn btn-sm md:btn-md btn-secondary rounded-full" @click.prevent="viewJob(job!.jobspec)">
+            Apply
+          </button>
+        </div>
       </div>
       <div class="flex flex-row justify-start text-xs md:text-sm px-1 py-1 items-center">
         <!-- ********* Experience **************** -->
@@ -66,9 +71,9 @@
           ><span class="text-primary sm:mt-1"><i class="fa-solid fa-laptop-code"></i></span
         ></a>
         <!-- ********* JOBSPEC **************** -->
-        <a :href="job.jobspec" class="sm:mt-1" title="Job Specification" v-if="job.jobspec"
+        <!-- <a :href="job.jobspec" class="sm:mt-1" title="Job Specification" v-if="job.jobspec"
           ><span class="text-slate-400 dark:text-slate-300 sm:mt-1"><i class="fa-brands fa-readme"></i></span>
-        </a>
+        </a> -->
       </div>
       <!-- ********* SKILLS **************** -->
       <div class="flex flex-wrap">
@@ -105,7 +110,7 @@
   isHot.value = props.job?.created_at != undefined ? new Date(props.job?.created_at) > sevenDaysAgo : false
 
   const viewJob = (url: string | undefined) => {
-    if (url) window.location.href = url
+    if (url) window.open(url, '_blank')
   }
 </script>
 
