@@ -206,6 +206,15 @@
 .RxJS {
   @apply text-white bg-rxjs border-2 border-rxjs;
 }
+.WebAssembly {
+  @apply text-white bg-webassembly border-2 border-webassembly;
+}
+.Solidity {
+  @apply text-white bg-solidity border-2 border-black;
+}
+.Ethereum {
+  @apply text-black bg-gradient-to-r from-ethereum via-sky-200 to-blue-300;
+}
 
 .disabledSkill {
   @apply border-gray-200 border-2 bg-white text-gray-400 rounded-full dark:bg-slate-600 dark:border-slate-500;
