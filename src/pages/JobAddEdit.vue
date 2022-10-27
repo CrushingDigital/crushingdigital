@@ -170,7 +170,7 @@
     </div>
     <div class="form-control w-full">
       <label class="label">
-        <span class="label-text dark:text-slate-300">Job Spec and where to apply?</span>
+        <span class="label-text dark:text-slate-300">Link to apply for role</span>
       </label>
       <input
         type="text"
