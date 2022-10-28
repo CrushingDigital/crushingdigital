@@ -156,13 +156,16 @@
   import moment from 'moment'
   import Snippet from '@/components/Snippet.vue'
   import useCandidate from '@/composables/useCandidate'
-  import { useRoute } from 'vue-router'
+  import useAuthUser from '@/composables/useAuthUser'
+  import { useRouter, useRoute } from 'vue-router'
   import { FilterCandidate, CandidateVerification, CandidateApproval } from '@/types'
   import { useToast } from 'vue-toastification'
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
   import axios from 'axios'
 
+  const router = useRouter()
+  const { isAdmin } = useAuthUser()
   const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
   const { addEvent } = useEvents()
   const toast = useToast()
@@ -176,6 +179,7 @@
   let lastUpdate = ref(moment())
 
   onBeforeMount(async () => {
+    if (!isAdmin()) router.push({ name: 'home' })
     let loadedProfile = await loadCandidateProfile(Number.parseInt(route.params.id as string))
     if (loadedProfile instanceof Error) return false
 
