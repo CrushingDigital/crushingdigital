@@ -25,7 +25,7 @@ import RecruiterSignup from '@/pages/RecruiterSignup.vue'
 import Faq from '@/pages/Faq.vue'
 
 const NotFound = () => import('./components/NotFound.vue')
-const { isLoggedIn } = useAuthUser()
+const { isLoggedIn, isAdmin } = useAuthUser()
 
 let mode = import.meta.env.VITE_MAINTENANCE_MODE
 const MAINTENANCE_MODE = mode == 'true' ? true : false
@@ -67,7 +67,11 @@ if (MAINTENANCE_MODE) {
     { path: '/profile/', redirect: { name: 'basic' } },
     { path: '/profile/basic', component: Basic, name: 'basic' },
     { path: '/profile/tech', component: Tech, name: 'tech' },
-    { path: '/review/:id', component: Review, name: 'review' },
+    {
+      path: '/review/:id',
+      component: Review,
+      name: 'review',
+    },
     { path: '/faq', component: Faq, name: 'faq' },
     { path: '/playground', component: Playground, name: 'playground' },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
@@ -81,7 +85,7 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   if (!isLoggedIn() && to.meta.requiresAuth) {
-    return { name: 'Home' }
+    return { name: 'home' }
   }
 })
 
