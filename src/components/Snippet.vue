@@ -28,9 +28,12 @@
             ><i class="fa-solid fa-fire-flame-curved"></i
           ></a>
 
-          <router-link :to="{ name: 'review', params: { id: dev.id } }" class="hidden sm:block ml-2 no-underline">
-            <span v-if="isAdmin()" class="text-blue-200 text-xs cursor-pointer mt-2"
-              ><i class="fa-solid fa-gear mr-2"></i></span
+          <router-link
+            :to="{ name: 'review', params: { id: dev.id } }"
+            class="hidden sm:block ml-2 no-underline"
+            v-if="isAdmin()"
+          >
+            <span class="text-blue-200 text-xs cursor-pointer mt-2"><i class="fa-solid fa-gear mr-2"></i></span
             ><span class="text-xs text-blue-200">{{ verificationRequestDate }}</span>
           </router-link>
         </div>
