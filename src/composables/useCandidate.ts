@@ -188,16 +188,16 @@ const markReviewComplete = async (candidate_id: number): Promise<CandidateVerifi
 
 const verifyCandidate = async (
   candidate_id: number,
-  verified: boolean,
-  verify_req: string
+  verify_req: string,
+  verified: boolean | null = null
 ): Promise<CandidateVerification | Error> => {
-  let { data, error } = await supabase.from('candidate_verification').upsert([
-    {
-      candidate_id,
-      verified,
-      verify_req,
-    },
-  ])
+  let verificationRecord: CandidateVerification = {
+    candidate_id,
+    verify_req,
+  }
+  if (verified != null) verificationRecord.verified = verified
+
+  let { data, error } = await supabase.from('candidate_verification').upsert([verificationRecord])
 
   if (error) throw error
 

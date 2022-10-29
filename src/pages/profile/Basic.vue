@@ -300,7 +300,7 @@
     candidate.value = savedProfile
 
     let verifyTS = new Date().toISOString().toLocaleString()
-    const res = await verifyCandidate(candidate.value.id, true, verifyTS)
+    const res = await verifyCandidate(candidate.value.id, verifyTS)
     if (res instanceof Error) toast.error('Review request failed')
     else toast.success('Review requested')
 
