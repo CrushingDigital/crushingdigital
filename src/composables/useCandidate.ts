@@ -195,10 +195,7 @@ const verifyCandidate = async (
     candidate_id,
     verify_req,
   }
-  console.log('verificationRecord', verificationRecord)
-  console.log('verified', verified)
   if (verified != null) verificationRecord.verified = verified
-  console.log('verificationRecord', verificationRecord)
 
   let { data, error } = await supabase.from('candidate_verification').upsert([verificationRecord])
 
