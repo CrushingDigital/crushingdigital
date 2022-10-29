@@ -214,7 +214,7 @@
   const verify = async (verify = true) => {
     const initVal = developer.value!.verified
     try {
-      await verifyCandidate(developer.value!.id, verify, moment().toISOString())
+      await verifyCandidate(developer.value!.id, moment().toISOString(), verify)
 
       let toastMsg = verify ? 'Profile verified' : 'Verification removed'
       toast.success(toastMsg)
