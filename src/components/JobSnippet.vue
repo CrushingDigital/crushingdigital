@@ -3,7 +3,7 @@
   <div
     v-else
     class="flex justify-between items-center px-4 py-4 bg-primary/5 border-2 border-slate-200 dark:border-slate-600 rounded-2xl mb-2"
-    :class="{ 'dark:border-red-600': !isHot }"
+    :class="{ 'dark:border-red-600': isHot }"
   >
     <div class="flex flex-col justify-evenly w-full">
       <div class="flex flex-row items-center justify-between">
