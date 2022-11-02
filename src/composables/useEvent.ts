@@ -27,19 +27,16 @@ const addEvent = async (eventType: string, eventDescr: string, note: string | nu
   return data
 }
 
-const getEvents = async (): Promise<CDEvent[]> => {
-  let { data, error } = await supabase.from('events').select('*').order('created_at', { ascending: false })
+// const getEvents = async (): Promise<CDEvent[]> => {
+//   let { data, error } = await supabase.from('events').select('*').order('created_at', { ascending: false })
 
-  if (error) throw error
+//   if (error) throw error
 
-  events.value = data
-  return data as Array<CDEvent>
-}
+//   events.value = data
+//   return data as Array<CDEvent>
+// }
 
 const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
-  console.log(loadingEvents.value)
-  //   if (loadingEvents.value) return []
-
   if (user_id == undefined) {
     personalEvents.value = []
     return personalEvents.value
@@ -61,9 +58,10 @@ const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
     personalEvents.value = data
   }
 
+  events.value = data as Array<CDEvent>
   return data as Array<CDEvent>
 }
 
 export default function useEvents() {
-  return { addEvent, getEvents, getEventsForUser, events, personalEvents, loadingEvents }
+  return { addEvent, getEventsForUser, events, personalEvents, loadingEvents }
 }
