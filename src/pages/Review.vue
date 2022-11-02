@@ -147,7 +147,7 @@
     ></textarea>
   </div>
   <div id="notifications" class="mt-4" v-if="developer">
-    <Events :userId="developer?.user_id" :lastUpdate="lastUpdate" :key="lastUpdate.format('x')" />
+    <Events :user_id="developer?.user_id" :last_check="storeNotifications.lastCheck" :key="lastUpdate.format('x')" />
   </div>
 </template>
 
@@ -163,7 +163,9 @@
   import useEvents from '@/composables/useEvent'
   import Events from '@/components/Events.vue'
   import axios from 'axios'
+  import { useNotificationStore } from '@/stores/useNotificationStore'
 
+  const storeNotifications = useNotificationStore()
   const router = useRouter()
   const { isAdmin } = useAuthUser()
   const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT

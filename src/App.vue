@@ -65,7 +65,7 @@
           Crushing<span class="text-primary">Digital</span>
         </h2>
       </a>
-      <i class="fa-solid fa-person-digging text-gray-300 mt-2 text-sm" title="v0.2 - Working for Devs"></i>
+      <i class="fa-solid fa-person-digging text-gray-300 mt-2 text-sm" title="v0.3 - Jobs listed!"></i>
     </div>
     <div class="navbar-end">
       <!-- NOTIFICATIONS -->
@@ -78,12 +78,7 @@
         </button>
       </div>
       <div class="flex justify-end items-center align-bottom" v-if="isLoggedIn()">
-        <router-link to="/notifications" v-if="hasNewNotifications">
-          <i class="fa-solid fa-bell"></i>
-        </router-link>
-        <router-link to="/notifications" v-else>
-          <i class="fa-regular fa-bell"></i>
-        </router-link>
+        <Notification />
         <!-- LOGOUT -->
         <a @click.prevent="signout" class="text-normal ml-2">
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -100,28 +95,6 @@
   </div>
 
   <div class="container mx-auto max-w-3xl px-4 sm:p-0 border-0 flex flex-col justify-start mt-1 dark:bg-slate-800">
-    <div
-      class="alert alert-info shadow-lg hover:cursor-pointer mb-4"
-      v-if="hasNewNotifications"
-      @click="router.push({ name: 'notifications' })"
-    >
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="stroke-current flex-shrink-0 w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
-        <span>You have feedback/notifications waiting for you! Ready?</span>
-      </div>
-    </div>
     <router-view></router-view>
   </div>
 
@@ -151,23 +124,21 @@
 </template>
 
 <script setup lang="ts">
+  import Notification from '@/components/Notification.vue'
   import { useRouter } from 'vue-router'
   import useAuthUser from '@/composables/useAuthUser'
-  import useCandidate from './composables/useCandidate'
-  import { ref, computed, onBeforeMount, watch } from 'vue'
+  import useCandidate from '@/composables/useCandidate'
+  import { ref, onBeforeMount, watch } from 'vue'
   import { Provider } from '@supabase/supabase-js'
   import { useToast } from 'vue-toastification'
-  import useEvents from './composables/useEvent'
-  import { CDEvent } from './types'
 
-  const { personalEvents, loadingEvents } = useEvents()
   const router = useRouter()
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
   const { loadProfile, verifyCandidate, isApproved, isVerified, isCandidate, candidate } = useCandidate()
   const isDark = ref(false)
 
-  onBeforeMount(() => {
+  onBeforeMount(async () => {
     isDark.value = localStorage.theme == 'dark' ? true : false
   })
 
@@ -190,18 +161,6 @@
   const toggleDark = () => {
     isDark.value = !isDark.value
   }
-
-  const newNotifications = (notification: CDEvent) => {
-    if (!user.value) return false
-    else if (!notification.created_at) return false
-    else return user.value.last_sign_in_at! < notification!.created_at
-  }
-
-  const hasNewNotifications = computed(() => {
-    if (!personalEvents.value || loadingEvents.value) return false
-
-    return !!personalEvents.value?.filter(newNotifications).length
-  })
 
   const closeMenu = () => {
     ;(document.activeElement as HTMLElement).blur()

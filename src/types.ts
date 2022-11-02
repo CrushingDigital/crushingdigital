@@ -121,6 +121,7 @@ interface CDEvent {
   author_id: string
   candidate_id: number
   note: string
+  seen?: boolean
 }
 
 interface ClickData {

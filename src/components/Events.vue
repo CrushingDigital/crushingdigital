@@ -1,17 +1,16 @@
 <template>
   <h3>Notifications</h3>
-  <span class="text-xs"><i class="fa-solid fa-clock"></i> {{ lastUpdated }}</span>
   <div>
     <ul class="p-4">
       <li v-for="event in publicEvents">
-        <div class="grid gap-2 grid-cols-12 grid-rows-1 text-sm sm:text-base">
+        <div class="grid gap-2 grid-cols-12 grid-rows-1 text-sm sm:text-base" v-if="event.type !== 'VIEWED'">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
               viewBox="0 0 20 20"
               fill="currentColor"
-              :class="user?.last_sign_in_at! < event.created_at! ? 'text-secondary' : ''"
+              :class="props.last_check < event.created_at! ? 'text-secondary' : ''"
             >
               <path
                 fill-rule="evenodd"
@@ -30,23 +29,18 @@
 
 <script setup lang="ts">
   import useEvents from '@/composables/useEvent'
-  import useAuthUser from '@/composables/useAuthUser'
   import moment from 'moment'
-  import { computed, onMounted, ref } from 'vue'
+  import { onBeforeMount, ref } from 'vue'
   import { CDEvent } from '@/types'
 
   const publicEvents = ref<CDEvent[]>([])
-  const props = defineProps(['userId', 'lastUpdate'])
+  const props = defineProps(['user_id', 'mark_as_viewed', 'last_check'])
 
-  const lastUpdated = computed(() => {
-    return moment(props.lastUpdate).format('lll')
-  })
-
-  const { user } = useAuthUser()
   const { getEventsForUser } = useEvents()
 
-  onMounted(async () => {
-    publicEvents.value = await getEventsForUser(props.userId)
+  onBeforeMount(async () => {
+    console.log('getting events', props.user_id)
+    publicEvents.value = await getEventsForUser(props.user_id)
   })
 </script>
 

@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+
 import App from './App.vue'
 import useAuthUser from './composables/useAuthUser'
 import './index.css'
@@ -90,6 +92,9 @@ router.beforeEach((to) => {
 })
 
 const app = createApp(App)
+const pinia = createPinia()
+
+app.use(pinia)
 app.use(router)
 app.use(VueSocialSharing)
 
