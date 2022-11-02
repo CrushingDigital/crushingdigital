@@ -39,7 +39,6 @@
   const { getEventsForUser } = useEvents()
 
   onBeforeMount(async () => {
-    console.log('getting events', props.user_id)
     publicEvents.value = await getEventsForUser(props.user_id)
   })
 </script>
