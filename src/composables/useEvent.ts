@@ -37,7 +37,8 @@ const getEvents = async (): Promise<CDEvent[]> => {
 }
 
 const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
-  if (loadingEvents.value) return []
+  console.log(loadingEvents.value)
+  //   if (loadingEvents.value) return []
 
   if (user_id == undefined) {
     personalEvents.value = []
@@ -56,7 +57,9 @@ const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
 
   loadingEvents.value = false
 
-  if (user_id == user.value?.id) personalEvents.value = data
+  if (user_id == user.value?.id) {
+    personalEvents.value = data
+  }
 
   return data as Array<CDEvent>
 }

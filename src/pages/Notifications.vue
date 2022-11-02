@@ -34,17 +34,19 @@
   </div>
 
   <div id="notifications" class="mt-4" v-if="user?.id">
-    <Events :userId="currentUserId()" />
+    <Events :user_id="currentUserId()" :last_check="storeNotifications.lastCheck" />
   </div>
 </template>
 
 <script setup lang="ts">
   import useAuthUser from '@/composables/useAuthUser'
   import Events from '@/components/Events.vue'
-  import { onBeforeMount, ref } from 'vue'
+  import { onBeforeMount, onUnmounted, ref } from 'vue'
   import useCandidate from '@/composables/useCandidate'
   import { Candidate } from '@/types'
+  import { useNotificationStore } from '@/stores/useNotificationStore'
 
+  const storeNotifications = useNotificationStore()
   const { loadProfile } = useCandidate()
   const { user, currentUserId } = useAuthUser()
   const candidate = ref<Candidate>({ user_id: user.value?.id, email: user.value?.email } as Candidate)
@@ -88,6 +90,10 @@
     } catch (error) {
       console.error(error)
     }
+  })
+
+  onUnmounted(() => {
+    storeNotifications.setLastCheck()
   })
 </script>
 
