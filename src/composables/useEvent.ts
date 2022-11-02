@@ -27,15 +27,6 @@ const addEvent = async (eventType: string, eventDescr: string, note: string | nu
   return data
 }
 
-// const getEvents = async (): Promise<CDEvent[]> => {
-//   let { data, error } = await supabase.from('events').select('*').order('created_at', { ascending: false })
-
-//   if (error) throw error
-
-//   events.value = data
-//   return data as Array<CDEvent>
-// }
-
 const getEventsForUser = async (user_id: string): Promise<CDEvent[]> => {
   if (user_id == undefined) {
     personalEvents.value = []
