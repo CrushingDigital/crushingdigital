@@ -203,7 +203,7 @@
       if (!note.length && !explanation.value.length) {
         toast.error('Empty message. Ignored')
       } else {
-        note = 'ℹ️ ' + (note.length ? note : explanation.value)
+        note = note.length ? note : explanation.value
         await addEvent('COMMENT', 'Comment Added', note, developer.value!.user_id)
         explanation.value = ''
         lastUpdate.value = moment()
