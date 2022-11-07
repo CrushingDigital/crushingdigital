@@ -139,7 +139,6 @@
   const isDark = ref(false)
 
   onBeforeMount(async () => {
-    console.log(isDark.value)
     isDark.value = localStorage.theme == 'dark' ? true : false
   })
 
