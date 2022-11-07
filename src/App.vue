@@ -136,7 +136,7 @@
   const toast = useToast()
   const { user, login, logout, isLoggedIn } = useAuthUser()
   const { loadProfile, verifyCandidate, isApproved, isVerified, isCandidate, candidate } = useCandidate()
-  const isDark = ref(false)
+  const isDark = ref(true)
 
   onBeforeMount(async () => {
     isDark.value = localStorage.theme == 'dark' ? true : false
