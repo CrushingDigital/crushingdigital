@@ -98,12 +98,7 @@
     <div class="flex-col justify-start items-center text-center">
       Upcoming (FREE) Seminars:
     </div>
-    <div class="flex justify-center mr-1 text-center mb-4">
-      
-      <div class="btn p-2 bg-slate-700 rounded-lg">
-        <a target="_blank" href="https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=NjQ1anRpdTV0YXVvbXZtbGxiMXViYmF1NHUgZGF2aWRAY3J1c2hpbmcuZGlnaXRhbA&amp;tmsrc=david%40crushing.digital"><span class="text-sm">EU/Africa 2022-11-19 10am GMT</span></a>
-      </div>
-    
+    <div class="flex justify-center mr-1 text-center mb-4">      
       <div class="btn p-2 bg-slate-700 rounded-lg ml-1">
         <a target="_blank" href="https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=NG02bjQ3dThodXAxcWM2NGVuMXIxbGU0bGQgZGF2aWRAY3J1c2hpbmcuZGlnaXRhbA&amp;tmsrc=david%40crushing.digital"><span class="text-sm">NA/LatAm 2022-11-21 11am ET</span></a>
       </div>
